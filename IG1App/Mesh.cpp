@@ -77,11 +77,14 @@ Mesh::render() const
 {
 	assert(mVAO != NONE);
 
+	//glVertexPointer(3, GL_FLOAT, 0, vVertices.data());
 	glBindVertexArray(mVAO);
+	//glEnableVertexAttribArray(mVAO);
 	draw();
+	//glDisableVertexAttribArray(mVAO);
 }
 
-Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r)
+Mesh* Mesh::generate_regular_polygon(GLuint num, GLdouble r)
 {
 	assert(num > 2 && "error: cannot create mesh with less than 3 vertices");
 	std::vector<glm::vec3> vertices(num);

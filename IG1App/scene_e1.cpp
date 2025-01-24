@@ -1,10 +1,12 @@
 #include "scene_e1.h"
-#include "single_color_entity.h"
+#include "regular_polygon.h"
 
 void scene_e1::init()
 {
 	Scene::init();
 	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
 
-	gObjects.push_back(new single_color_entity(glm::dvec4(1.0f, 0.0f, 1.0f, 1.0f)));
+	// hahahhahsdhadsh!!!! please normalise the sizes!! i've been seeking why it doesn't render for 4 hours
+	// it was rendering but it was too small to seeeeeeeeeee
+	gObjects.push_back(new regular_polygon(5, 0.5 * 400.0, glm::dvec4(1.0f, 0.0f, 0.0f, 1.0f)));
 }

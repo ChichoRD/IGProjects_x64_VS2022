@@ -74,6 +74,7 @@
     <ClInclude Include="IG1App.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="regular_polygon.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="scene_e1.h" />
     <ClInclude Include="Shader.h" />
@@ -88,6 +89,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="regular_polygon.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="scene_e1.cpp" />
     <ClCompile Include="Shader.cpp" />
