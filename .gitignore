@@ -1,5 +1,5 @@
 .vs/
-bin/
+*.vcxproj
 
 x64/
 x86/
