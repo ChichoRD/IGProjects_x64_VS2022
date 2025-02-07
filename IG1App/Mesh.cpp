@@ -111,6 +111,33 @@ Mesh* Mesh::generate_regular_polygon(GLuint num, GLdouble r)
 	return mesh;
 }
 
+Mesh* Mesh::generate_regular_polygon(GLuint num, GLdouble r, vector<glm::vec4> const& vColors, GLuint primitive = GL_LINE_LOOP)
+{
+	assert(num > 2 && "error: cannot create mesh with less than 3 vertices");
+	assert(vColors.size() == num && "error: vertex colors size doesn't match vertex size");
+	std::vector<glm::vec3> vertices(num);
+	std::vector<glm::vec4> colors(num);
+
+	constexpr float const start_angle = glm::half_pi<float>();
+	float const angle_delta = glm::two_pi<float>() / num;
+	for (size_t i = 0; i < num; ++i) {
+		float const angle = start_angle + i * angle_delta;
+
+		glm::vec3 const position = glm::vec3(glm::cos(angle), glm::sin(angle), 0.0f) * float(r);
+
+		vertices[i] = position;
+		colors[i] = vColors[i];
+	}
+
+	Mesh* mesh = new Mesh();
+	mesh->mPrimitive = primitive;
+	mesh->mNumVertices = num;
+	mesh->vVertices = std::move(vertices);
+	mesh->vColors = std::move(colors);
+
+	return mesh;
+}
+
 Mesh*
 Mesh::createRGBAxes(GLdouble l)
 {
