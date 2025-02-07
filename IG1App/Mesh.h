@@ -5,10 +5,12 @@
 #include <glm/glm.hpp>
 
 #include <vector>
+#include <array>
 
 class Mesh
 {
 public:
+	static Mesh* generate_rectangle(GLdouble w, GLdouble h, std::array<glm::vec4, 4> &&vertex_colours);
 	static Mesh* generate_regular_polygon(GLuint num, GLdouble r);
 	static Mesh* createRGBAxes(GLdouble l); // creates a new 3D-RGB axes mesh
 
@@ -26,6 +28,8 @@ public:
 
 	void load();
 	void unload();
+
+	inline void set_primitive(GLuint primitive) { mPrimitive = primitive; };
 
 protected:
 	GLuint mPrimitive =

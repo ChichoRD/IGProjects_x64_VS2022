@@ -75,8 +75,10 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="regular_polygon.h" />
+    <ClInclude Include="rgb_rectangle.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="scene_e1.h" />
+    <ClInclude Include="scene_e8.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="single_color_entity.h" />
     <ClInclude Include="Texture.h" />
@@ -90,8 +92,10 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="regular_polygon.cpp" />
+    <ClCompile Include="rgb_rectangle.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="scene_e1.cpp" />
+    <ClCompile Include="scene_e8.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="single_color_entity.cpp" />
     <ClCompile Include="Texture.cpp" />

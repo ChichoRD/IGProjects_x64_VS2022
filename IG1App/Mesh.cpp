@@ -84,6 +84,26 @@ Mesh::render() const
 	//glDisableVertexAttribArray(mVAO);
 }
 
+Mesh* Mesh::generate_rectangle(GLdouble w, GLdouble h, std::array<glm::vec4, 4> &&vertex_colours)
+{
+	std::vector<glm::vec3> vertices = {
+		glm::vec3(-w / 2, h / 2, 0.0f),
+		glm::vec3(w / 2, h / 2, 0.0f),
+		glm::vec3(-w / 2, -h / 2, 0.0f),
+		glm::vec3(w / 2, -h / 2, 0.0f),
+	};
+
+	std::vector<glm::vec4> colors{ std::begin(vertex_colours), std::end(vertex_colours) };
+
+	Mesh* mesh = new Mesh();
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 4;
+	mesh->vVertices = std::move(vertices);
+	mesh->vColors = std::move(colors);
+
+	return mesh;
+}
+
 Mesh* Mesh::generate_regular_polygon(GLuint num, GLdouble r)
 {
 	assert(num > 2 && "error: cannot create mesh with less than 3 vertices");
