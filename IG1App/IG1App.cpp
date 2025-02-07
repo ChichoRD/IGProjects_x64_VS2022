@@ -17,6 +17,8 @@ void GLAPIENTRY debugCallback(GLenum source, GLenum type, GLuint id, GLenum seve
 		? "\x1b[31m[ERROR]\x1b[0m "
 		: "\x1b[33m[WARNING]\x1b[0m ";
 	cout << prefix << message << endl;
+
+	assert(false && "error: opengl reached an ill state");
 }
 
 void
