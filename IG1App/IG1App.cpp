@@ -3,6 +3,7 @@
 #include <iostream>
 #include "scene_e1.h"
 #include "scene_e8.h"
+#include "scene_e13.h"
 
 using namespace std;
 
@@ -59,7 +60,7 @@ IG1App::init()
 	// allocate memory and resources
 	mViewPort = new Viewport(mWinW, mWinH);
 	mCamera = new Camera(mViewPort);
-	mScenes.push_back(new scene_e8);
+	mScenes.push_back(new scene_e13);
 
 	mCamera->set2D();
 	mScenes[0]->init();
@@ -164,6 +165,9 @@ IG1App::key(unsigned int key)
 			break;
 		case 'o':
 			mCamera->set2D();
+			break;
+		case 'u':
+			mScenes[mCurrentScene]->update();
 			break;
 		default:
 			if (key >= '0' && key <= '9' && !changeScene(key - '0'))

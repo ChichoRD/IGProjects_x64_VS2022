@@ -1,5 +1,9 @@
 #include "rgb_triangle.h"
 
+#include <glm/ext/scalar_constants.hpp>
+#include <glm/gtc/constants.hpp>
+#include <glm/ext/matrix_transform.hpp>
+
 rgb_triangle::rgb_triangle()
 	: EntityWithColors()
 {
@@ -30,4 +34,17 @@ void rgb_triangle::render(const glm::mat4& modelViewMat) const
 		}
 		glDisable(GL_CULL_FACE);
 	}
+}
+
+void rgb_triangle::update()
+{
+	constexpr const float rotation_delta = glm::two_pi<float>() / 360.0f * 20.0f;
+	constexpr const float translation_delta = glm::two_pi<float>() / 360.0f * 20.0f;
+
+	glm::vec4 position = mModelMat * glm::vec4(0, 0, 0, 1);
+	position = glm::rotate(glm::mat4(1), translation_delta, glm::vec3(0, 0, 1)) * position;
+	position[3] = 1;
+
+	mModelMat = mModelMat * glm::rotate(glm::mat4(1), rotation_delta, glm::vec3(0, 0, 1));
+	mModelMat[3] = position;
 }
