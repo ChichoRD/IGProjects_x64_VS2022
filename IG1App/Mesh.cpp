@@ -195,10 +195,33 @@ Mesh::createRGBAxes(GLdouble l)
 Mesh*Mesh::generateCube(GLdouble l)
 {
 	std::vector<glm::vec3> vertices = {
-		glm::vec3(-l / 2, l / 2, 0.0f),
-		glm::vec3(l / 2, l / 2, 0.0f),
-		glm::vec3(-l / 2, -l / 2, 0.0f),
-		glm::vec3(l / 2, -l / 2, 0.0f),
-		glm::vec3(0.0f, l / 2, -l / 2),
+		glm::vec3(-l / 2, l / 2, -l / 2),
+		glm::vec3(-l / 2, -l / 2, -l / 2),
+		glm::vec3(l / 2, -l / 2, -l / 2),
+		glm::vec3(l / 2, l / 2, -l / 2),
+		glm::vec3(l/2, l / 2, l / 2),
+		glm::vec3(l/2, -l / 2, l / 2),
+		glm::vec3(-l / 2, -l/2, l / 2),
+		glm::vec3(-l / 2, l/2, l / 2),
 	};
+
+	Mesh* mesh = new Mesh();
+	mesh->mPrimitive = GL_LINE_STRIP;
+	mesh->vVertices = std::move(vertices);
+	mesh->mNumVertices = 8;
+	
+	std::vector<glm::vec4> colors = {
+		glm::vec4(1.0, 1.0, 0.0, 1.0),
+		glm::vec4(1.0, 0.0, 0.0, 1.0),
+		glm::vec4(0.0, 1.0, 0.0, 1.0),
+		glm::vec4(1.0, 1.0, 0.0, 1.0),
+		glm::vec4(0.0, 1.0, 1.0, 1.0),
+		glm::vec4(1.0, 1.0, 0.0, 1.0),
+		glm::vec4(1.0, 1.0, 1.0, 1.0),
+		glm::vec4(1.0, 1.0, 1.0, 1.0),
+	};
+
+	mesh->vColors = std::move(colors);
+
+	return mesh;
 }
