@@ -15,15 +15,15 @@ void rgb_rectangle::render(const glm::mat4& modelViewMat) const
 		this->EntityWithColors::upload(aMat);
 
 		glEnable(GL_CULL_FACE);
+		{
+			glCullFace(GL_FRONT);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			mMesh->render();
 
-		glCullFace(GL_BACK);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		mMesh->render();
-
-		glCullFace(GL_FRONT);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		mMesh->render();
-
+			glCullFace(GL_BACK);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			mMesh->render();
+		}
 		glDisable(GL_CULL_FACE);
 	}
 }

@@ -201,4 +201,5 @@ Mesh*Mesh::generateCube(GLdouble l)
 		glm::vec3(l / 2, -l / 2, 0.0f),
 		glm::vec3(0.0f, l / 2, -l / 2),
 	};
+	return nullptr;
 }

@@ -24,11 +24,11 @@ void rgb_triangle::render(const glm::mat4& modelViewMat) const
 
 		glEnable(GL_CULL_FACE);
 		{
-			glCullFace(GL_BACK);
+			glCullFace(GL_FRONT);
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			mMesh->render();
 
-			glCullFace(GL_FRONT);
+			glCullFace(GL_BACK);
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			mMesh->render();
 		}

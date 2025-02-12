@@ -12,6 +12,7 @@
 class Scene
 {
 public:
+	constexpr static const GLdouble axis_unit_size = 400.0;
 	Scene() = default;
 	~Scene();
 
