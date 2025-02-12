@@ -40,6 +40,7 @@ protected:
 	void destroy();
 
 	void display() const;                      // the scene
+	void update();
 	void resize(int newWidth, int newHeight);  // the viewport (without changing the scale)
 	void key(unsigned int codepoint); // keypress event
 	void specialkey(int key, int scancode, int action, int mods); // special keypress event
@@ -62,6 +63,9 @@ protected:
 	GLFWwindow* mWindow = nullptr; // window's handle
 	int mWinW = 800;               // window's width
 	int mWinH = 600;               // window's height
+
+	bool mUpdateEnabled = true; // update the scene
+	double mNextUpdateTime = 0.0; // next update time
 };
 
 #endif //_H_IG1App_H_

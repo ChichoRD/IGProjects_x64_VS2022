@@ -84,6 +84,7 @@
     <ClInclude Include="scene_e13.h" />
     <ClInclude Include="scene_e8.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="showcase_scene.h" />
     <ClInclude Include="single_color_entity.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Viewport.h" />
@@ -105,6 +106,7 @@
     <ClCompile Include="scene_e13.cpp" />
     <ClCompile Include="scene_e8.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="showcase_scene.cpp" />
     <ClCompile Include="single_color_entity.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Viewport.cpp" />

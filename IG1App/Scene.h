@@ -12,6 +12,7 @@
 class Scene
 {
 public:
+	constexpr static const GLdouble axis_unit_size = 400.0;
 	Scene() = default;
 	~Scene();
 
@@ -19,6 +20,7 @@ public:
 	Scene& operator=(const Scene& s) = delete; // no copy assignment
 
 	virtual void init();
+	void destroy();
 
 	void render(Camera const& cam) const;
 	virtual void update();
@@ -28,7 +30,6 @@ public:
 	void unload();
 
 protected:
-	void destroy();
 	void setGL();
 	void resetGL();
 

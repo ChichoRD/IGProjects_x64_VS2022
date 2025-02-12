@@ -1,9 +1,11 @@
 #include "IG1App.h"
 
 #include <iostream>
-#include "scene_e1.h"
-#include "scene_e8.h"
-#include "scene_e13.h"
+#include <thread>
+//#include "scene_e1.h"
+//#include "scene_e8.h"
+//#include "scene_e13.h"
+#include "showcase_scene.h"
 
 using namespace std;
 
@@ -29,6 +31,8 @@ IG1App::close()
 	glfwSetWindowShouldClose(mWindow, true); // stops main loop
 }
 
+#define FRAME_DURATION (1.0 / 30.0)
+
 void
 IG1App::run() // enters the main event processing loop
 {
@@ -37,14 +41,34 @@ IG1App::run() // enters the main event processing loop
 
 	// IG1App main loop
 	while (!glfwWindowShouldClose(mWindow)) {
-		// Redisplay the window if needed
-		if (mNeedsRedisplay) {
-			display();
-			mNeedsRedisplay = false;
-		}
+		const double frame_start_time = glfwGetTime();
+		mNextUpdateTime = frame_start_time + FRAME_DURATION;
+		if (mUpdateEnabled) {
+			update();
+			if (mNeedsRedisplay) {
+				display();
+				mNeedsRedisplay = false;
+			}
 
-		// Stop and wait for new events
-		glfwWaitEvents();
+			const double time_to_update = (std::max)(mNextUpdateTime - glfwGetTime(), 0.0);
+			if (time_to_update > 0.0) {
+				glfwWaitEventsTimeout(time_to_update);
+				const double remaining_frame_time = (std::max)(mNextUpdateTime - glfwGetTime(), 0.0);
+				if (remaining_frame_time > 0.0) {
+					std::this_thread::sleep_for(std::chrono::duration<double>(remaining_frame_time));
+				}
+			}
+		} else {
+
+			// Redisplay the window if needed
+			if (mNeedsRedisplay) {
+				display();
+				mNeedsRedisplay = false;
+			}
+
+			// Stop and wait for new events
+			glfwWaitEvents();
+		}
 	}
 
 	destroy();
@@ -60,10 +84,11 @@ IG1App::init()
 	// allocate memory and resources
 	mViewPort = new Viewport(mWinW, mWinH);
 	mCamera = new Camera(mViewPort);
-	mScenes.push_back(new scene_e13);
+	mScenes.push_back(new showcase_scene2);
+	mScenes.push_back(new showcase_scene1);
 
 	mCamera->set2D();
-	mScenes[0]->init();
+	mScenes.front()->init();
 }
 
 void
@@ -135,6 +160,11 @@ IG1App::display() const
 	glfwSwapBuffers(mWindow); // swaps the front and back buffer
 }
 
+void IG1App::update() {
+	mScenes[mCurrentScene]->update();
+	mNeedsRedisplay = true;
+}
+
 void
 IG1App::resize(int newWidth, int newHeight)
 {
@@ -167,7 +197,7 @@ IG1App::key(unsigned int key)
 			mCamera->set2D();
 			break;
 		case 'u':
-			mScenes[mCurrentScene]->update();
+			mUpdateEnabled = !mUpdateEnabled;
 			break;
 		default:
 			if (key >= '0' && key <= '9' && !changeScene(key - '0'))
@@ -232,9 +262,14 @@ IG1App::changeScene(size_t sceneNr)
 
 	// Change only if a different scene
 	if (sceneNr != mCurrentScene) {
-		mScenes[mCurrentScene]->unload();
+		auto &&old_scene = *mScenes[mCurrentScene];
+		// old_scene.unload();
+		old_scene.destroy();
+
 		mCurrentScene = sceneNr;
-		mScenes[mCurrentScene]->load();
+		auto &&new_scene = *mScenes[mCurrentScene];
+		new_scene.init();
+		// mScenes[mCurrentScene]->load();
 	}
 
 	return true;

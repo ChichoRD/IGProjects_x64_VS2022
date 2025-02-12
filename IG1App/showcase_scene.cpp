@@ -1,0 +1,49 @@
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "showcase_scene.h"
+#include "regular_polygon.h"
+#include "rgb_rectangle.h"
+#include "rgb_triangle.h"
+
+void showcase_scene1::init()
+{
+	Scene::init();
+	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
+
+	constexpr static const GLdouble polygon_radius = axis_unit_size * 0.75;
+	auto triangle = new regular_polygon{ 3, polygon_radius, glm::dvec4{0.0f, 1.0f, 1.0f, 1.0f} };
+	auto circumference = new regular_polygon{ 64, polygon_radius, glm::dvec4{1.0f, 0.0f, 1.0f, 1.0f} };
+
+	gObjects.push_back(triangle);
+	gObjects.push_back(circumference);
+}
+
+
+void showcase_scene2::init()
+{
+	Scene::init();
+	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
+	
+	constexpr static const GLdouble polygon_radius = axis_unit_size * 0.75;
+
+	constexpr static const GLdouble rectangle_width = polygon_radius * 2.0;
+	constexpr static const GLdouble rectangle_height = polygon_radius;
+	auto rectangle = new rgb_rectangle{ rectangle_width, rectangle_height, std::array{
+		glm::vec4{1.0f, 0.0f, 0.0f, 1.0f},
+		glm::vec4{0.0f, 1.0f, 0.0f, 1.0f},
+		glm::vec4{0.0f, 0.0f, 1.0f, 1.0f},
+		glm::vec4{1.0f, 1.0f, 0.0f, 1.0f},
+	}};
+	auto triangle = new rgb_triangle{};
+	triangle->setModelMat(glm::translate(triangle->modelMat(), { polygon_radius , 0.0f, 0.0f }));
+
+	auto circumference = new regular_polygon{ 64, polygon_radius, glm::dvec4{1.0f, 0.0f, 1.0f, 1.0f} };
+
+	gObjects.push_back(rectangle);
+	gObjects.push_back(triangle);
+	gObjects.push_back(circumference);
+}
+
+void showcase_scene3::init()
+{
+}

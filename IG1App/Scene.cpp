@@ -15,7 +15,7 @@ Scene::init()
 	// Textures
 
 	// Graphics objects (entities) of the scene
-	gObjects.push_back(new RGBAxes(400.0));
+	gObjects.push_back(new RGBAxes(axis_unit_size));
 }
 
 Scene::~Scene()
