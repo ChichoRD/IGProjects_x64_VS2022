@@ -194,34 +194,148 @@ Mesh::createRGBAxes(GLdouble l)
 
 Mesh*Mesh::generateCube(GLdouble l)
 {
-	std::vector<glm::vec3> vertices = {
-		glm::vec3(-l / 2, l / 2, -l / 2),
-		glm::vec3(-l / 2, -l / 2, -l / 2),
-		glm::vec3(l / 2, -l / 2, -l / 2),
-		glm::vec3(l / 2, l / 2, -l / 2),
-		glm::vec3(l/2, l / 2, l / 2),
-		glm::vec3(l/2, -l / 2, l / 2),
-		glm::vec3(-l / 2, -l/2, l / 2),
-		glm::vec3(-l / 2, l/2, l / 2),
-	};
+	Mesh* mesh = new Mesh;
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
 
-	Mesh* mesh = new Mesh();
-	mesh->mPrimitive = GL_LINE_STRIP;
-	mesh->vVertices = std::move(vertices);
-	mesh->mNumVertices = 8;
-	
-	std::vector<glm::vec4> colors = {
-		glm::vec4(1.0, 1.0, 0.0, 1.0),
-		glm::vec4(1.0, 0.0, 0.0, 1.0),
-		glm::vec4(0.0, 1.0, 0.0, 1.0),
-		glm::vec4(1.0, 1.0, 0.0, 1.0),
-		glm::vec4(0.0, 1.0, 1.0, 1.0),
-		glm::vec4(1.0, 1.0, 0.0, 1.0),
-		glm::vec4(1.0, 1.0, 1.0, 1.0),
-		glm::vec4(1.0, 1.0, 1.0, 1.0),
-	};
+	mesh->mNumVertices = 14;
+	mesh->vVertices.reserve(mesh->mNumVertices);
 
-	mesh->vColors = std::move(colors);
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, l / 2));
+
+	return mesh;
+}
+
+Mesh*
+Mesh::GenerateRGBCube(GLdouble l) {
+	Mesh* mesh = new Mesh;
+
+	mesh->mPrimitive = GL_TRIANGLES;
+
+	mesh->mNumVertices = 36;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	//Triangulo 1
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, -l / 2));
+
+	//Triangulo 2
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, l / 2));
+
+	//Triangulo 3
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, l / 2));
+
+	//Triangulo 4
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, l / 2));
+
+	//Triangulo 5
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, -l / 2));
+
+	//Triangulo 6
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, -l / 2));
+
+	//Triangulo 7
+	mesh->vVertices.push_back(vec3(l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, -l / 2));
+
+	//Triangulo 8
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, -l / 2));
+
+	//Triangulo 9
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, l / 2));
+
+	//Triangulo 10
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, l / 2, l / 2));
+
+	//Triangulo 11
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, l / 2));
+
+	//Triangulo 12
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(l / 2, -l / 2, -l / 2));
+	mesh->vVertices.push_back(vec3(-l / 2, -l / 2, l / 2));
+
+	mesh->vColors.reserve(mesh->mNumVertices);
+
+	//Triangulos 1 y 2
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+
+	//Triangulos 3 y 4
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+
+	//Triangulos 5 y 6
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+
+	//Triangulos 7 y 8
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+	mesh->vColors.emplace_back(vec4(1, 0, 0, 1));
+
+	//Triangulos 9 y 10
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+	mesh->vColors.emplace_back(vec4(0, 1, 0, 1));
+
+	//Triangulos 11 y 12
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
+	mesh->vColors.emplace_back(vec4(0, 0, 1, 1));
 
 	return mesh;
 }
