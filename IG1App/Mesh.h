@@ -14,7 +14,9 @@ public:
 	static Mesh* generate_regular_polygon(GLuint num, GLdouble r);
 	static Mesh* generate_regular_polygon(GLuint num, GLdouble r, std::vector<glm::vec4> const& vColors, GLuint primitive);
 	static Mesh* createRGBAxes(GLdouble l); // creates a new 3D-RGB axes mesh
+	static Mesh* generateCube(GLdouble length);
 
+	
 	Mesh();
 	virtual ~Mesh();
 
