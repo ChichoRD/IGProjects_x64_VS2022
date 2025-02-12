@@ -4,6 +4,7 @@
 #include "regular_polygon.h"
 #include "rgb_rectangle.h"
 #include "rgb_triangle.h"
+#include "rgb_cube.h"
 
 void showcase_scene1::init()
 {
@@ -46,4 +47,14 @@ void showcase_scene2::init()
 
 void showcase_scene3::init()
 {
+	Scene::init();
+	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
+	
+	constexpr static const GLdouble cube_side_length = axis_unit_size * 0.75;
+	auto cube = new rgb_cube{ cube_side_length };
+
+	constexpr static const GLdouble half_side_length = cube_side_length * 0.5;
+	cube->setModelMat(glm::translate(cube->modelMat(), glm::vec3{ half_side_length, half_side_length, -half_side_length }));
+
+	gObjects.push_back(cube);
 }

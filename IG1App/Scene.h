@@ -23,7 +23,7 @@ public:
 	void destroy();
 
 	void render(Camera const& cam) const;
-	virtual void update();
+	virtual void update(double time_seconds, double delta_time_seconds);
 
 	// load or unload scene data into the GPU
 	void load();

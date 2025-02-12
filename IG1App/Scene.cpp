@@ -72,8 +72,8 @@ Scene::render(Camera const& cam) const
 		el->render(cam.viewMat());
 }
 
-void Scene::update()
+void Scene::update(double time_seconds, double delta_time_seconds)
 {
 	for (Abs_Entity* el : gObjects)
-		el->update();
+		el->update(time_seconds, delta_time_seconds);
 }

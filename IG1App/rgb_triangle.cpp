@@ -36,8 +36,11 @@ void rgb_triangle::render(const glm::mat4& modelViewMat) const
 	}
 }
 
-void rgb_triangle::update()
+void rgb_triangle::update(double time_seconds, double delta_time_seconds)
 {
+	(void)time_seconds;
+	(void)delta_time_seconds;
+
 	constexpr const float rotation_delta = glm::two_pi<float>() / 360.0f * 20.0f;
 	constexpr const float translation_delta = glm::two_pi<float>() / 360.0f * 20.0f;
 

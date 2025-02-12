@@ -39,12 +39,16 @@ IG1App::run() // enters the main event processing loop
 	if (mWindow == 0) // if not intilialized
 		init();
 
+	double last_update_time = glfwGetTime();
 	// IG1App main loop
 	while (!glfwWindowShouldClose(mWindow)) {
-		const double frame_start_time = glfwGetTime();
-		mNextUpdateTime = frame_start_time + FRAME_DURATION;
+		mUpdateTime = glfwGetTime();
+		mNextUpdateTime = mUpdateTime + FRAME_DURATION;
+
+		const double previous_update_time = last_update_time;
+		last_update_time = mUpdateTime;
 		if (mUpdateEnabled) {
-			update();
+			update(mUpdateTime, mUpdateTime - previous_update_time);
 			if (mNeedsRedisplay) {
 				display();
 				mNeedsRedisplay = false;
@@ -84,8 +88,9 @@ IG1App::init()
 	// allocate memory and resources
 	mViewPort = new Viewport(mWinW, mWinH);
 	mCamera = new Camera(mViewPort);
-	mScenes.push_back(new showcase_scene2);
 	mScenes.push_back(new showcase_scene1);
+	mScenes.push_back(new showcase_scene2);
+	mScenes.push_back(new showcase_scene3);
 
 	mCamera->set2D();
 	mScenes.front()->init();
@@ -160,8 +165,8 @@ IG1App::display() const
 	glfwSwapBuffers(mWindow); // swaps the front and back buffer
 }
 
-void IG1App::update() {
-	mScenes[mCurrentScene]->update();
+void IG1App::update(double time_seconds, double delta_time_seconds) {
+	mScenes[mCurrentScene]->update(time_seconds, delta_time_seconds);
 	mNeedsRedisplay = true;
 }
 

@@ -1,8 +1,20 @@
 #pragma once
+#include <cstdint>
 #include "Entity.h"
-class RGB_Cube : public EntityWithColors
+
+class rgb_cube : public EntityWithColors
 {
+	double elapsed_animation_time = 0.0;
+	uint8_t animation_rotation_index = 0;
+	const float side_length;
+
+	const std::array<glm::vec3, 3> snap_translations{
+		glm::vec3{ side_length * 0.5,	side_length * 0.5,		-side_length  * 0.5,	},
+		glm::vec3{ side_length * 0.5,	side_length * 0.5,		-side_length  * 0.5,	},
+		glm::vec3{ side_length * 0.5,	-side_length  * 0.5,	side_length * 0.5,		},
+	};
 public:
-	RGB_Cube(float l);
+	rgb_cube(float l);
+	virtual void update(double time_seconds, double delta_time_seconds) override;
 };
 

@@ -40,7 +40,7 @@ protected:
 	void destroy();
 
 	void display() const;                      // the scene
-	void update();
+	void update(double time_seconds, double delta_time_seconds);
 	void resize(int newWidth, int newHeight);  // the viewport (without changing the scale)
 	void key(unsigned int codepoint); // keypress event
 	void specialkey(int key, int scancode, int action, int mods); // special keypress event
@@ -66,6 +66,7 @@ protected:
 
 	bool mUpdateEnabled = true; // update the scene
 	double mNextUpdateTime = 0.0; // next update time
+	double mUpdateTime = 0.0;     // update period
 };
 
 #endif //_H_IG1App_H_

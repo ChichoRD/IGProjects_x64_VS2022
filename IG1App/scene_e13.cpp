@@ -9,6 +9,6 @@ void scene_e13::init()
 	Scene::init();
 	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
 
-	auto cube = new RGB_Cube(300);
+	auto cube = new rgb_cube(300);
 	gObjects.push_back(cube);
 }
