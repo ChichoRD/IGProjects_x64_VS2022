@@ -88,7 +88,7 @@ IG1App::init()
 	mScenes.push_back(new showcase_scene1);
 
 	mCamera->set2D();
-	mScenes[0]->init();
+	mScenes.front()->init();
 }
 
 void
@@ -262,9 +262,14 @@ IG1App::changeScene(size_t sceneNr)
 
 	// Change only if a different scene
 	if (sceneNr != mCurrentScene) {
-		mScenes[mCurrentScene]->unload();
+		auto &&old_scene = *mScenes[mCurrentScene];
+		// old_scene.unload();
+		old_scene.destroy();
+
 		mCurrentScene = sceneNr;
-		mScenes[mCurrentScene]->load();
+		auto &&new_scene = *mScenes[mCurrentScene];
+		new_scene.init();
+		// mScenes[mCurrentScene]->load();
 	}
 
 	return true;

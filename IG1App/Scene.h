@@ -20,6 +20,7 @@ public:
 	Scene& operator=(const Scene& s) = delete; // no copy assignment
 
 	virtual void init();
+	void destroy();
 
 	void render(Camera const& cam) const;
 	virtual void update();
@@ -29,7 +30,6 @@ public:
 	void unload();
 
 protected:
-	void destroy();
 	void setGL();
 	void resetGL();
 
