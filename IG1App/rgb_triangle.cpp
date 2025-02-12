@@ -41,7 +41,7 @@ void rgb_triangle::update()
 	constexpr const float rotation_delta = glm::two_pi<float>() / 360.0f * 20.0f;
 	constexpr const float translation_delta = glm::two_pi<float>() / 360.0f * 20.0f;
 
-	glm::vec4 position = mModelMat * glm::vec4(0, 0, 0, 1);
+	glm::vec4 position = mModelMat[3];
 	position = glm::rotate(glm::mat4(1), translation_delta, glm::vec3(0, 0, 1)) * position;
 	position[3] = 1;
 
