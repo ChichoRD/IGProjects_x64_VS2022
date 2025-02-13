@@ -24,7 +24,8 @@ void showcase_scene2::init()
 {
 	Scene::init();
 	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
-	
+	glFrontFace(GL_CCW);
+
 	constexpr static const GLdouble polygon_radius = axis_unit_size * 0.75;
 
 	constexpr static const GLdouble rectangle_width = polygon_radius * 2.0;

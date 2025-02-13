@@ -20,7 +20,7 @@ public:
 	Scene& operator=(const Scene& s) = delete; // no copy assignment
 
 	virtual void init();
-	void destroy();
+	virtual void destroy();
 
 	void render(Camera const& cam) const;
 	virtual void update(double time_seconds, double delta_time_seconds);

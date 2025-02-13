@@ -88,8 +88,8 @@ Mesh* Mesh::generate_rectangle(GLdouble w, GLdouble h, std::array<glm::vec4, 4> 
 {
 	std::vector<glm::vec3> vertices = {
 		glm::vec3(-w / 2, h / 2, 0.0f),
-		glm::vec3(w / 2, h / 2, 0.0f),
 		glm::vec3(-w / 2, -h / 2, 0.0f),
+		glm::vec3(w / 2, h / 2, 0.0f),
 		glm::vec3(w / 2, -h / 2, 0.0f),
 	};
 
