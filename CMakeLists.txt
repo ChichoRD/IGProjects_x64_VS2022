@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15.0...3.30.0)
 
-enable_language(CXX)
+enable_language(C CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -20,7 +20,7 @@ else()
     )
 endif()
 
-set(CMAKE_GENERATOR_PLATFORM x64)
+# set(CMAKE_GENERATOR_PLATFORM x64)
 # set(CMAKE_GENERATOR_PLATFORM win32)
 
 
@@ -64,6 +64,18 @@ project(spinny_cube_go_brrrrrrrrrrrrrrr)
     )
 
     set(
+        PROJECT_EXE_DIRECTORY
+        ${CMAKE_BINARY_DIR}/bin/
+    )
+    set_target_properties(
+        ${PROJECT_NAME}
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_EXE_DIRECTORY}/$<0:>
+        ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_EXE_DIRECTORY}/$<0:>
+        LIBRARY_OUTPUT_DIRECTORY ${PROJECT_EXE_DIRECTORY}/$<0:>
+    )
+
+    set(
         GLEW_DIRECTORY
         ${PROJECT_LIB_DIRECTORY}/glew
     )
@@ -103,10 +115,7 @@ project(spinny_cube_go_brrrrrrrrrrrrrrr)
         glfw3dll
         opengl32
     )
-    set(
-        PROJECT_EXE_DIRECTORY
-        ${PROJECT_DIRECTORY}/build/x64-${CMAKE_BUILD_TYPE}/${CMAKE_BUILD_TYPE}
-    )
+    message(STATUS "executable directory: " ${PROJECT_EXE_DIRECTORY})
     set(
         DLL_DIRECTORIES
         ${GLEW_DIRECTORY}/bin
