@@ -1,0 +1,13 @@
+file(
+    COPY ${V_PROJECT_DIRECTORY}/assets
+    DESTINATION ${V_EXECUTABLE_DIRECTORY}
+)
+
+foreach(V_DLL_DIRECTORY ${V_DLL_DIRECTORIES})
+    file(
+        COPY ${V_DLL_DIRECTORY}/
+        DESTINATION ${V_EXECUTABLE_DIRECTORY}
+        PATTERN "*.dll"
+    )    
+endforeach(V_DLL_DIRECTORY ${V_DLL_DIRECTORIES})
+

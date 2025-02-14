@@ -12,7 +12,9 @@ using namespace std;
 
 // Shader factory
 map<string, unique_ptr<Shader>> shaders;
-constexpr const char* SHADERS_ROOT = "../assets/shaders/";
+
+// Moved one directory up
+constexpr const char* SHADERS_ROOT = "./assets/shaders/";
 
 Shader::Shader(const string& name)
 {
