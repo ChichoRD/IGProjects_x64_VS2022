@@ -14,7 +14,7 @@ class Scene
 public:
 	constexpr static const GLdouble axis_unit_size = 400.0;
 	Scene() = default;
-	~Scene();
+	virtual ~Scene();
 
 	Scene(const Scene& s) = delete;            // no copy constructor
 	Scene& operator=(const Scene& s) = delete; // no copy assignment

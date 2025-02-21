@@ -7,6 +7,6 @@ public:
     explicit rgb_rectangle(GLdouble w, GLdouble h, std::array<glm::vec4, 4> &&vertex_colours);
 
     virtual void render(const glm::mat4& modelViewMat) const override;
-    inline Mesh* getMesh() { return mMesh; }
+    [[maybe_unused]] inline Mesh* getMesh() { return mMesh; }
 };
 

@@ -8,8 +8,8 @@ class single_color_entity :
 public:
     single_color_entity(glm::dvec4 color = glm::dvec4(1.0f));
 
-    inline glm::dvec4 get_color() const { return color; }
-    inline void set_color(glm::dvec4 c) { color = c; }
+    [[maybe_unused]] inline glm::dvec4 get_color() const { return color; }
+    [[maybe_unused]] inline void set_color(glm::dvec4 c) { color = c; }
 
     virtual void render(const glm::mat4& modelViewMat) const override;
 

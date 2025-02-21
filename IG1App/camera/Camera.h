@@ -52,9 +52,9 @@ protected:
 	GLdouble xRight, xLeft, yTop, yBot;     // size of scene visible area
 	GLdouble mNearVal = 1, mFarVal = 10000; // view volume
 	GLdouble mScaleFact = 1;                // scale factor
-	bool bOrto = true;                      // orthogonal or perspective projection
-
+	
 	Viewport* mViewPort; // the viewport
+	bool bOrto = true;                      // orthogonal or perspective projection
 
 	void setVM();
 	void setPM();

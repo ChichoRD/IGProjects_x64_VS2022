@@ -26,9 +26,9 @@ public:
 
 	virtual void render() const;
 
-	GLuint size() const { return mNumVertices; }; // number of elements
-	std::vector<glm::vec3> const& vertices() const { return vVertices; };
-	std::vector<glm::vec4> const& colors() const { return vColors; };
+	[[maybe_unused]] inline GLuint size() const { return mNumVertices; }; // number of elements
+	[[maybe_unused]] inline std::vector<glm::vec3> const& vertices() const { return vVertices; };
+	[[maybe_unused]] inline std::vector<glm::vec4> const& colors() const { return vColors; };
 
 	void load();
 	void unload();
