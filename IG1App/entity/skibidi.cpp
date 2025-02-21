@@ -2,9 +2,13 @@
 #include "skibidi.hpp"
 
 skibidi::skibidi(glm::vec3 color, GLfloat side_length, GLfloat displacement_scale)
-    : texture(), color(color), side_length(side_length), displacement_scale(displacement_scale), displacement_factor(0.0f) {
+    : texture(), color(color), sampler(0), side_length(side_length), displacement_scale(displacement_scale), displacement_factor(0.0f) {
     mShader = Shader::get("skibidi");
     texture.load("./assets/images/skibidi.png"); {
+        glGenSamplers(1, &sampler);
+        glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glSamplerParameteri(sampler, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
         texture.bind();
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // GL_NEAREST
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // GL_NEAREST
@@ -26,7 +30,11 @@ void skibidi::render(const glm::mat4 &modelViewMat) const {
 
     {
         texture.bind();
+        GLuint texture_unit = mShader->get_location("displacement_map");
+        glBindSampler(texture_unit, sampler);
         mMesh->render();
+
+        glBindSampler(texture_unit, 0);
         texture.unbind();
     }
 }
