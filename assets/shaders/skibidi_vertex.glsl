@@ -17,14 +17,12 @@ uniform float displacement_factor;
 void main()
 {
     vec3 displacement = texture(displacement_map, aTexCoord).xyz * 2.0 - vec3(1.0);
-    displacement = step(0.1, dot(displacement, displacement)) * displacement;
+    //displacement = step(0.0, dot(displacement, displacement)) * displacement;
     vec3 displaced_position = aPos + displacement * displacement_scale;
 
     vec3 position = mix(aPos, displaced_position, displacement_factor);
 	gl_Position = view_projection * (model * vec4(position.xyz, 1.0));
 
-    debug_color = displacement * 0.5 + vec3(0.5);
+    debug_color = aPos / 400.0;
     model_position = position;
-    // debug_color = position;
-    // debug_color = vec3(displacement_factor);
 }
