@@ -30,8 +30,8 @@ public:
 	[[maybe_unused]] inline std::vector<glm::vec3> const& vertices() const { return vVertices; };
 	[[maybe_unused]] inline std::vector<glm::vec4> const& colors() const { return vColors; };
 
-	void load();
-	void unload();
+	virtual void load();
+	virtual void unload();
 
 	inline void set_primitive(GLuint primitive) { mPrimitive = primitive; };
 
@@ -48,6 +48,18 @@ protected:
 private:
 	GLuint mVBO;  // vertex buffer object
 	GLuint mCBO;  // color buffer object
+};
+
+class mesh_uv : public Mesh {
+	GLuint attribute_buffer_uv2_f32;
+protected:
+	std::vector<glm::vec2> vertex_uv2_f32;
+
+public:
+	static mesh_uv generate_skibidi_cube(GLdouble side_legth);
+
+	virtual void load() override;
+	virtual void unload() override;
 };
 
 #endif //_H_Scene_H_

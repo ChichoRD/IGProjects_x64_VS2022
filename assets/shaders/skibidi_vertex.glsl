@@ -13,7 +13,7 @@ uniform float displacement_factor;
 
 void main()
 {
-    const vec3 displacement = texture(displacement_map, aTexCoord).xyz;
+    const vec3 displacement = texture(displacement_map, aTexCoord).xyz - vec3(0.5);
     const vec3 displaced_position = aPos + displacement * displacement_scale;
 
     const vec3 position = mix(aPos, displaced_position, displacement_factor);
