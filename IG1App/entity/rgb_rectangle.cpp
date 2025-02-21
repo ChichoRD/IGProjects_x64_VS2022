@@ -9,10 +9,10 @@ rgb_rectangle::rgb_rectangle(GLdouble w, GLdouble h, std::array<glm::vec4, 4>&& 
 
 void rgb_rectangle::render(const glm::mat4& modelViewMat) const
 {
+	(void)modelViewMat;
 	if (mMesh != nullptr) {
-		glm::mat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		mShader->use();
-		this->EntityWithColors::upload_model_view(aMat);
+		this->EntityWithColors::upload_model(mModelMat);
 
 		glEnable(GL_CULL_FACE);
 		{

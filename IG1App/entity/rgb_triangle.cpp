@@ -17,10 +17,10 @@ rgb_triangle::rgb_triangle()
 
 void rgb_triangle::render(const glm::mat4& modelViewMat) const
 {
+	(void)modelViewMat;
 	if (mMesh != nullptr) {
-		glm::mat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		mShader->use();
-		upload_model_view(aMat);
+		upload_model(mModelMat);
 
 		glEnable(GL_CULL_FACE);
 		{

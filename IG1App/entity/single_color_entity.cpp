@@ -8,10 +8,10 @@ single_color_entity::single_color_entity(glm::dvec4 color)
 
 void single_color_entity::render(const glm::mat4& modelViewMat) const
 {
+	(void)modelViewMat;
 	if (mMesh != nullptr) {
-		glm::mat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		mShader->use();
-		this->single_color_entity::upload_model_view(aMat);
+		this->single_color_entity::upload_model(mModelMat);
 		mMesh->render();
 	}
 }

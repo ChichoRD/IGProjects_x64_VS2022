@@ -42,10 +42,10 @@ EntityWithColors::EntityWithColors()
 void
 EntityWithColors::render(mat4 const& modelViewMat) const
 {
+	(void)modelViewMat;
 	if (mMesh != nullptr) {
-		mat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		mShader->use();
-		upload_model_view(aMat);
+		upload_model(mModelMat);
 		mMesh->render();
 	}
 }
