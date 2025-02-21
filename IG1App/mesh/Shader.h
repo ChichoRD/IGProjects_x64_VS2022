@@ -2,6 +2,7 @@
 #define _H_Shader_H_
 
 #include <string>
+#include <string_view>
 
 #include <glm/fwd.hpp>
 #include <GL/glew.h>
@@ -24,6 +25,7 @@ public:
 	void setUniform(const std::string& name, const glm::mat4& value);
 
 	static Shader* get(const std::string& name);
+	GLuint get_location(const std::string_view &name) const;
 
 	static void setUniform4All(const std::string& name, const glm::mat4& value);
 

@@ -126,6 +126,10 @@ Shader::get(const string& name)
 	return shader;
 }
 
+GLuint Shader::get_location(const std::string_view &name) const {
+	return glGetUniformLocation(mProgram, name.data());
+}
+
 void
 Shader::setUniform4All(const string& name, const glm::mat4& value)
 {

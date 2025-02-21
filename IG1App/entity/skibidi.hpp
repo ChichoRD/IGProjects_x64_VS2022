@@ -6,8 +6,9 @@
 
 class skibidi : public Abs_Entity {
     Texture texture;
-
     glm::vec3 color;
+    
+    // GLuint sampler;
     GLfloat side_length;
     GLfloat displacement_scale;
     GLfloat displacement_factor;

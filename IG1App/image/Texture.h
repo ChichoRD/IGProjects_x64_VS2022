@@ -20,8 +20,8 @@ public:
 	void bind() const;
 	void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); };
 
-	GLuint width() const { return mWidth; };
-	GLuint height() const { return mHeight; };
+	[[maybe_unused]] inline GLuint width() const { return mWidth; };
+	[[maybe_unused]] inline GLuint height() const { return mHeight; };
 
 	void setWrap(GLuint wp); // GL_REPEAT, GL_CLAMP_TO_EDGE, ...
 
