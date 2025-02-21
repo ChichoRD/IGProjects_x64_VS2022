@@ -8,10 +8,10 @@ using namespace glm;
 void
 Abs_Entity::upload_model_view(const mat4& modelViewMat) const
 {
-	mShader->setUniform("modelView", modelViewMat);
+	mShader->setUniform("model_view", modelViewMat);
 }
 
-void Abs_Entity::upload_model(const mat4& model) const
+void Abs_Entity::upload_model(const glm::mat4& model) const
 {
 	mShader->setUniform("model", model);
 }

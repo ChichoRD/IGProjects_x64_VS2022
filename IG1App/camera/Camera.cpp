@@ -21,7 +21,7 @@ Camera::Camera(Viewport* vp)
 void
 Camera::uploadVM() const
 {
-	Shader::setUniform4All("modelView", mViewMat);
+	Shader::setUniform4All("view", mViewMat);
 }
 
 void
@@ -116,7 +116,7 @@ void
 Camera::upload() const
 {
 	mViewPort->upload();
-	// uploadVM();
+	uploadVM();
 	// uploadPM();
 	upload_view_projection();
 }
