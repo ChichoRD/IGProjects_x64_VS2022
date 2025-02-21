@@ -59,7 +59,7 @@ protected:
 	std::vector<glm::vec2> vertex_uv2_f32;
 
 public:
-	static mesh_uv generate_skibidi_cube(GLdouble side_legth);
+	static mesh_uv generate_skibidi_cube(GLfloat side_legth);
 
 	virtual void load() override;
 	virtual void unload() override;

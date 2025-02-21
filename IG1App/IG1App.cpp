@@ -91,6 +91,7 @@ IG1App::init()
 	mScenes.push_back(new showcase_scene1);
 	mScenes.push_back(new showcase_scene2);
 	mScenes.push_back(new showcase_scene3);
+	mScenes.push_back(new showcase_scene_skibidi);
 
 	mCamera->set2D();
 	mScenes.front()->init();

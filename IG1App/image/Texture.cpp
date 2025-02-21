@@ -22,7 +22,7 @@ Texture::init()
 }
 
 void
-Texture::bind()
+Texture::bind() const 
 {
 	glBindTexture(GL_TEXTURE_2D, mId);
 }

@@ -380,7 +380,7 @@ Mesh::GenerateRGBCube(GLdouble l) {
 	return mesh;
 }
 
-mesh_uv mesh_uv::generate_skibidi_cube(GLdouble side_legth) {
+mesh_uv mesh_uv::generate_skibidi_cube(GLfloat side_legth) {
 	constexpr static const std::array vertices{
 		glm::vec3{0.500000, -0.500000, -0.500000},
 		glm::vec3{0.500000, 0.500000, -0.500000},
@@ -686,9 +686,9 @@ mesh_uv mesh_uv::generate_skibidi_cube(GLdouble side_legth) {
 		const glm::vec2 b_uv = texture_coordinates[indices[index + 1].y];
 		const glm::vec2 c_uv = texture_coordinates[indices[index + 2].y];
 
-		verts.push_back(a);
-		verts.push_back(b);
-		verts.push_back(c);
+		verts.push_back(a * side_legth);
+		verts.push_back(b * side_legth);
+		verts.push_back(c * side_legth);
 
 		uvs.push_back(a_uv);
 		uvs.push_back(b_uv);

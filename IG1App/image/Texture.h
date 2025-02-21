@@ -17,7 +17,7 @@ public:
 	void load(const std::string& filename,
 	          GLubyte alpha = 255); // load from file and upload to GPU
 
-	void bind();
+	void bind() const;
 	void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); };
 
 	GLuint width() const { return mWidth; };

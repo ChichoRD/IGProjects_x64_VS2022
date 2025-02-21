@@ -5,6 +5,7 @@
 #include "rgb_rectangle.h"
 #include "rgb_triangle.h"
 #include "rgb_cube.h"
+#include "skibidi.hpp"
 
 void showcase_scene1::init()
 {
@@ -58,4 +59,15 @@ void showcase_scene3::init()
 	cube->setModelMat(glm::translate(cube->modelMat(), glm::vec3{ half_side_length, half_side_length, -half_side_length }));
 
 	gObjects.push_back(cube);
+}
+
+void showcase_scene_skibidi::init() {
+	Scene::init();
+	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
+
+	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
+	constexpr static const GLdouble displacement_scale = 1.0f;
+	auto gyatt = new skibidi{ glm::vec3{1.0f, 1.0f, 1.0f}, side_length, displacement_scale };
+
+	gObjects.push_back(gyatt);
 }

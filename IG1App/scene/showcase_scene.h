@@ -17,3 +17,7 @@ class showcase_scene3 :
 {
 	virtual void init() override;
 };
+
+class showcase_scene_skibidi : public Scene {
+    virtual void init() override;
+};
