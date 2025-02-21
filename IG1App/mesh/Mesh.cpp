@@ -72,8 +72,48 @@ Mesh::unload()
 	}
 }
 
-void
-Mesh::render() const
+Mesh::Mesh(Mesh &&m) noexcept {
+	mVAO = m.mVAO;
+	mVBO = m.mVBO;
+	mCBO = m.mCBO;
+	mPrimitive = m.mPrimitive;
+	mNumVertices = m.mNumVertices;
+	vVertices = std::move(m.vVertices);
+	vColors = std::move(m.vColors);
+
+	m.mVAO = NONE;
+	m.mVBO = NONE;
+	m.mCBO = NONE;
+	m.mPrimitive = GL_TRIANGLES;
+	m.mNumVertices = 0;
+	m.vVertices.clear();
+	m.vColors.clear();
+}
+
+Mesh &Mesh::operator=(Mesh &&m) noexcept {
+	if (this != &m) {
+		unload();
+
+		mVAO = m.mVAO;
+		mVBO = m.mVBO;
+		mCBO = m.mCBO;
+		mPrimitive = m.mPrimitive;
+		mNumVertices = m.mNumVertices;
+		vVertices = std::move(m.vVertices);
+		vColors = std::move(m.vColors);
+
+		m.mVAO = NONE;
+		m.mVBO = NONE;
+		m.mCBO = NONE;
+		m.mPrimitive = GL_TRIANGLES;
+		m.mNumVertices = 0;
+		m.vVertices.clear();
+		m.vColors.clear();
+	}
+	return *this;
+}
+
+void Mesh::render() const
 {
 	assert(mVAO != NONE);
 
@@ -543,16 +583,47 @@ mesh_uv mesh_uv::generate_skibidi_cube(GLdouble side_legth) {
 		vec2_u16{25, 45}, vec2_u16{26, 1}, vec2_u16{21, 1},
 	};
 
-	vVertices
+	std::vector<glm::vec3> verts{};
+	verts.reserve(indices.size());
+
+	std::vector<glm::vec2> uvs{};
+	uvs.reserve(indices.size());
+
+	std::vector<glm::vec4> color_fill{};
+	color_fill.reserve(indices.size());
+
 	for (size_t i = 0; i < indices.size() / 3; ++i) {
 		const size_t index = i * 3;
-		const glm::vec3 a = vertices[indices[index]];
-		const glm::vec3 b = vertices[indices[index + 1]];
-		const glm::vec3 c = vertices[indices[index + 2]];
+		const glm::vec3 a = vertices[indices[index].x];
+		const glm::vec3 b = vertices[indices[index + 1].x];
+		const glm::vec3 c = vertices[indices[index + 2].x];
 
-		vVertices.push_back(a * float(side_legth));
+		const glm::vec2 a_uv = texture_coordinates[indices[index].y];
+		const glm::vec2 b_uv = texture_coordinates[indices[index + 1].y];
+		const glm::vec2 c_uv = texture_coordinates[indices[index + 2].y];
+
+		verts.push_back(a);
+		verts.push_back(b);
+		verts.push_back(c);
+
+		uvs.push_back(a_uv);
+		uvs.push_back(b_uv);
+		uvs.push_back(c_uv);
+		
+		constexpr static const glm::vec4 color{ 1.0f, 1.0f, 1.0f, 1.0f };
+		color_fill.push_back(color);
+		color_fill.push_back(color);
+		color_fill.push_back(color);
 	}
-    return mesh_uv();
+
+	mesh_uv mesh{};
+	mesh.vVertices = std::move(verts);
+	mesh.vertex_uv2_f32 = std::move(uvs);
+	mesh.vColors = std::move(color_fill);
+	mesh.mPrimitive = GL_TRIANGLES;
+	mesh.mNumVertices = mesh.vVertices.size();
+	
+    return std::move(mesh);
 }
 
 void mesh_uv::load()
@@ -570,7 +641,7 @@ void mesh_uv::load()
 
 void mesh_uv::unload() {
 	Mesh::unload();
-	assert(attribute_buffer_uv2_f32 != NONE); {
+	if (attribute_buffer_uv2_f32 != NONE) {
 		glDeleteBuffers(1, &attribute_buffer_uv2_f32);
 		attribute_buffer_uv2_f32 = NONE;
 	}

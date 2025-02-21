@@ -24,6 +24,9 @@ public:
 	Mesh(const Mesh& m) = delete;            // no copy constructor
 	Mesh& operator=(const Mesh& m) = delete; // no copy assignment
 
+	Mesh(Mesh&& m) noexcept;
+	Mesh& operator=(Mesh&& m) noexcept;
+
 	virtual void render() const;
 
 	[[maybe_unused]] inline GLuint size() const { return mNumVertices; }; // number of elements
