@@ -12,7 +12,6 @@ public:
     inline void set_color(glm::dvec4 c) { color = c; }
 
     virtual void render(const glm::mat4& modelViewMat) const override;
-    virtual void upload_model_view(const glm::mat4& mModelViewMat) const override;
 
 private:
     glm::dvec4 color;
