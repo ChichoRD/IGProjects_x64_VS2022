@@ -50,6 +50,8 @@ void main()
 	const float box_side = 0.1;
 	float box = sd_box(debug_color.xz, vec2(box_side)) / box_side;
 
-	// FragColor = vec4(out_color, 1.0);
-	FragColor = vec4((out_color * min(mix(1.0, 0.0, 1.0 - box), 1.0)) , 1.0);
+	vec3 i_discard;
+	vec3 mod_color = modf(debug_color, i_discard);
+	mod_color = smoothstep(0.25, 0.5, mod_color);
+	FragColor = vec4((mod_color * min(mix(1.0, 0.0, 1.0 - box), 1.0)) , 1.0);
 }

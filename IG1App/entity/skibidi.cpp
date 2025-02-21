@@ -42,6 +42,6 @@ void skibidi::render(const glm::mat4 &modelViewMat) const {
 void skibidi::update(double time_seconds, double delta_time_seconds) {
     (void)delta_time_seconds;
 
-    constexpr static const float time_scale = 2.0f;
-    displacement_factor = sinf(float(time_seconds) * time_scale) * 0.5f + 0.5f;
+    constexpr static const float time_scale = 0.5f;
+    displacement_factor = (std::min)((sinf(float(time_seconds) * time_scale) * 0.5f + 0.5f) * 10.0f, 1.0f);
 }
