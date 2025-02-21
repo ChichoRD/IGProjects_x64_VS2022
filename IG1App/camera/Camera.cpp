@@ -108,10 +108,15 @@ Camera::uploadPM() const
 	Shader::setUniform4All("projection", mProjMat);
 }
 
+void Camera::upload_view_projection() const {
+	Shader::setUniform4All("view_projection", mProjMat * mViewMat);
+}
+
 void
 Camera::upload() const
 {
 	mViewPort->upload();
-	uploadVM();
-	uploadPM();
+	// uploadVM();
+	// uploadPM();
+	upload_view_projection();
 }

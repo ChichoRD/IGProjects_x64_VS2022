@@ -13,7 +13,7 @@ Cube::render(mat4 const& modelViewMat) const
     if (mMesh != nullptr) {
         mat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
         mShader->use();
-        upload(aMat);
+        upload_model_view(aMat);
 
         glEnable(GL_CULL_FACE);
 

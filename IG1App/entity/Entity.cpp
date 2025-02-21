@@ -6,9 +6,14 @@
 using namespace glm;
 
 void
-Abs_Entity::upload(const mat4& modelViewMat) const
+Abs_Entity::upload_model_view(const mat4& modelViewMat) const
 {
 	mShader->setUniform("modelView", modelViewMat);
+}
+
+void Abs_Entity::upload_model(const mat4& model) const
+{
+	mShader->setUniform("model", model);
 }
 
 Abs_Entity::~Abs_Entity()
@@ -40,7 +45,7 @@ EntityWithColors::render(mat4 const& modelViewMat) const
 	if (mMesh != nullptr) {
 		mat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		mShader->use();
-		upload(aMat);
+		upload_model_view(aMat);
 		mMesh->render();
 	}
 }

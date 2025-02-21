@@ -12,7 +12,7 @@ void rgb_rectangle::render(const glm::mat4& modelViewMat) const
 	if (mMesh != nullptr) {
 		glm::mat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		mShader->use();
-		this->EntityWithColors::upload(aMat);
+		this->EntityWithColors::upload_model_view(aMat);
 
 		glEnable(GL_CULL_FACE);
 		{
