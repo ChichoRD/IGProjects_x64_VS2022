@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 3.15.0...3.30.0)
 
-enable_language(C CXX)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 if (MSVC)
     add_compile_options(
         /W4
@@ -25,6 +21,10 @@ endif()
 
 
 project(spinny_cube_go_brrrrrrrrrrrrrrr)
+    enable_language(C CXX)
+    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
     set(
         PROJECT_DIRECTORY
         ${CMAKE_CURRENT_SOURCE_DIR}
@@ -92,6 +92,11 @@ project(spinny_cube_go_brrrrrrrrrrrrrrr)
         ${PROJECT_NAME}
         PUBLIC
         ${PROJECT_SRC_DIRECTORY}
+        ${PROJECT_SRC_DIRECTORY}/camera
+        ${PROJECT_SRC_DIRECTORY}/entity
+        ${PROJECT_SRC_DIRECTORY}/image
+        ${PROJECT_SRC_DIRECTORY}/mesh
+        ${PROJECT_SRC_DIRECTORY}/scene
     )
     target_include_directories(
         ${PROJECT_NAME}
