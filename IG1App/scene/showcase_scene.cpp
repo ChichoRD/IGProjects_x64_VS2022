@@ -66,11 +66,11 @@ void showcase_scene_skibidi::init() {
 	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
 
 	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
-	constexpr static const GLdouble displacement_scale = axis_unit_size * 0.5f;
+	constexpr static const GLdouble displacement_scale = side_length;
 
 	// purplish blueish
 	constexpr static const glm::vec3 toilet_color{ 0.0f, 0.5f, 1.0f };
-	auto gyatt = new skibidi{ toilet_color, side_length, displacement_scale };
+	auto gyatt = new skibidi{ glm::vec3{1.0f, 1.0f, 1.0f}, side_length, displacement_scale };
 
 	gObjects.push_back(gyatt);
 }

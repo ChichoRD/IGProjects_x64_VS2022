@@ -4,7 +4,7 @@
 skibidi::skibidi(glm::vec3 color, GLfloat side_length, GLfloat displacement_scale)
     : texture(), color(color), sampler(0), side_length(side_length), displacement_scale(displacement_scale), displacement_factor(0.0f) {
     mShader = Shader::get("skibidi");
-    texture.load("./assets/images/skibidi.png"); {
+    texture.load("./assets/images/skibidi-v2.png"); {
         glGenSamplers(1, &sampler);
         glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glSamplerParameteri(sampler, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -43,5 +43,5 @@ void skibidi::update(double time_seconds, double delta_time_seconds) {
     (void)delta_time_seconds;
 
     constexpr static const float time_scale = 0.5f;
-    displacement_factor = (std::min)((sinf(float(time_seconds) * time_scale) * 0.5f + 0.5f) * 10.0f, 1.0f);
+    displacement_factor = (std::min)((sinf(float(time_seconds) * time_scale) * 0.5f + 0.5f) * 2.5f, 1.0f);
 }
