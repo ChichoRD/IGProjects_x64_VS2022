@@ -150,7 +150,7 @@ Mesh* Mesh::generate_regular_polygon(GLuint num, GLdouble r)
 	std::vector<glm::vec3> vertices(num);
 	std::vector<glm::vec4> colors(num);
 
-	constexpr float const start_angle = glm::half_pi<float>();
+	constexpr static float const start_angle = glm::half_pi<float>();
 	float const angle_delta = glm::two_pi<float>() / num;
 	for (size_t i = 0; i < num; ++i) {
 		float const angle = start_angle + i * angle_delta;
@@ -178,7 +178,7 @@ Mesh* Mesh::generate_regular_polygon(GLuint num, GLdouble r, vector<glm::vec4> c
 	std::vector<glm::vec3> vertices(num);
 	std::vector<glm::vec4> colors(num);
 
-	constexpr float const start_angle = glm::half_pi<float>();
+	constexpr static float const start_angle = glm::half_pi<float>();
 	float const angle_delta = glm::two_pi<float>() / num;
 	for (size_t i = 0; i < num; ++i) {
 		float const angle = start_angle + i * angle_delta;
@@ -806,14 +806,9 @@ mesh_uv mesh_uv::generate_skibidi_cube(GLfloat side_legth) {
 		vec2_u16{31, 163}, vec2_u16{30, 162}, vec2_u16{52, 164},
 	};
 
-	std::vector<glm::vec3> verts{};
-	verts.reserve(indices.size());
-
-	std::vector<glm::vec2> uvs{};
-	uvs.reserve(indices.size());
-
-	std::vector<glm::vec4> color_fill{};
-	color_fill.reserve(indices.size());
+	std::vector<glm::vec3> verts{indices.size()};
+	std::vector<glm::vec2> uvs{indices.size()};
+	std::vector<glm::vec4> color_fill{indices.size()};
 
 	for (size_t i = 0; i < indices.size() / 3; ++i) {
 		const size_t index = i * 3;
@@ -829,18 +824,18 @@ mesh_uv mesh_uv::generate_skibidi_cube(GLfloat side_legth) {
 		const glm::vec2 b_uv = texture_coordinates[b_idx.y];
 		const glm::vec2 c_uv = texture_coordinates[c_idx.y];
 
-		verts.push_back(a * side_legth);
-		verts.push_back(b * side_legth);
-		verts.push_back(c * side_legth);
+		verts.at(index) 	 = (a * side_legth);
+		verts.at(index + 1) = (b * side_legth);
+		verts.at(index + 2) = (c * side_legth);
 		
-		uvs.push_back(a_uv);
-		uvs.push_back(b_uv);
-		uvs.push_back(c_uv);
+		uvs.at(index) 	   = (a_uv);
+		uvs.at(index + 1) = (b_uv);
+		uvs.at(index + 2) = (c_uv);
 		
 		constexpr static const glm::vec4 color{ 1.0f, 1.0f, 1.0f, 1.0f };
-		color_fill.push_back(color);
-		color_fill.push_back(color);
-		color_fill.push_back(color);
+		color_fill.at(index) 	  = (color);
+		color_fill.at(index + 1) = (color);
+		color_fill.at(index + 2) = (color);
 	}
 
 	mesh_uv mesh{};
@@ -852,6 +847,39 @@ mesh_uv mesh_uv::generate_skibidi_cube(GLfloat side_legth) {
 	
     return std::move(mesh);
 }
+
+mesh_uv mesh_uv::generate_rect(const GLfloat w, const GLfloat h, const glm::vec2 uv1, const glm::vec2 uv2, std::array<glm::vec4, 4> colors) {
+	const GLfloat half_w = w * 0.5f;
+	const GLfloat half_h = h * 0.5f;
+	
+	std::vector<glm::vec3> verts{
+		{-half_w, 0.0f, half_h},
+		{-half_w, 0.0f, -half_h},
+		{half_w, 0.0f, half_h},
+		{half_w, 0.0f, -half_h}
+	};
+	std::vector<glm::vec2> uvs{
+		{uv1.x, uv1.y},
+		{uv1.x, uv2.y},
+		{uv2.x, uv1.y},
+		{uv2.x, uv2.y}
+	};
+	std::vector<glm::vec4> color_fill{
+		colors[0],
+		colors[1],
+		colors[2],
+		colors[3]
+	};
+
+	mesh_uv mesh{};
+	mesh.vVertices = std::move(verts);
+	mesh.vertex_uv2_f32 = std::move(uvs);
+	mesh.vColors = std::move(color_fill);
+	mesh.mPrimitive = GL_TRIANGLE_STRIP;
+	mesh.mNumVertices = mesh.vVertices.size();
+
+	return mesh;
+};
 
 void mesh_uv::load()
 {
