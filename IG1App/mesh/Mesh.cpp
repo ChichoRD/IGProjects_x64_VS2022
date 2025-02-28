@@ -150,7 +150,7 @@ Mesh* Mesh::generate_regular_polygon(GLuint num, GLdouble r)
 	std::vector<glm::vec3> vertices(num);
 	std::vector<glm::vec4> colors(num);
 
-	constexpr float const start_angle = glm::half_pi<float>();
+	constexpr static float const start_angle = glm::half_pi<float>();
 	float const angle_delta = glm::two_pi<float>() / num;
 	for (size_t i = 0; i < num; ++i) {
 		float const angle = start_angle + i * angle_delta;
@@ -178,7 +178,7 @@ Mesh* Mesh::generate_regular_polygon(GLuint num, GLdouble r, vector<glm::vec4> c
 	std::vector<glm::vec3> vertices(num);
 	std::vector<glm::vec4> colors(num);
 
-	constexpr float const start_angle = glm::half_pi<float>();
+	constexpr static float const start_angle = glm::half_pi<float>();
 	float const angle_delta = glm::two_pi<float>() / num;
 	for (size_t i = 0; i < num; ++i) {
 		float const angle = start_angle + i * angle_delta;
