@@ -848,7 +848,7 @@ mesh_uv mesh_uv::generate_skibidi_cube(GLfloat side_legth) {
     return std::move(mesh);
 }
 
-mesh_uv mesh_uv::generate_rect(const GLfloat w, const GLfloat h, const glm::vec2 uv1, const glm::vec2 uv2, std::array<glm::vec4, 4> colors) {
+mesh_uv mesh_uv::generate_rectangle_uv(const GLfloat w, const GLfloat h, const glm::vec2 uv1, const glm::vec2 uv2, std::array<glm::vec4, 4> colors) {
 	const GLfloat half_w = w * 0.5f;
 	const GLfloat half_h = h * 0.5f;
 	

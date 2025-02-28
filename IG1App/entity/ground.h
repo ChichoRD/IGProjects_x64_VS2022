@@ -1,8 +1,10 @@
 #pragma once
 #include "Entity.h"
+#include "entity_with_texture.hpp"
 
-class ground : public EntityWithColors
+class ground : public entity_with_texture
 {
 public:
-    ground(int w, int h);
+    ground(int w, int h, const std::string_view texturePath);
+    void render(const glm::mat4& modelViewMat) const override;
 };

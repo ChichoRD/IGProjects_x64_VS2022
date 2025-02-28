@@ -59,7 +59,7 @@ void showcase_scene3::init()
 	constexpr static const GLdouble half_side_length = cube_side_length * 0.5;
 	cube->setModelMat(glm::translate(cube->modelMat(), glm::vec3{ half_side_length, half_side_length, -half_side_length }));
 
-	ground* rizz = new ground(200,200);
+	ground* rizz = new ground(200,200,"./assets/images/skibidi-v2.png");
 	gObjects.push_back(rizz);
 
 	gObjects.push_back(cube);
