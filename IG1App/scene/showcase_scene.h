@@ -21,3 +21,7 @@ class showcase_scene3 :
 class showcase_scene_skibidi : public Scene {
     virtual void init() override;
 };
+
+class showcase_scene4 : public Scene {
+    virtual void init() override;
+};

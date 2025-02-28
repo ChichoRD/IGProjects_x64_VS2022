@@ -879,6 +879,82 @@ mesh_uv mesh_uv::generate_rect(const GLfloat w, const GLfloat h, const glm::vec2
 	mesh.mNumVertices = mesh.vVertices.size();
 
 	return mesh;
+}
+mesh_uv mesh_uv::generate_box_hull(const GLfloat side_length, const glm::vec2 uv1, const glm::vec2 uv2, std::array<glm::vec4, 4> colors) {
+    const GLfloat half_side = side_length * 0.5f;
+
+	std::vector<glm::vec3> verts{
+		{-half_side, half_side, -half_side},
+		{-half_side, -half_side, -half_side},
+		{half_side, half_side, -half_side},
+		{half_side, -half_side, -half_side},
+
+		{half_side, half_side, half_side},
+		{half_side, -half_side, half_side},
+		{-half_side, half_side, half_side},
+		{-half_side, -half_side, half_side},
+
+		{-half_side, half_side, -half_side},
+		{-half_side, -half_side, -half_side},
+		{-half_side, half_side, half_side},
+		{-half_side, -half_side, half_side},
+
+		{half_side, half_side, half_side},
+		{half_side, -half_side, half_side},
+		{half_side, half_side, -half_side},
+		{half_side, -half_side, -half_side},
+	};
+	std::vector<glm::vec2> uvs{
+		{uv1.x, uv1.y},
+		{uv1.x, uv2.y},
+		{uv2.x, uv1.y},
+		{uv2.x, uv2.y},
+
+		{uv1.x, uv1.y},
+		{uv1.x, uv2.y},
+		{uv2.x, uv1.y},
+		{uv2.x, uv2.y},
+
+		{uv1.x, uv1.y},
+		{uv1.x, uv2.y},
+		{uv2.x, uv1.y},
+		{uv2.x, uv2.y},
+
+		{uv1.x, uv1.y},
+		{uv1.x, uv2.y},
+		{uv2.x, uv1.y},
+		{uv2.x, uv2.y},
+	};
+	std::vector<glm::vec4> color_fill{
+		colors[0],
+		colors[1],
+		colors[2],
+		colors[3],
+
+		colors[0],
+		colors[1],
+		colors[2],
+		colors[3],
+		
+		colors[0],
+		colors[1],
+		colors[2],
+		colors[3],
+
+		colors[0],
+		colors[1],
+		colors[2],
+		colors[3],
+	};
+
+	mesh_uv mesh{};
+	mesh.vVertices = std::move(verts);
+	mesh.vertex_uv2_f32 = std::move(uvs);
+	mesh.vColors = std::move(color_fill);
+	mesh.mPrimitive = GL_TRIANGLE_STRIP;
+	mesh.mNumVertices = mesh.vVertices.size();
+
+	return mesh;
 };
 
 void mesh_uv::load()
