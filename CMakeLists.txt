@@ -10,6 +10,7 @@ if (MSVC)
 else()
     add_compile_options(
         -Wall
+        # -Wno-c++98-compat
         # -Wextra
         # -Wpedantic
         #-Werror

@@ -8,6 +8,7 @@
 #include "skibidi.hpp"
 #include "box_outline.hpp"
 #include "ground.h"
+#include "star3.hpp"
 
 void showcase_scene1::init()
 {
@@ -88,7 +89,10 @@ void showcase_scene4::init() {
 	constexpr static const GLdouble displacement_scale = side_length;
 
 	// purplish blueish
-	constexpr static const glm::vec3 toilet_color{ 0.0f, 0.5f, 1.0f };
-	box_outline *sigma = new box_outline{ "./assets/images/container.jpg", "./assets/images/papelE.png", side_length };
-	gObjects.push_back(sigma);
+	//constexpr static const glm::vec3 toilet_color{ 0.0f, 0.5f, 1.0f };
+	//box_outline *sigma = new box_outline{ "./assets/images/container.jpg", "./assets/images/papelE.png", side_length };
+	//gObjects.push_back(sigma);
+
+	star3 *chad = new star3{ "./assets/images/baldosaP.png", side_length, 8 };
+	gObjects.push_back(chad);
 }
