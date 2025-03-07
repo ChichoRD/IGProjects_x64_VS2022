@@ -19,6 +19,13 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
+    },
+    {
+      "name": "x64-Debug-Clang",
+      "inherits": "x64-Debug",
+      "toolset": "ClangCL,host=x64",
+      "architecture": "x64",
+      "toolchainFile": "${sourceDir}/user/clang-win-x64.cmake"
     }
   ],
   "buildPresets": [
@@ -29,6 +36,10 @@
     {
       "name": "x64-Release",
       "configurePreset": "x64-Release"
+    },
+    {
+      "name": "x64-Debug-Clang",
+      "configurePreset": "x64-Debug-Clang"
     }
   ]
 }

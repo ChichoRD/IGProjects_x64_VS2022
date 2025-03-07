@@ -896,13 +896,6 @@ mesh_uv mesh_uv::generate_box_hull(const GLfloat side_length, const glm::vec2 uv
 
 		{-half_side, half_side, -half_side},
 		{-half_side, -half_side, -half_side},
-		{-half_side, half_side, half_side},
-		{-half_side, -half_side, half_side},
-
-		{half_side, half_side, half_side},
-		{half_side, -half_side, half_side},
-		{half_side, half_side, -half_side},
-		{half_side, -half_side, -half_side},
 	};
 	std::vector<glm::vec2> uvs{
 		{uv1.x, uv1.y},
@@ -917,13 +910,6 @@ mesh_uv mesh_uv::generate_box_hull(const GLfloat side_length, const glm::vec2 uv
 
 		{uv1.x, uv1.y},
 		{uv1.x, uv2.y},
-		{uv2.x, uv1.y},
-		{uv2.x, uv2.y},
-
-		{uv1.x, uv1.y},
-		{uv1.x, uv2.y},
-		{uv2.x, uv1.y},
-		{uv2.x, uv2.y},
 	};
 	std::vector<glm::vec4> color_fill{
 		colors[0],
@@ -938,13 +924,6 @@ mesh_uv mesh_uv::generate_box_hull(const GLfloat side_length, const glm::vec2 uv
 		
 		colors[0],
 		colors[1],
-		colors[2],
-		colors[3],
-
-		colors[0],
-		colors[1],
-		colors[2],
-		colors[3],
 	};
 
 	mesh_uv mesh{};

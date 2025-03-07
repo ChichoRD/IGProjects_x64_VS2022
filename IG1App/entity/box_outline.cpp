@@ -11,6 +11,7 @@ box_outline::box_outline(
         glm::vec4{1.0f, 1.0f, 1.0f, 1.0f},
         glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}
     })};
+    load();
 
     secondary_texture.load(secondary_texture_path.data()); {
         secondary_texture.bind();
@@ -24,7 +25,7 @@ void box_outline::render(const glm::mat4 &modelViewMat) const {
     glEnable(GL_CULL_FACE);
     {
         glCullFace(GL_FRONT);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         entity_with_texture::render_with_texture(modelViewMat, texture);
 
         glCullFace(GL_BACK);

@@ -89,6 +89,6 @@ void showcase_scene4::init() {
 
 	// purplish blueish
 	constexpr static const glm::vec3 toilet_color{ 0.0f, 0.5f, 1.0f };
-	box_outline *sigma = new box_outline{ "models/box_outline.png", side_length };
+	box_outline *sigma = new box_outline{ "./assets/images/container.jpg", "./assets/images/papelE.png", side_length };
 	gObjects.push_back(sigma);
 }
