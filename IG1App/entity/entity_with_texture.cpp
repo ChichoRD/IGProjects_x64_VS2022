@@ -1,6 +1,6 @@
 #include "entity_with_texture.hpp"
 
-void entity_with_texture::render_with_texture(const glm::mat4 &modelViewMat) const {
+void entity_with_texture::render_with_texture(const glm::mat4 &modelViewMat, const Texture &texture) const {
     (void)modelViewMat;
 
     mShader->use();

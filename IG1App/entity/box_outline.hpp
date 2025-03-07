@@ -4,8 +4,14 @@
 #include "entity_with_texture.hpp"
 
 class box_outline : public entity_with_texture {
+    Texture secondary_texture;
+
 public:
-    box_outline(const std::string_view texture_path, const GLfloat side_length);
+    box_outline(
+        const std::string_view texture_path,
+        const std::string_view secondary_texture_path,
+        const GLfloat side_length
+    );
     void render(const glm::mat4& modelViewMat) const override;
 };
 
