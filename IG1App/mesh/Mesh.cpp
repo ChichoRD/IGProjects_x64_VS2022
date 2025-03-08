@@ -2,6 +2,7 @@
 #include <cassert>
 #include <glm/ext/scalar_constants.hpp>
 #include <glm/gtc/constants.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 using namespace std;
 using namespace glm;
@@ -948,41 +949,50 @@ mesh_uv mesh_uv::generate_stellated_pyramid(
 	verts.at(0) = glm::vec3{0.0f, 0.0f, 0.0f};
 
 	std::vector<glm::vec2> uvs{base_inner_vertex_count * 2 + 1 + 2};
-	verts.at(0) = glm::vec3{0.0f, 0.0f, 0.0f};
+	uvs.at(0) = glm::vec2{0.5f, 0.5f};
 
 	std::vector<glm::vec4> color{base_inner_vertex_count * 2 + 1 + 2};
 	color.at(0) = glm::vec4{1.0f, 1.0f, 1.0f, 1.0f};
 	
 	for (ptrdiff_t i = 0; i < base_inner_vertex_count + 1; i++) {
 		const ptrdiff_t index = i * 2 + 1;
-		std::array<float, 2> angles{
+		const std::array<float, 2> angles{
 			float(index - 1) * delta_angle,
 			float(index) * delta_angle
 		};
 
-		std::array<glm::vec3, angles.size()> vertices{
-			glm::vec3{glm::cos(angles[0]) * inner_radius, 	glm::sin(angles[0]) * inner_radius,		height},
-			glm::vec3{glm::cos(angles[1]) * outter_radius, 	glm::sin(angles[1]) * outter_radius,	height},
+		const std::array<glm::vec2, angles.size()> vertices_normalised{
+			glm::vec2{glm::cos(angles[0]), glm::sin(angles[0])},
+			glm::vec2{glm::cos(angles[1]), glm::sin(angles[1])},
+		};
+		const std::array<glm::vec3, angles.size()> vertices{
+			glm::vec3{vertices_normalised[0].x * inner_radius,	vertices_normalised[0].y * inner_radius,	height},
+			glm::vec3{vertices_normalised[1].x * outter_radius, vertices_normalised[1].y * outter_radius,	height},
 		};
 
-		std::array<glm::vec2, angles.size()> uv{
-			glm::vec2{0.5f, 0.5f},
-			glm::vec2{0.5f, 0.5f},
+		const std::array<float, 2> normalised_abs_components_max_rcp{
+			1.0f / (std::max)(glm::abs(vertices_normalised[0].x), glm::abs(vertices_normalised[0].y)),
+			1.0f / (std::max)(glm::abs(vertices_normalised[1].x), glm::abs(vertices_normalised[1].y))
+		};
+		const std::array<glm::vec2, angles.size()> uv{
+			vertices_normalised[0] * normalised_abs_components_max_rcp[0] * 0.5f + 0.5f,
+			vertices_normalised[1] * normalised_abs_components_max_rcp[1] * 0.5f + 0.5f,
 		};
 
-		std::array<glm::vec4, angles.size()> colors{
+		const std::array<glm::vec4, angles.size()> colors{
 			glm::vec4{1.0f, 1.0f, 1.0f, 1.0f},
 			glm::vec4{1.0f, 1.0f, 1.0f, 1.0f},
 		};
 
-		verts.at(index) = vertices[0];
-		verts.at(index + 1) = vertices[1];
+		const size_t insert_index = size_t(index);
+		verts.at(insert_index) = vertices[0];
+		verts.at(insert_index + 1) = vertices[1];
 
-		uvs.at(index) = uv[0];
-		uvs.at(index + 1) = uv[1];
+		uvs.at(insert_index) = uv[0];
+		uvs.at(insert_index + 1) = uv[1];
 
-		color.at(index) = colors[0];
-		color.at(index + 1) = colors[1];
+		color.at(insert_index) = colors[0];
+		color.at(insert_index + 1) = colors[1];
 	}
 
 	mesh_uv mesh{};
