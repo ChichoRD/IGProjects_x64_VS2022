@@ -1,12 +1,17 @@
 #include "star3.hpp"
 
-star3::star3(const std::string_view texture_path, const GLfloat side_length, const GLuint base_vertices)
-    : entity_with_texture(texture_path, false) {
+star3::star3(
+    const std::string_view texture_path,
+    const GLfloat height,
+    const GLfloat outter_radius,
+    const GLfloat inner_radius,
+    const GLuint inner_vertex_count
+) : entity_with_texture(texture_path, false) {
     mMesh = new mesh_uv{mesh_uv::generate_stellated_pyramid(
-        400.0f,
-        side_length,
-        side_length * 0.5,
-        base_vertices
+        height,
+        outter_radius,
+        inner_radius,
+        inner_vertex_count
     )};
     load();
 }

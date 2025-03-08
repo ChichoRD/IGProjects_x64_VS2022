@@ -940,42 +940,57 @@ mesh_uv mesh_uv::generate_stellated_pyramid(
 	const GLfloat height,
 	const GLfloat outter_radius,
 	const GLfloat inner_radius,
-	const GLuint base_vertex_count
+	const GLuint base_inner_vertex_count
 ) {
-	const float delta_angle = glm::two_pi<float>() / (base_vertex_count * 2.0f);
+	const float delta_angle = glm::two_pi<float>() / (float(base_inner_vertex_count) * 2.0f);
 
-	std::vector<glm::vec3> verts(base_vertex_count * 2);
-	std::vector<glm::vec2> uvs(base_vertex_count * 2);
-	std::vector<glm::vec4> color_fill(base_vertex_count * 2);
+	std::vector<glm::vec3> verts{base_inner_vertex_count * 2 + 1 + 2};
+	verts.at(0) = glm::vec3{0.0f, 0.0f, 0.0f};
+
+	std::vector<glm::vec2> uvs{base_inner_vertex_count * 2 + 1 + 2};
+	verts.at(0) = glm::vec3{0.0f, 0.0f, 0.0f};
+
+	std::vector<glm::vec4> color{base_inner_vertex_count * 2 + 1 + 2};
+	color.at(0) = glm::vec4{1.0f, 1.0f, 1.0f, 1.0f};
 	
-	const size_t rect_count = base_vertex_count >> 1;
-	for (size_t i = 0; i < rect_count; i++) {
-		const float angles[3] = {
-			delta_angle * (i + 1),
-			delta_angle * i,
-			delta_angle * (i + 2),
-		};
-		const std::array<glm::vec3, 4> vertices{
-			glm::vec3{inner_radius * glm::cos(angles[1]), height, inner_radius * glm::sin(angles[1])},
-			glm::vec3{outter_radius * glm::cos(angles[0]), height, outter_radius * glm::sin(angles[0])},
-			glm::vec3{0.0f, 0.0f, 0.0f},
-			glm::vec3{outter_radius * glm::cos(angles[2]), height, outter_radius * glm::sin(angles[2])},
+	for (ptrdiff_t i = 0; i < base_inner_vertex_count + 1; i++) {
+		const ptrdiff_t index = i * 2 + 1;
+		std::array<float, 2> angles{
+			float(index - 1) * delta_angle,
+			float(index) * delta_angle
 		};
 
-		for (size_t j = 0; j < 4; j++) {
-			const size_t index = i * 4 + j;
-			verts.at(index) = vertices[j];
-			uvs.at(index) = glm::vec2{0.0f, 0.0f};
-			color_fill.at(index) = glm::vec4{1.0f, 1.0f, 1.0f, 1.0f};
-		}
+		std::array<glm::vec3, angles.size()> vertices{
+			glm::vec3{glm::cos(angles[0]) * inner_radius, 	glm::sin(angles[0]) * inner_radius,		height},
+			glm::vec3{glm::cos(angles[1]) * outter_radius, 	glm::sin(angles[1]) * outter_radius,	height},
+		};
+
+		std::array<glm::vec2, angles.size()> uv{
+			glm::vec2{0.5f, 0.5f},
+			glm::vec2{0.5f, 0.5f},
+		};
+
+		std::array<glm::vec4, angles.size()> colors{
+			glm::vec4{1.0f, 1.0f, 1.0f, 1.0f},
+			glm::vec4{1.0f, 1.0f, 1.0f, 1.0f},
+		};
+
+		verts.at(index) = vertices[0];
+		verts.at(index + 1) = vertices[1];
+
+		uvs.at(index) = uv[0];
+		uvs.at(index + 1) = uv[1];
+
+		color.at(index) = colors[0];
+		color.at(index + 1) = colors[1];
 	}
 
 	mesh_uv mesh{};
 	mesh.vVertices = std::move(verts);
 	mesh.vertex_uv2_f32 = std::move(uvs);
-	mesh.vColors = std::move(color_fill);
-	mesh.mPrimitive = GL_TRIANGLE_STRIP;
-	mesh.mNumVertices = mesh.vVertices.size();
+	mesh.vColors = std::move(color);
+	mesh.mPrimitive = GL_TRIANGLE_FAN;
+	mesh.mNumVertices = GLuint(mesh.vVertices.size());
 
 	return mesh;
 }

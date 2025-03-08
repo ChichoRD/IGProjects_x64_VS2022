@@ -62,7 +62,12 @@ public:
 	static mesh_uv generate_skibidi_cube(GLfloat side_legth);
 	static mesh_uv generate_box_hull(const GLfloat side_length, const glm::vec2 uv1, const glm::vec2 uv2, std::array<glm::vec4, 4> colors);
 	static mesh_uv generate_rectangle_uv(const GLfloat w, const GLfloat h, const glm::vec2 uv1, const glm::vec2 uv2, std::array<glm::vec4, 4> colors);
-	static mesh_uv generate_stellated_pyramid(const GLfloat height, const GLfloat outter_radius, const GLfloat inner_radius, const GLuint base_vertex_count);
+	static mesh_uv generate_stellated_pyramid(
+		const GLfloat height,
+		const GLfloat outter_radius,
+		const GLfloat inner_radius,
+		const GLuint base_inner_vertex_count
+	);
 
 	virtual void load() override;
 	virtual void unload() override;
