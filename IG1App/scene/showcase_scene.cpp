@@ -10,6 +10,7 @@
 #include "ground.h"
 #include "star3.hpp"
 #include "glass_parapet.hpp"
+#include "photograph.hpp"
 
 void showcase_scene1::init()
 {
@@ -102,6 +103,10 @@ void showcase_scene4::init() {
 
 	glass_parapet *glass = new glass_parapet{ side_length };
 	gObjects.push_back(glass);
+
+	photograph *photo = new photograph{ side_length };
+	photo->setModelMat(glm::translate(photo->modelMat(), glm::vec3{ -axis_unit_size * 2.0f, 0.0f, 0.0f }));
+	gObjects.push_back(photo);
 }
 
 void showcase_scene4::destroy() {

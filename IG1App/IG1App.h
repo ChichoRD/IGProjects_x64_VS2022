@@ -67,6 +67,10 @@ protected:
 	bool mUpdateEnabled = true; // update the scene
 	double mNextUpdateTime = 0.0; // next update time
 	double mUpdateTime = 0.0;     // update period
+
+public:
+	inline int window_width() const { return mWinW; };
+	inline int window_height() const { return mWinH; };
 };
 
 #endif //_H_IG1App_H_

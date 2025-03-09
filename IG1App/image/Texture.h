@@ -16,6 +16,7 @@ public:
 
 	void load(const std::string& filename,
 	          GLubyte alpha = 255); // load from file and upload to GPU
+	void loadColorBuffer(const GLsizei width, const GLsizei height, const GLuint swapchain_face);
 
 	void bind() const;
 	void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); };

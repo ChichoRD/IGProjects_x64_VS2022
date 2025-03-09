@@ -1,6 +1,7 @@
 #include "Texture.h"
 
 #include "Image.h"
+#include <GLFW/glfw3.h>
 
 Texture::~Texture()
 {
@@ -55,6 +56,31 @@ Texture::load(const std::string& name, GLubyte alpha)
 	             GL_RGBA,
 	             GL_UNSIGNED_BYTE,
 	             image.data());
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Texture::loadColorBuffer(const GLsizei width, const GLsizei height, const GLuint swapchain_face) {
+	if (mId == 0)
+		init();
+
+	mWidth = width;
+	mHeight = height;
+
+	GLint level = 0;  // Base image level
+	GLint border = 0; // No border
+
+	glBindTexture(GL_TEXTURE_2D, mId);
+
+	GLint readFboId;
+	// glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readFboId);
+    //glBindFramebuffer(GL_READ_FRAMEBUFFER, readFboId);
+	// HACK: we assume buffer bound is the framebuffer
+	{
+        glReadBuffer(swapchain_face);
+        glCopyTexImage2D(GL_TEXTURE_2D, level, GL_RGBA, 0, 0, mWidth, mHeight, border);
+    }
+    //glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
