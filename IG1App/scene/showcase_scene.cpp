@@ -9,6 +9,7 @@
 #include "box_outline.hpp"
 #include "ground.h"
 #include "star3.hpp"
+#include "glass_parapet.hpp"
 
 void showcase_scene1::init()
 {
@@ -83,16 +84,27 @@ void showcase_scene_skibidi::init() {
 
 void showcase_scene4::init() {
 	Scene::init();
+	glEnable(GL_MULTISAMPLE);
+	glClearDepth(1.0l);
 	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
 
 	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
 	constexpr static const GLdouble displacement_scale = side_length;
 
 	// purplish blueish
-	//constexpr static const glm::vec3 toilet_color{ 0.0f, 0.5f, 1.0f };
-	//box_outline *sigma = new box_outline{ "./assets/images/container.jpg", "./assets/images/papelE.png", side_length };
-	//gObjects.push_back(sigma);
+	constexpr static const glm::vec3 toilet_color{ 0.0f, 0.5f, 1.0f };
+	box_outline *sigma = new box_outline{ "./assets/images/container.jpg", "./assets/images/papelE.png", side_length };
+	sigma->setModelMat(glm::translate(sigma->modelMat(), glm::vec3{ 0.0f, 0.0f, -axis_unit_size * 2.0f }));
+	gObjects.push_back(sigma);
 
-	star3 *chad = new star3{ "./assets/images/baldosaP.png", side_length, side_length, float(side_length) * 0.6f, 8 };
-	gObjects.push_back(chad);
+	// star3 *chad = new star3{ "./assets/images/baldosaP.png", side_length, side_length, float(side_length) * 0.6f, 8 };
+	// gObjects.push_back(chad);
+
+	glass_parapet *glass = new glass_parapet{ side_length };
+	gObjects.push_back(glass);
+}
+
+void showcase_scene4::destroy() {
+	Scene::destroy();
+	glDisable(GL_MULTISAMPLE);
 }

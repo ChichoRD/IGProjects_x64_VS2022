@@ -5,7 +5,8 @@
 
 ground::ground(int w, int h, const std::string_view texturePath) : entity_with_texture(texturePath)
 {
-    mMesh = new mesh_uv{mesh_uv::generate_rectangle_uv(w,h,glm::vec2(0,0),glm::vec2(1,1),{
+    texture.setWrap(GL_REPEAT);
+    mMesh = new mesh_uv{mesh_uv::generate_rectangle_uv(w,h,glm::vec2(0,0),glm::vec2(4, 4),{
         glm::vec4(1,0,0,1),
         glm::vec4(0,0,1,1),
         glm::vec4(0,1,0,1),

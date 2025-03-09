@@ -21,9 +21,11 @@ void entity_with_texture::render_with_texture(const Texture &texture) const {
 }
 
 entity_with_texture::entity_with_texture(const std::string_view texture_path, bool modulate)
-    : texture(), sampler(0), moulate(modulate)
-{
-    mShader = Shader::get("texture");
+    : entity_with_texture(texture_path, "texture", modulate) {}
+
+entity_with_texture::entity_with_texture(const std::string_view texture_path, const std::string_view shader_key, bool modulate)
+    : texture(), sampler(0), moulate(modulate) {
+    mShader = Shader::get(shader_key.data());
     texture.load(texture_path.data()); {
         glGenSamplers(1, &sampler);
         glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

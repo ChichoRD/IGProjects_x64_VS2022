@@ -24,4 +24,5 @@ class showcase_scene_skibidi : public Scene {
 
 class showcase_scene4 : public Scene {
     virtual void init() override;
+    virtual void destroy() override;
 };

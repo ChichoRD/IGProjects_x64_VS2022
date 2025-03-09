@@ -24,6 +24,11 @@ box_outline::box_outline(
 void box_outline::render(const glm::mat4 &modelViewMat) const {
     (void)modelViewMat;
 
+    glEnable(GL_DEPTH_TEST);
+
+    glDepthFunc(GL_LEQUAL);
+    glDepthMask(GL_TRUE);
+
     glEnable(GL_CULL_FACE);
     {
         glCullFace(GL_FRONT);
@@ -35,4 +40,8 @@ void box_outline::render(const glm::mat4 &modelViewMat) const {
         entity_with_texture::render_with_texture(secondary_texture);
     }
     glDisable(GL_CULL_FACE);
+
+    glDepthMask(GL_FALSE);
+
+    glDisable(GL_DEPTH_TEST);
 }
