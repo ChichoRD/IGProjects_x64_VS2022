@@ -93,6 +93,6 @@ void showcase_scene4::init() {
 	//box_outline *sigma = new box_outline{ "./assets/images/container.jpg", "./assets/images/papelE.png", side_length };
 	//gObjects.push_back(sigma);
 
-	star3 *chad = new star3{ "./assets/images/baldosaP.png", side_length, side_length, side_length * 0.6f, 8 };
+	star3 *chad = new star3{ "./assets/images/baldosaP.png", side_length, side_length, float(side_length) * 0.6f, 8 };
 	gObjects.push_back(chad);
 }

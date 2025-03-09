@@ -15,6 +15,7 @@ public:
         const GLuint inner_vertex_count
     );
     void render(const glm::mat4& modelViewMat) const override;
+    void update(double times_seconds, double delta_time_seconds) override;
 };
 
 #endif

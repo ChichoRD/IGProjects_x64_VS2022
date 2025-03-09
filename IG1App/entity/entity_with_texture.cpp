@@ -1,10 +1,8 @@
 #include "entity_with_texture.hpp"
 
-void entity_with_texture::render_with_texture(const glm::mat4 &modelViewMat, const Texture &texture) const {
-    (void)modelViewMat;
-
+void entity_with_texture::render_with_texture_and_model(const Texture &texture, const glm::mat4 &model_matrix) const {
     mShader->use();
-    upload_model(mModelMat);
+    upload_model(model_matrix);
     mShader->setUniform("modulate", moulate);
 
     {
@@ -16,7 +14,10 @@ void entity_with_texture::render_with_texture(const glm::mat4 &modelViewMat, con
         glBindSampler(texture_unit, 0);
         texture.unbind();
     }
+}
 
+void entity_with_texture::render_with_texture(const Texture &texture) const {
+    render_with_texture_and_model(texture, mModelMat);
 }
 
 entity_with_texture::entity_with_texture(const std::string_view texture_path, bool modulate)

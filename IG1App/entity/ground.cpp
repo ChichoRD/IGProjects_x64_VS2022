@@ -18,5 +18,5 @@ ground::ground(int w, int h, const std::string_view texturePath) : entity_with_t
 }
 
 void ground::render(const glm::mat4& modelViewMat) const {
-    render_with_texture(modelViewMat, texture);
+    render_with_texture(texture);
 }

@@ -22,15 +22,17 @@ box_outline::box_outline(
 }
 
 void box_outline::render(const glm::mat4 &modelViewMat) const {
+    (void)modelViewMat;
+
     glEnable(GL_CULL_FACE);
     {
         glCullFace(GL_FRONT);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        entity_with_texture::render_with_texture(modelViewMat, texture);
+        entity_with_texture::render_with_texture(texture);
 
         glCullFace(GL_BACK);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        entity_with_texture::render_with_texture(modelViewMat, secondary_texture);
+        entity_with_texture::render_with_texture(secondary_texture);
     }
     glDisable(GL_CULL_FACE);
 }

@@ -11,7 +11,8 @@ protected:
     GLuint sampler;
     bool moulate;
     
-    void render_with_texture(const glm::mat4& modelViewMat, const Texture &texture) const;
+    void render_with_texture_and_model(const Texture &texture, const glm::mat4 &model_matrix) const;
+    void render_with_texture(const Texture &texture) const;
 public:
     entity_with_texture(const std::string_view texture_path, bool modulate = false);
 
