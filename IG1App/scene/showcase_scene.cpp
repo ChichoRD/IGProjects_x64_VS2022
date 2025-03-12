@@ -92,21 +92,35 @@ void showcase_scene4::init() {
 	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
 	constexpr static const GLdouble displacement_scale = side_length;
 
-	// purplish blueish
-	constexpr static const glm::vec3 toilet_color{ 0.0f, 0.5f, 1.0f };
+	ground* rizz = new ground{axis_unit_size * 4.0f, axis_unit_size * 4.0f, "./assets/images/baldosaC.png"};
+	rizz->setModelMat(glm::rotate(rizz->modelMat(), glm::half_pi<float>(), glm::vec3{ 1.0f, 0.0f, 0.0f }));
+	gObjects.push_back(rizz);
+	
 	box_outline *sigma = new box_outline{ "./assets/images/container.jpg", "./assets/images/papelE.png", side_length };
-	sigma->setModelMat(glm::translate(sigma->modelMat(), glm::vec3{ 0.0f, 0.0f, -axis_unit_size * 2.0f }));
+	sigma->setModelMat(glm::translate(sigma->modelMat(), glm::vec3{
+		axis_unit_size * 1.0f,
+		axis_unit_size * 0.25f,
+		axis_unit_size * 1.0f
+	}));
 	gObjects.push_back(sigma);
 
-	// star3 *chad = new star3{ "./assets/images/baldosaP.png", side_length, side_length, float(side_length) * 0.6f, 8 };
-	// gObjects.push_back(chad);
+	star3 *chad = new star3{ "./assets/images/baldosaP.png", side_length, side_length, float(side_length) * 0.75f, 8 };
+	chad->setModelMat(glm::scale(sigma->modelMat(), glm::vec3{ 0.5f, 0.5f, 0.5f }));
+	chad->setModelMat(glm::translate(chad->modelMat(), glm::vec3{
+		0.0f,
+		axis_unit_size * 1.5f,
+		0.0f
+	}));
+	gObjects.push_back(chad);
 
-	glass_parapet *glass = new glass_parapet{ side_length };
-	gObjects.push_back(glass);
+	photograph *aura = new photograph{ side_length };
+	aura->setModelMat(glm::translate(aura->modelMat(), glm::vec3{ -axis_unit_size * 1.0f, axis_unit_size * 0.25f, -axis_unit_size * 1.0f }));
+	gObjects.push_back(aura);
 
-	photograph *photo = new photograph{ side_length };
-	photo->setModelMat(glm::translate(photo->modelMat(), glm::vec3{ -axis_unit_size * 2.0f, 0.0f, 0.0f }));
-	gObjects.push_back(photo);
+	glass_parapet *ohio = new glass_parapet{ side_length };
+	ohio->setModelMat(glm::scale(ohio->modelMat(), glm::vec3{ 5.0f, 1.0f, 5.0f }));
+	ohio->setModelMat(glm::translate(ohio->modelMat(), glm::vec3{ 0.0f, axis_unit_size * 0.25f, 0.0f }));
+	gObjects.push_back(ohio);
 }
 
 void showcase_scene4::destroy() {

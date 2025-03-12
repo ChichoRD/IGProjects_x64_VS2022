@@ -20,10 +20,19 @@ star3::star3(
 void star3::render(const glm::mat4 &modelViewMat) const {
     (void)modelViewMat;
 
+    glEnable(GL_DEPTH_TEST);
+
+    glDepthFunc(GL_LEQUAL);
+    glDepthMask(GL_TRUE);
+
     entity_with_texture::render_with_texture(texture);
 
     const glm::mat4 model = glm::scale(mModelMat, glm::vec3{-1.0f, -1.0f, -1.0f});
     entity_with_texture::render_with_texture_and_model(texture, model);
+
+    glDepthMask(GL_FALSE);
+    
+    glDisable(GL_DEPTH_TEST);
 }
 
 void star3::update(double time_seconds, double delta_time_seconds) {

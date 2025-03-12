@@ -5,6 +5,6 @@
 class ground : public entity_with_texture
 {
 public:
-    ground(int w, int h, const std::string_view texturePath);
+    ground(GLfloat w, GLfloat h, const std::string_view texturePath);
     void render(const glm::mat4& modelViewMat) const override;
 };

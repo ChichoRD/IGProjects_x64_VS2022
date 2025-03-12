@@ -28,6 +28,10 @@ void skibidi::render(const glm::mat4 &modelViewMat) const {
     mShader->setUniform("displacement_scale", displacement_scale);
     mShader->setUniform("displacement_factor", displacement_factor);
 
+    glEnable(GL_DEPTH_TEST);
+
+    glDepthFunc(GL_LEQUAL);
+    glDepthMask(GL_TRUE);
     {
         texture.bind();
         GLuint texture_unit = mShader->get_location("displacement_map");
@@ -37,6 +41,9 @@ void skibidi::render(const glm::mat4 &modelViewMat) const {
         glBindSampler(texture_unit, 0);
         texture.unbind();
     }
+    glDepthMask(GL_FALSE);
+
+    glDisable(GL_DEPTH_TEST);
 }
 
 void skibidi::update(double time_seconds, double delta_time_seconds) {
