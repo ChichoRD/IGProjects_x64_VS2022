@@ -813,9 +813,9 @@ mesh_uv mesh_uv::generate_skibidi_cube(GLfloat side_legth) {
 
 	for (size_t i = 0; i < indices.size() / 3; ++i) {
 		const size_t index = i * 3;
-		const auto a_idx = indices[index] - vec2_u16{1};
-		const auto b_idx = indices[index + 1] - vec2_u16{1};
-		const auto c_idx = indices[index + 2] - vec2_u16{1};
+		const glm::highp_u16vec2 a_idx = indices[index] - vec2_u16{1};
+		const glm::highp_u16vec2 b_idx = indices[index + 1] - vec2_u16{1};
+		const glm::highp_u16vec2 c_idx = indices[index + 2] - vec2_u16{1};
 
 		const glm::vec3 a = vertices[a_idx.x];
 		const glm::vec3 b = vertices[b_idx.x];

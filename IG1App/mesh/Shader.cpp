@@ -23,7 +23,7 @@ Shader::Shader(const string& name)
 	// Name can be either a plain identifier or a colon-separated name pair
 	string vertexName = name, fragmentName = name;
 
-	if (auto pos = name.find(':'); pos != string::npos) {
+	if (size_t pos = name.find(':'); pos != string::npos) {
 		vertexName = name.substr(0, pos);
 		fragmentName = name.substr(pos + 1);
 	}
@@ -115,6 +115,7 @@ Shader::setUniform(const string& name, const glm::mat4& value)
 Shader*
 Shader::get(const string& name)
 {
+	//Aqui hemos decidio dejar el auto porque el nombre del tipo es tan largo que solo hace mas dificil la legibilidad del codigo
 	auto it = shaders.find(name);
 
 	if (it != shaders.end())
