@@ -278,6 +278,7 @@ IG1App::changeScene(size_t sceneNr)
 		mCurrentScene = sceneNr;
 		auto &&new_scene = *mScenes[mCurrentScene];
 		new_scene.init();
+		mNeedsRedisplay = true;
 		// mScenes[mCurrentScene]->load();
 	}
 
