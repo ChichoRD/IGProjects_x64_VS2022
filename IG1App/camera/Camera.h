@@ -67,6 +67,35 @@ protected:
 
 	void setVM();
 	void setPM();
+
+public:
+	inline void move_lr(GLfloat displacement) {
+		mEye += mRight * displacement;
+		mLook += mRight * displacement;
+		setVM();
+	}
+
+	inline void move_fb(GLfloat displacement) {
+		mEye += mFront * displacement;
+		mLook += mFront * displacement;
+		setVM();
+	}
+
+	inline void move_ud(GLfloat displacement) {
+		mEye += mUpward * displacement;
+		mLook += mUpward * displacement;
+		setVM();
+	}
+
+	inline void set_orthographic() {
+		bOrto = true;
+		setPM();
+	}
+	inline void set_perspective() {
+		bOrto = false;
+		setPM();
+	}
+	inline bool is_orthographic() const { return bOrto; }
 };
 
 #endif //_H_Camera_H_

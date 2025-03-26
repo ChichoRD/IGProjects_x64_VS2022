@@ -4,7 +4,7 @@
 skibidi::skibidi(glm::vec3 color, GLfloat side_length, GLfloat displacement_scale)
     : texture(), color(color), sampler(0), side_length(side_length), displacement_scale(displacement_scale), displacement_factor(0.0f) {
     mShader = Shader::get("skibidi");
-    texture.load("./assets/images/skibidi-v2.png"); {
+    texture.load("./assets/images/noche.jpg"); {
         glGenSamplers(1, &sampler);
         glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glSamplerParameteri(sampler, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
