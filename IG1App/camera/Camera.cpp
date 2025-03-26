@@ -112,6 +112,9 @@ Camera::setPM()
 		                 mFarVal);
 		// glm::ortho defines the orthogonal projection matrix
 	}
+	else{
+		mProjMat = perspective(fov, xRight/yTop, mNearVal, mFarVal);
+	}
 }
 
 void

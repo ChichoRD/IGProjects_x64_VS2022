@@ -42,6 +42,7 @@ protected:
 	glm::dvec3 mUp = {0.0, 1.0, 0.0};    // the up vector
 
 	glm::vec3 mRight, mUpward, mFront;
+	GLdouble fov;
 
 	void setAxes();
 
