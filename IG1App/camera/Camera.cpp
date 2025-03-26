@@ -29,7 +29,7 @@ void Camera::setAxes()
 {
 	mRight = row(mViewMat, 0);
 	mUpward = row(mViewMat, 1);
-	mFront = row(mViewMat, 2);
+	mFront = -row(mViewMat, 2);
 }
 
 void
@@ -100,6 +100,7 @@ Camera::setScale(GLdouble s)
 	setPM();
 }
 
+#include <iostream>
 void
 Camera::setPM()
 {
@@ -112,7 +113,10 @@ Camera::setPM()
 		                 mFarVal);
 		// glm::ortho defines the orthogonal projection matrix
 	} else{
-		mProjMat = perspective(fov * (1.0f - mScaleFact), xRight/yTop, mNearVal, mFarVal);
+		std::cout << "scale factor: " << mScaleFact << std::endl;
+		std::cout << "fov: " << fov << std::endl;
+		std::cout << "fov / (2.0 - mScaleFact): " << fov / (2.0 - mScaleFact) << std::endl;
+		mProjMat = perspective(fov / (2.0f - mScaleFact), xRight/yTop, mNearVal, mFarVal);
 	}
 }
 

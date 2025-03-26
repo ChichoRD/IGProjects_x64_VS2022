@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
 
 #include "Viewport.h"
 
@@ -42,7 +43,7 @@ protected:
 	glm::dvec3 mUp = {0.0, 1.0, 0.0};    // the up vector
 
 	glm::vec3 mRight, mUpward, mFront;
-	GLdouble fov;
+	GLdouble fov = glm::half_pi<float>();
 
 	void setAxes();
 
