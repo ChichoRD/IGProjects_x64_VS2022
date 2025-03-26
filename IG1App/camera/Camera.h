@@ -62,6 +62,25 @@ protected:
 
 	void setVM();
 	void setPM();
+
+public:
+	inline void move_lr(GLfloat displacement) {
+		mEye += mRight * displacement;
+		mLook += mRight * displacement;
+		setVM();
+	}
+
+	inline void move_fb(GLfloat displacement) {
+		mEye += mFront * displacement;
+		mLook += mFront * displacement;
+		setVM();
+	}
+
+	inline void move_ud(GLfloat displacement) {
+		mEye += mUpward * displacement;
+		mLook += mUpward * displacement;
+		setVM();
+	}
 };
 
 #endif //_H_Camera_H_

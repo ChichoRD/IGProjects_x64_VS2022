@@ -192,6 +192,7 @@ IG1App::key(unsigned int key)
 {
 	bool need_redisplay = true;
 
+	constexpr static const float camera_frame_displacement = 10.0f;
 	switch (key) {
 		case '+':
 			mCamera->setScale(+0.01); // zoom in  (increases the scale)
@@ -207,6 +208,24 @@ IG1App::key(unsigned int key)
 			break;
 		case 'u':
 			mUpdateEnabled = !mUpdateEnabled;
+			break;
+		case 'w':
+			mCamera->move_fb(camera_frame_displacement);
+			break;
+		case 's':
+			mCamera->move_fb(-camera_frame_displacement);
+			break;
+		case 'a':
+			mCamera->move_lr(-camera_frame_displacement);
+			break;
+		case 'd':
+			mCamera->move_lr(camera_frame_displacement);
+			break;
+		case 'q':
+			mCamera->move_ud(-camera_frame_displacement);
+			break;
+		case 'e':
+			mCamera->move_ud(camera_frame_displacement);
 			break;
 		default:
 			if (key >= '0' && key <= '9' && !changeScene(key - '0'))
