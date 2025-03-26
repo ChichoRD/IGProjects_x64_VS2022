@@ -36,6 +36,7 @@ void
 Camera::setVM()
 {
 	mViewMat = lookAt(mEye, mLook, mUp); // glm::lookAt defines the view matrix
+	setAxes();
 }
 
 void
@@ -60,6 +61,7 @@ void
 Camera::pitch(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(1.0, 0, 0));
+	setAxes();
 	// glm::rotate returns mViewMat * rotationMatrix
 }
 
@@ -67,6 +69,7 @@ void
 Camera::yaw(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(0, 1.0, 0));
+	setAxes();
 	// glm::rotate returns mViewMat * rotationMatrix
 }
 
@@ -74,6 +77,7 @@ void
 Camera::roll(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(0, 0, 1.0));
+	setAxes();
 	// glm::rotate returns mViewMat * rotationMatrix
 }
 
