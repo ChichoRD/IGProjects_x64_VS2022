@@ -25,6 +25,10 @@ public:
 	void yaw(GLdouble a);   // rotates a degrees on the Y axis
 	void roll(GLdouble a);  // rotates a degrees on the Z axis
 
+	void pitchReal(GLfloat cs);
+	void yawReal(GLfloat cs);
+	void rollReal(GLfloat cs);
+
 	// projection matrix
 	glm::dmat4 const& projMat() const { return mProjMat; };
 
