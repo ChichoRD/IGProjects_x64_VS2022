@@ -66,6 +66,13 @@ Camera::pitch(GLdouble a)
 }
 
 void
+Camera::pitchReal(GLfloat cs)
+{
+	mViewMat = rotate(mViewMat, (GLdouble)glm::radians(cs), (glm::dvec3)mRight);
+	setAxes();
+}
+
+void
 Camera::yaw(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(0, 1.0, 0));
@@ -74,11 +81,25 @@ Camera::yaw(GLdouble a)
 }
 
 void
+Camera::yawReal(GLfloat cs)
+{
+	mViewMat = rotate(mViewMat, (GLdouble)glm::radians(cs), (glm::dvec3)mUpward);
+	setAxes();
+}
+
+void
 Camera::roll(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(0, 0, 1.0));
 	setAxes();
 	// glm::rotate returns mViewMat * rotationMatrix
+}
+
+void
+Camera::rollReal(GLfloat cs)
+{
+	mViewMat = rotate(mViewMat, (GLdouble)glm::radians(cs), (glm::dvec3)mFront);
+	setAxes();
 }
 
 void
