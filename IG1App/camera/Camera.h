@@ -82,6 +82,16 @@ public:
 		mLook += mUpward * displacement;
 		setVM();
 	}
+
+	inline void set_orthographic() {
+		bOrto = true;
+		setPM();
+	}
+	inline void set_perspective() {
+		bOrto = false;
+		setPM();
+	}
+	inline bool is_orthographic() const { return bOrto; }
 };
 
 #endif //_H_Camera_H_

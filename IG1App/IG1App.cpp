@@ -227,6 +227,13 @@ IG1App::key(unsigned int key)
 		case 'e':
 			mCamera->move_ud(camera_frame_displacement);
 			break;
+		case 'p': {
+			if (mCamera->is_orthographic()) {
+				mCamera->set_perspective();
+			} else {
+				mCamera->set_orthographic();
+			}
+		}
 		default:
 			if (key >= '0' && key <= '9' && !changeScene(key - '0'))
 				cout << "[NOTE] There is no scene " << char(key) << ".\n";
