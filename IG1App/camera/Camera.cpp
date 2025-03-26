@@ -3,6 +3,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_access.hpp>
 
 using namespace glm;
 
@@ -22,6 +23,13 @@ void
 Camera::uploadVM() const
 {
 	Shader::setUniform4All("view", mViewMat);
+}
+
+void Camera::setAxes()
+{
+	mRight = row(mViewMat, 0);
+	mUpward = row(mViewMat, 1);
+	mFront = row(mViewMat, 2);
 }
 
 void
