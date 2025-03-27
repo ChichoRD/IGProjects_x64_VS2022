@@ -39,23 +39,6 @@ Camera::setVM()
 	setAxes();
 }
 
-void
-Camera::set2D()
-{
-	mEye = {0, 0, 500};
-	mLook = {0, 0, 0};
-	mUp = {0, 1, 0};
-	setVM();
-}
-
-void
-Camera::set3D()
-{
-	mEye = {500, 500, 500};
-	mLook = {0, 10, 0};
-	mUp = {0, 1, 0};
-	setVM();
-}
 
 void
 Camera::pitch(GLdouble a)
