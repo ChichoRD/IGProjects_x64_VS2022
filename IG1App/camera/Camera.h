@@ -19,6 +19,9 @@ public:
 	// view matrix
 	glm::dmat4 const& viewMat() const { return mViewMat; };
 
+	inline void set2D() { set_orthographic(); }
+	inline void set3D() { set_perspective(); }
+
 	void pitch(GLdouble a); // rotates a degrees on the X axis
 	void yaw(GLdouble a);   // rotates a degrees on the Y axis
 	void roll(GLdouble a);  // rotates a degrees on the Z axis
@@ -85,6 +88,8 @@ public:
 		setVM();
 	}
 
+	glm::dvec3 orbit_xz(const GLfloat disaplacement_radians, const GLfloat displacement_altitude);
+	
 	inline void set_orthographic() {
 		bOrto = true;
 		setPM();
