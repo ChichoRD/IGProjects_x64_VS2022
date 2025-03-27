@@ -19,8 +19,8 @@ public:
 	// view matrix
 	glm::dmat4 const& viewMat() const { return mViewMat; };
 
-	void set2D();
-	void set3D();
+	inline void set2D() { set_orthographic(); }
+	inline void set3D() { set_perspective(); }
 
 	void pitch(GLdouble a); // rotates a degrees on the X axis
 	void yaw(GLdouble a);   // rotates a degrees on the Y axis
@@ -88,7 +88,7 @@ public:
 		setVM();
 	}
 
-
+	glm::dvec3 orbit_xz(const GLfloat disaplacement_radians, const GLfloat displacement_altitude);
 	
 	inline void set_orthographic() {
 		bOrto = true;
@@ -99,9 +99,6 @@ public:
 		setPM();
 	}
 	inline bool is_orthographic() const { return bOrto; }
-
-	inline void set2D() { set_orthographic(); }
-	inline void set3D() { set_perspective(); }
 };
 
 #endif //_H_Camera_H_
