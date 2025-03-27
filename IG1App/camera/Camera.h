@@ -99,6 +99,7 @@ public:
 		setPM();
 	}
 	inline bool is_orthographic() const { return bOrto; }
+	void setCenital();
 };
 
 #endif //_H_Camera_H_
