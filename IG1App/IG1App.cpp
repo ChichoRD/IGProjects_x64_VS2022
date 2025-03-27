@@ -200,12 +200,6 @@ IG1App::key(unsigned int key)
 		case '-':
 			mCamera->setScale(-0.01); // zoom out (decreases the scale)
 			break;
-		case 'l':
-			mCamera->set3D();
-			break;
-		case 'o':
-			mCamera->set2D();
-			break;
 		case 'u':
 			mUpdateEnabled = !mUpdateEnabled;
 			break;
