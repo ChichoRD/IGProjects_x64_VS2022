@@ -65,6 +65,7 @@ protected:
 	
 	Viewport* mViewPort; // the viewport
 	bool bOrto = true;                      // orthogonal or perspective projection
+	bool m2Vistas = false;
 
 	void setVM();
 	void setPM();
