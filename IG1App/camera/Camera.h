@@ -95,7 +95,22 @@ public:
 	}
 	inline bool is_orthographic() const { return bOrto; }
 
+	inline void set_position(const glm::dvec3 eye_position) {
+		mEye = eye_position;
+		mLook = mEye + glm::dvec3{mFront};
+		setVM();
+	}
+
+	inline void look_at(const glm::dvec3 look_position, const glm::dvec3 up_vector) {
+		mLook = look_position;
+		mUp = up_vector;
+		setVM();
+	}
+
 	glm::dvec3 orbit_xz(const GLfloat disaplacement_radians, const GLfloat displacement_altitude);
 };
+
+void camera_set_cenital_orthographic(Camera &camera, const glm::dvec3 eye_position);
+void camera_set_cenital_perspective(Camera &camera, const glm::dvec3 eye_position);
 
 #endif //_H_Camera_H_

@@ -94,7 +94,8 @@ IG1App::init()
 	mScenes.push_back(new showcase_scene_skibidi);
 	mScenes.push_back(new showcase_scene4);
 
-	mCamera->set3D();
+	mCamera->set_position(glm::dvec3(0.0, 0.0, -10.0));
+	mCamera->look_at(glm::dvec3(0.0, 0.0, 0.0), glm::dvec3(0.0, 1.0, 0.0)); 
 	mScenes.front()->init();
 }
 

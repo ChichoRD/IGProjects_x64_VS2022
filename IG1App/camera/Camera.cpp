@@ -15,6 +15,10 @@ Camera::Camera(Viewport* vp)
   , yTop(vp->height() / 2.0)
   , yBot(-yTop)
   , mViewPort(vp)
+  ,	mEye{0.0, 0.0, 0.0}
+  , mLook{0.0, 0.0, 1.0}
+  , mUp{0.0, 1.0, 0.0}
+  , bOrto(false)
 {
 	setPM();
 }
@@ -117,9 +121,9 @@ Camera::setPM()
 		                 mFarVal);
 		// glm::ortho defines the orthogonal projection matrix
 	} else{
-		std::cout << "scale factor: " << mScaleFact << std::endl;
-		std::cout << "fov: " << fov << std::endl;
-		std::cout << "fov / (2.0 - mScaleFact): " << fov / (2.0 - mScaleFact) << std::endl;
+		// std::cout << "scale factor: " << mScaleFact << std::endl;
+		// std::cout << "fov: " << fov << std::endl;
+		// std::cout << "fov / (2.0 - mScaleFact): " << fov / (2.0 - mScaleFact) << std::endl;
 		mProjMat = perspective(fov / (2.0f - mScaleFact), xRight/yTop, mNearVal, mFarVal);
 	}
 }
@@ -160,4 +164,20 @@ Camera::upload() const
 	uploadVM();
 	// uploadPM();
 	upload_view_projection();
+}
+
+void camera_set_cenital_orthographic(Camera &camera, const glm::dvec3 eye_position) {
+	camera.set_orthographic();
+	camera.set_position(eye_position);
+	camera.look_at(glm::dvec3(eye_position.x, 0.0, eye_position.z), glm::dvec3(0.0, 1.0, 0.0));
+	//camera.setSize(eye_position.x * 2.0, eye_position.z * 2.0);
+	//camera.setScale(1.0);
+}
+
+void camera_set_cenital_perspective(Camera &camera, const glm::dvec3 eye_position) {
+	camera.set_perspective();
+	camera.set_position(eye_position);
+	camera.look_at(glm::dvec3(eye_position.x, 0.0, eye_position.z), glm::dvec3(0.0, 1.0, 0.0));
+	//camera.setSize(eye_position.x * 2.0, eye_position.z * 2.0);
+	//camera.setScale(1.0);
 }
