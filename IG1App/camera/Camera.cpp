@@ -141,6 +141,25 @@ Camera::setPM()
 	}
 }
 
+glm::dvec3 Camera::orbit_xz(const GLfloat disaplacement_radians, const GLfloat displacement_altitude) {
+    const GLfloat rotation_xz_cos_sin[2]{
+		glm::cos(disaplacement_radians), glm::sin(disaplacement_radians)
+	};
+
+	const glm::dvec3 eye_from_look = mEye - mLook;
+	const glm::dvec3 eye_from_look_xy_rotated{
+		eye_from_look.x * rotation_xz_cos_sin[0] - eye_from_look.z * rotation_xz_cos_sin[1],
+		eye_from_look.y + displacement_altitude,
+		eye_from_look.x * rotation_xz_cos_sin[1] + eye_from_look.z * rotation_xz_cos_sin[0]
+	};
+
+	const glm::vec3 eye_rotated = mLook + eye_from_look_xy_rotated;
+	mEye = eye_rotated;
+
+	setVM();
+	return eye_rotated;
+}
+
 void
 Camera::uploadPM() const
 {

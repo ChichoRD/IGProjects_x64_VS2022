@@ -97,6 +97,8 @@ public:
 		setPM();
 	}
 	inline bool is_orthographic() const { return bOrto; }
+
+	glm::dvec3 orbit_xz(const GLfloat disaplacement_radians, const GLfloat displacement_altitude);
 };
 
 #endif //_H_Camera_H_
