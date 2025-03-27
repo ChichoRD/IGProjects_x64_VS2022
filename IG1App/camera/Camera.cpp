@@ -53,10 +53,18 @@ Camera::pitch(GLdouble a)
 }
 
 void
-Camera::pitchReal(GLfloat cs)
-{
+Camera::pitchReal(GLfloat cs) {
+	glm::dvec3 look_from_eye = mLook - mEye;
+	glm::dvec3 rotated_look_from_eye =
+		glm::rotate(glm::identity<dmat4>(), (GLdouble)glm::radians(cs), (glm::dvec3)mRight)
+		* dvec4{look_from_eye, 0.0};
 	mViewMat = rotate(mViewMat, (GLdouble)glm::radians(cs), (glm::dvec3)mRight);
-	setAxes();
+
+	glm::dvec3 rotated_up = glm::cross(dvec3{mRight}, rotated_look_from_eye);
+
+	mUp = glm::normalize(rotated_up);
+	mLook = mEye + rotated_look_from_eye;
+	setVM();
 }
 
 void

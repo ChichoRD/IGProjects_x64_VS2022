@@ -111,8 +111,6 @@ public:
 		mUp = up_vector;
 		setVM();
 	}
-
-	glm::dvec3 orbit_xz(const GLfloat disaplacement_radians, const GLfloat displacement_altitude);
 };
 
 void camera_set_cenital_orthographic(Camera &camera, const glm::dvec3 eye_position);
