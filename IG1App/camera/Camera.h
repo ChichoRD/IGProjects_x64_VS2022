@@ -88,6 +88,8 @@ public:
 		setVM();
 	}
 
+
+	
 	inline void set_orthographic() {
 		bOrto = true;
 		setPM();
@@ -97,6 +99,9 @@ public:
 		setPM();
 	}
 	inline bool is_orthographic() const { return bOrto; }
+
+	inline void set2D() { set_orthographic(); }
+	inline void set3D() { set_perspective(); }
 };
 
 #endif //_H_Camera_H_
