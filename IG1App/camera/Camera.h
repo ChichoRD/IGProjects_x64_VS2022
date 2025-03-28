@@ -15,6 +15,7 @@ public:
 
 	// viewPort
 	Viewport const& viewPort() const { return *mViewPort; };
+	Viewport &view_port() { return *mViewPort; };
 
 	// view matrix
 	glm::dmat4 const& viewMat() const { return mViewMat; };

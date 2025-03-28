@@ -157,7 +157,7 @@ IG1App::destroy()
 	glfwTerminate();
 }
 
-static void ig1_app_render_two_viewport(const Scene &scene, const Camera &camera) {
+static void ig1_app_render_two_viewport(const Scene &scene, const Camera camera) {
 	Camera left_camera{camera};
 	Camera right_camera{camera};
 
@@ -166,10 +166,12 @@ static void ig1_app_render_two_viewport(const Scene &scene, const Camera &camera
 
 	camera_set_cenital(right_camera, glm::dvec3(0.0, 10.0, 0.0));
 
-	glViewport(0, 0, camera.viewPort().width() / 2, camera.viewPort().height());
+	left_camera.view_port().setPos(0, 0); // left viewport
+	left_camera.view_port().setSize(camera.viewPort().width() / 2, camera.viewPort().height());
 	scene.render(left_camera); // uploads the viewport and camera to the GPU
 
-	glViewport(camera.viewPort().width() / 2, 0, camera.viewPort().width() / 2, camera.viewPort().height());
+	right_camera.view_port().setPos(camera.viewPort().width() / 2, 0); // right viewport
+	right_camera.view_port().setSize(camera.viewPort().width() / 2, camera.viewPort().height());
 	scene.render(right_camera); // uploads the viewport and camera to the GPU
 
 	glViewport(0, 0, camera.viewPort().width(), camera.viewPort().height());
@@ -246,12 +248,14 @@ IG1App::key(unsigned int key)
 			break;
 		case 'k':
 			two_viewport_mode = !two_viewport_mode;
+			break;;
 		case 'p': {
 			if (mCamera->is_orthographic()) {
 				mCamera->set_perspective();
 			} else {
 				mCamera->set_orthographic();
 			}
+			break;
 		}
 		default:
 			if (key >= '0' && key <= '9' && !changeScene(key - '0'))
