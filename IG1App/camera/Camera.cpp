@@ -184,7 +184,12 @@ Camera::upload() const
 
 void camera_set_cenital(Camera &camera, const glm::dvec3 eye_position) {
 	camera.set_position(eye_position);
-	camera.look_at(glm::dvec3(eye_position.x, 0.0, eye_position.z), glm::dvec3(0.0, 1.0, 0.0));
+
+	glm::dvec3 new_look = glm::dvec3{eye_position.x, 0.0, eye_position.z};
+	glm::dvec3 new_look_from_eye{new_look - eye_position};
+
+	glm::dvec3 new_up = glm::cross(glm::dvec3{camera.right()}, new_look_from_eye);
+	camera.look_at(new_look, new_up);
 }
 
 void camera_set_cenital_orthographic(Camera &camera, const glm::dvec3 eye_position) {

@@ -72,6 +72,16 @@ protected:
 	void setPM();
 
 public:
+	inline glm::vec3 right() {
+		return mRight;
+	}
+	inline glm::vec3 up() {
+		return mUpward;
+	}
+	inline glm::vec3 front() {
+		return mFront;
+	}
+
 	inline void move_lr(GLfloat displacement) {
 		mEye += mRight * displacement;
 		mLook += mRight * displacement;

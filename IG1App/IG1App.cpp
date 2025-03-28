@@ -161,7 +161,7 @@ static void ig1_app_render_two_viewport(const Scene &scene, const Camera camera)
 	left_camera.setSize(camera.viewport().width() / 2, camera.viewport().height());
 	right_camera.setSize(camera.viewport().width() / 2, camera.viewport().height());
 
-	camera_set_cenital(right_camera, glm::dvec3(0.0, 10.0, 0.0));
+	camera_set_cenital(right_camera, glm::dvec3(0.0, 400.0, 0.0));
 
 	left_camera.viewport().setPos(0, 0); // left viewport
 	left_camera.viewport().setSize(camera.viewport().width() / 2, camera.viewport().height());
