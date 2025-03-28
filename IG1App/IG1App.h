@@ -68,6 +68,8 @@ protected:
 	double mNextUpdateTime = 0.0; // next update time
 	double mUpdateTime = 0.0;     // update period
 
+	const float ROTATION_SPEED = glm::pi<float>() / 32;
+
 public:
 	inline int window_width() const { return mWinW; };
 	inline int window_height() const { return mWinH; };

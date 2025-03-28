@@ -56,7 +56,7 @@ void
 Camera::pitchReal(GLfloat cs) {
 	glm::dvec3 look_from_eye = mLook - mEye;
 	glm::dvec3 rotated_look_from_eye =
-		glm::rotate(glm::identity<dmat4>(), (GLdouble)glm::radians(cs), (glm::dvec3)mRight)
+		glm::rotate(glm::identity<dmat4>(), (GLdouble)cs, (glm::dvec3)mRight)
 		* dvec4{look_from_eye, 0.0};
 	// mViewMat = rotate(mViewMat, (GLdouble)glm::radians(cs), (glm::dvec3)mRight);
 
@@ -70,7 +70,7 @@ Camera::pitchReal(GLfloat cs) {
 void
 Camera::yaw(GLdouble a)
 {
-	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(0, 1.0, 0));
+	mViewMat = rotate(mViewMat, a, glm::dvec3(0, 1.0, 0));
 	setAxes();
 	// glm::rotate returns mViewMat * rotationMatrix
 }
@@ -80,7 +80,7 @@ Camera::yawReal(GLfloat cs)
 {
 	glm::dvec3 look_from_eye = mLook - mEye;
 	glm::dvec3 rotated_look_from_eye =
-		glm::rotate(glm::identity<dmat4>(), (GLdouble)glm::radians(cs), (glm::dvec3)mUpward)
+		glm::rotate(glm::identity<dmat4>(), (GLdouble)cs, (glm::dvec3)mUpward)
 		* dvec4{look_from_eye, 0.0};
 	// mViewMat = rotate(mViewMat, (GLdouble)glm::radians(cs), (glm::dvec3)mUpward);
 
@@ -91,7 +91,7 @@ Camera::yawReal(GLfloat cs)
 void
 Camera::roll(GLdouble a)
 {
-	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(0, 0, 1.0));
+	mViewMat = rotate(mViewMat, a, glm::dvec3(0, 0, 1.0));
 	setAxes();
 	// glm::rotate returns mViewMat * rotationMatrix
 }
@@ -100,6 +100,8 @@ void
 Camera::rollReal(GLfloat cs)
 {
 	//rolls real
+	mUpward = glm::rotate(glm::identity<dmat4>(), (GLdouble)cs, (glm::dvec3)mFront) * dvec4{mUpward, 0.0};
+	mUp = mUpward;
 	setVM();
 }
 
