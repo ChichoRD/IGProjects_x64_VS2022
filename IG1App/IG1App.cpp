@@ -86,8 +86,7 @@ IG1App::init()
 
 	// create the scene after creating the context
 	// allocate memory and resources
-	mViewPort = new Viewport(mWinW, mWinH);
-	mCamera = new Camera(mViewPort);
+	mCamera = new Camera(Viewport(mWinW, mWinH));
 	mScenes.push_back(new showcase_scene1);
 	mScenes.push_back(new showcase_scene2);
 	mScenes.push_back(new showcase_scene3);
@@ -151,8 +150,6 @@ IG1App::destroy()
 
 	delete mCamera;
 	mCamera = nullptr;
-	delete mViewPort;
-	mViewPort = nullptr;
 
 	glfwTerminate();
 }
@@ -161,20 +158,20 @@ static void ig1_app_render_two_viewport(const Scene &scene, const Camera camera)
 	Camera left_camera{camera};
 	Camera right_camera{camera};
 
-	left_camera.setSize(camera.viewPort().width() / 2, camera.viewPort().height());
-	right_camera.setSize(camera.viewPort().width() / 2, camera.viewPort().height());
+	left_camera.setSize(camera.viewport().width() / 2, camera.viewport().height());
+	right_camera.setSize(camera.viewport().width() / 2, camera.viewport().height());
 
 	camera_set_cenital(right_camera, glm::dvec3(0.0, 10.0, 0.0));
 
-	left_camera.view_port().setPos(0, 0); // left viewport
-	left_camera.view_port().setSize(camera.viewPort().width() / 2, camera.viewPort().height());
+	left_camera.viewport().setPos(0, 0); // left viewport
+	left_camera.viewport().setSize(camera.viewport().width() / 2, camera.viewport().height());
 	scene.render(left_camera); // uploads the viewport and camera to the GPU
 
-	right_camera.view_port().setPos(camera.viewPort().width() / 2, 0); // right viewport
-	right_camera.view_port().setSize(camera.viewPort().width() / 2, camera.viewPort().height());
+	right_camera.viewport().setPos(camera.viewport().width() / 2, 0); // right viewport
+	right_camera.viewport().setSize(camera.viewport().width() / 2, camera.viewport().height());
 	scene.render(right_camera); // uploads the viewport and camera to the GPU
 
-	glViewport(0, 0, camera.viewPort().width(), camera.viewPort().height());
+	glViewport(0, 0, camera.viewport().width(), camera.viewport().height());
 }
 
 void
@@ -206,10 +203,11 @@ IG1App::resize(int newWidth, int newHeight)
 	mWinH = newHeight;
 
 	// Resize Viewport to the new window size
-	mViewPort->setSize(newWidth, newHeight);
+	auto &&viewport = mCamera->viewport();
+	viewport.setSize(newWidth, newHeight);
 
 	// Resize Scene Visible Area such that the scale is not modified
-	mCamera->setSize(mViewPort->width(), mViewPort->height());
+	mCamera->setSize(viewport.width(), viewport.height());
 }
 
 void

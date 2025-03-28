@@ -7,12 +7,12 @@
 
 using namespace glm;
 
-Camera::Camera(Viewport* vp)
+Camera::Camera(const Viewport vp)
   : mViewMat(1.0)
   , mProjMat(1.0)
-  , xRight(vp->width() / 2.0)
+  , xRight(vp.width() / 2.0)
   , xLeft(-xRight)
-  , yTop(vp->height() / 2.0)
+  , yTop(vp.height() / 2.0)
   , yBot(-yTop)
   , mViewPort(vp)
   ,	mEye{0.0, 0.0, 0.0}
@@ -176,7 +176,7 @@ void Camera::upload_view_projection() const {
 void
 Camera::upload() const
 {
-	mViewPort->upload();
+	mViewPort.upload();
 	uploadVM();
 	// uploadPM();
 	upload_view_projection();

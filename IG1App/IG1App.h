@@ -18,10 +18,10 @@ public:
 	IG1App(IG1App const& J) = delete;         // no copy constructor
 	void operator=(IG1App const& J) = delete; // no copy assignment
 
-	// Viewport position and size
-	Viewport const& viewPort() { return *mViewPort; };
 	// Camera position, view volume and projection
 	Camera const& camera() { return *mCamera; };
+	// Viewport position and size
+	Viewport const& viewPort() { return camera().viewport(); };
 	// Graphics objects of the scene
 	Scene const& scene() { return *mScenes[mCurrentScene]; };
 
@@ -51,8 +51,6 @@ protected:
 	static void s_key(GLFWwindow* win, unsigned int codepoint) { s_ig1app.key(codepoint); };
 	static void s_specialkey(GLFWwindow* win, int key, int scancode, int action, int mods) { s_ig1app.specialkey(key, scancode, action, mods); };
 
-	// Viewport position and size
-	Viewport* mViewPort = nullptr;
 	// Camera position, view volume and projection
 	Camera* mCamera = nullptr;
 	// Graphics objects are in the scenes

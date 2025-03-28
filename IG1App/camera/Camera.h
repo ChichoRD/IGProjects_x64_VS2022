@@ -10,12 +10,13 @@
 class Camera
 {
 public:
-	explicit Camera(Viewport* vp);
+	explicit Camera(const Viewport vp);
 	~Camera() = default;
 
+
 	// viewPort
-	Viewport const& viewPort() const { return *mViewPort; };
-	Viewport &view_port() { return *mViewPort; };
+	Viewport const& viewport() const { return mViewPort; };
+	Viewport &viewport() { return mViewPort; };
 
 	// view matrix
 	glm::dmat4 const& viewMat() const { return mViewMat; };
@@ -64,9 +65,8 @@ protected:
 	GLdouble mNearVal = 1, mFarVal = 10000; // view volume
 	GLdouble mScaleFact = 1;                // scale factor
 	
-	Viewport* mViewPort; // the viewport
+	Viewport mViewPort; // the viewport
 	bool bOrto = true;                      // orthogonal or perspective projection
-	bool m2Vistas = false;
 
 	void setVM();
 	void setPM();
