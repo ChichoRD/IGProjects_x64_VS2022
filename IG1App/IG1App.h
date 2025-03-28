@@ -60,6 +60,7 @@ protected:
 	size_t mCurrentScene = 0;
 
 	bool mNeedsRedisplay = true;  // main event processing loop
+	bool two_viewport_mode = false;
 	GLFWwindow* mWindow = nullptr; // window's handle
 	int mWinW = 800;               // window's width
 	int mWinH = 600;               // window's height

@@ -157,6 +157,24 @@ IG1App::destroy()
 	glfwTerminate();
 }
 
+static void ig1_app_render_two_viewport(const Scene &scene, const Camera &camera) {
+	Camera left_camera{camera};
+	Camera right_camera{camera};
+
+	left_camera.setSize(camera.viewPort().width() / 2, camera.viewPort().height());
+	right_camera.setSize(camera.viewPort().width() / 2, camera.viewPort().height());
+
+	camera_set_cenital(right_camera, glm::dvec3(0.0, 10.0, 0.0));
+
+	glViewport(0, 0, camera.viewPort().width() / 2, camera.viewPort().height());
+	scene.render(left_camera); // uploads the viewport and camera to the GPU
+
+	glViewport(camera.viewPort().width() / 2, 0, camera.viewPort().width() / 2, camera.viewPort().height());
+	scene.render(right_camera); // uploads the viewport and camera to the GPU
+
+	glViewport(0, 0, camera.viewPort().width(), camera.viewPort().height());
+}
+
 void
 IG1App::display() const
 { // double buffering
@@ -165,7 +183,11 @@ IG1App::display() const
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clears the back buffer
 	glDepthMask(GL_FALSE);
 
-	mScenes[mCurrentScene]->render(*mCamera); // uploads the viewport and camera to the GPU
+	if (two_viewport_mode) {
+		ig1_app_render_two_viewport(*mScenes[mCurrentScene], *mCamera);
+	} else {
+		mScenes[mCurrentScene]->render(*mCamera); // uploads the viewport and camera to the GPU
+	}
 
 	glfwSwapBuffers(mWindow); // swaps the front and back buffer
 }
@@ -222,6 +244,8 @@ IG1App::key(unsigned int key)
 		case 'e':
 			mCamera->move_ud(camera_frame_displacement);
 			break;
+		case 'k':
+			two_viewport_mode = !two_viewport_mode;
 		case 'p': {
 			if (mCamera->is_orthographic()) {
 				mCamera->set_perspective();

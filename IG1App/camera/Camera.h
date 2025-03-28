@@ -114,6 +114,7 @@ public:
 	}
 };
 
+void camera_set_cenital(Camera &camera, const glm::dvec3 eye_position);
 void camera_set_cenital_orthographic(Camera &camera, const glm::dvec3 eye_position);
 void camera_set_cenital_perspective(Camera &camera, const glm::dvec3 eye_position);
 
