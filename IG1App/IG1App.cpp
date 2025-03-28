@@ -132,6 +132,10 @@ IG1App::iniWinOpenGL()
 	glfwSetKeyCallback(mWindow, s_specialkey);
 	glfwSetWindowRefreshCallback(mWindow, s_display);
 
+	glfwSetWindowUserPointer(mWindow, this);
+	glfwSetCursorPosCallback(mWindow, ig1_app_on_cursor_position);
+	glfwSetMouseButtonCallback(mWindow, ig1_app_on_mouse_button);
+
 	// Error message callback (all messages)
 	glEnable(GL_DEBUG_OUTPUT);
 	glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0u, 0, GL_TRUE);
@@ -139,6 +143,23 @@ IG1App::iniWinOpenGL()
 
 	cout << glGetString(GL_VERSION) << '\n';
 	cout << glGetString(GL_VENDOR) << '\n';
+}
+
+void ig1_app_on_cursor_position(GLFWwindow* window, double xpos, double ypos) {
+	IG1App &app = *static_cast<IG1App*>(glfwGetWindowUserPointer(window));
+
+	app.previous_mouse_position = app.mouse_position;
+	app.mouse_position = glm::dvec2(xpos, ypos);
+}
+
+void ig1_app_on_mouse_button(GLFWwindow* window, int button, int action, int mods) {
+	IG1App &app = *static_cast<IG1App*>(glfwGetWindowUserPointer(window));
+
+	if (action == GLFW_PRESS) {
+		app.mouse_button = button;
+	} else if (action == GLFW_RELEASE) {
+		app.mouse_button = -1;
+	}
 }
 
 void
@@ -192,6 +213,16 @@ IG1App::display() const
 }
 
 void IG1App::update(double time_seconds, double delta_time_seconds) {
+
+	glm::dvec2 mouse_displacement = mouse_position - previous_mouse_position;
+	if (mouse_button == GLFW_MOUSE_BUTTON_LEFT) {
+		// TODO: mouse wheel and customize
+		mCamera->orbit_xz(mouse_displacement.x * 0.01, mouse_displacement.y * 0.01);
+	} else if (mouse_button == GLFW_MOUSE_BUTTON_RIGHT) {
+		mCamera->move_lr(mouse_displacement.x * 0.1);
+		mCamera->move_ud(-mouse_displacement.y * 0.1);
+	}
+
 	mScenes[mCurrentScene]->update(time_seconds, delta_time_seconds);
 	mNeedsRedisplay = true;
 }

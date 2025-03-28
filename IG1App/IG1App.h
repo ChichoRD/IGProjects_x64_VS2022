@@ -9,6 +9,9 @@
 #include "Scene.h"
 #include "Viewport.h"
 
+void ig1_app_on_cursor_position(GLFWwindow* window, double xpos, double ypos);
+void ig1_app_on_mouse_button(GLFWwindow* window, int button, int action, int mods);
+
 class IG1App
 {
 public:
@@ -67,11 +70,20 @@ protected:
 	double mNextUpdateTime = 0.0; // next update time
 	double mUpdateTime = 0.0;     // update period
 
+	glm::dvec2 mouse_position;
+	glm::dvec2 previous_mouse_position;
+	int mouse_button = -1;
+
 	const float ROTATION_SPEED = glm::pi<float>() / 32;
 
 public:
 	inline int window_width() const { return mWinW; };
 	inline int window_height() const { return mWinH; };
+
+	friend void ig1_app_on_cursor_position(GLFWwindow* window, double xpos, double ypos);
+	friend void ig1_app_on_mouse_button(GLFWwindow* window, int button, int action, int mods);
 };
+
+
 
 #endif //_H_IG1App_H_
