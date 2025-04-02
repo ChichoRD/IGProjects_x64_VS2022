@@ -135,6 +135,7 @@ IG1App::iniWinOpenGL()
 	glfwSetWindowUserPointer(mWindow, this);
 	glfwSetCursorPosCallback(mWindow, ig1_app_on_cursor_position);
 	glfwSetMouseButtonCallback(mWindow, ig1_app_on_mouse_button);
+	glfwSetScrollCallback(mWindow, ig1_app_on_mouse_scroll);
 
 	// Error message callback (all messages)
 	glEnable(GL_DEBUG_OUTPUT);
@@ -160,6 +161,13 @@ void ig1_app_on_mouse_button(GLFWwindow* window, int button, int action, int mod
 	} else if (action == GLFW_RELEASE) {
 		app.mouse_button = -1;
 	}
+}
+
+void ig1_app_on_mouse_scroll(GLFWwindow* window, double xoffset, double yoffset) {
+	IG1App &app = *static_cast<IG1App*>(glfwGetWindowUserPointer(window));
+
+	//app.previous_scroll = app.scroll;
+	app.scroll = glm::dvec2{xoffset, yoffset};
 }
 
 void
@@ -217,10 +225,24 @@ void IG1App::update(double time_seconds, double delta_time_seconds) {
 	glm::dvec2 mouse_displacement = mouse_position - previous_mouse_position;
 	if (mouse_button == GLFW_MOUSE_BUTTON_LEFT) {
 		// TODO: mouse wheel and customize
-		mCamera->orbit_xz(mouse_displacement.x * 0.01, mouse_displacement.y * 0.01);
+		mCamera->orbit_xz(
+			mouse_displacement.x * 0.01f,
+			mouse_displacement.y * 0.1f,
+			float(1 << 9)
+		);
 	} else if (mouse_button == GLFW_MOUSE_BUTTON_RIGHT) {
-		mCamera->move_lr(mouse_displacement.x * 0.1);
-		mCamera->move_ud(-mouse_displacement.y * 0.1);
+		mCamera->move_lr(mouse_displacement.x);
+		mCamera->move_ud(-mouse_displacement.y);
+	}
+
+	glm::dvec2 scroll_delta = scroll;
+	scroll = {0.0, 0.0};
+	constexpr static const glm::dvec2 forward{0.0, 1.0};
+	const double scroll_delta_proj_sqr = scroll_delta.x * forward.x + scroll_delta.y * forward.y;
+	if(glfwGetKey(mWindow, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS){
+		mCamera->setScale(scroll_delta_proj_sqr * 0.01);
+	} else {
+		mCamera->move_fb(float(scroll_delta_proj_sqr * float(1 << 6)));
 	}
 
 	mScenes[mCurrentScene]->update(time_seconds, delta_time_seconds);

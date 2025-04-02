@@ -82,6 +82,10 @@ public:
 		return mFront;
 	}
 
+	inline GLdouble scale() {
+		return mScaleFact;
+	}
+
 	inline void move_lr(GLfloat displacement) {
 		mEye += mRight * displacement;
 		mLook += mRight * displacement;
@@ -100,7 +104,11 @@ public:
 		setVM();
 	}
 
-	glm::dvec3 orbit_xz(const GLfloat disaplacement_radians, const GLfloat displacement_altitude);
+	glm::dvec3 orbit_xz(
+		const GLfloat disaplacement_radians,
+		const GLfloat displacement_altitude,
+		const GLfloat focal_length
+	);
 	
 	inline void set_orthographic() {
 		bOrto = true;

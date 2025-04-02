@@ -11,6 +11,7 @@
 
 void ig1_app_on_cursor_position(GLFWwindow* window, double xpos, double ypos);
 void ig1_app_on_mouse_button(GLFWwindow* window, int button, int action, int mods);
+void ig1_app_on_mouse_scroll(GLFWwindow* window, double xoffset, double yoffset);
 
 class IG1App
 {
@@ -73,6 +74,8 @@ protected:
 	glm::dvec2 mouse_position;
 	glm::dvec2 previous_mouse_position;
 	int mouse_button = -1;
+	//glm::dvec2 previous_scroll;
+	glm::dvec2 scroll;
 
 	const float ROTATION_SPEED = glm::pi<float>() / 32;
 
@@ -82,6 +85,7 @@ public:
 
 	friend void ig1_app_on_cursor_position(GLFWwindow* window, double xpos, double ypos);
 	friend void ig1_app_on_mouse_button(GLFWwindow* window, int button, int action, int mods);
+	friend void ig1_app_on_mouse_scroll(GLFWwindow* window, double xoffset, double yoffset);
 };
 
 
