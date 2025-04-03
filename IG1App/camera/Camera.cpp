@@ -149,26 +149,16 @@ glm::dvec3 Camera::orbit_xz(
 	const GLfloat displacement_altitude,
 	const GLfloat focal_length
 ) {
-    const GLfloat rotation_xz_cos_sin[2]{
-		glm::cos(disaplacement_radians), glm::sin(disaplacement_radians)
-	};
- 
-	const glm::dvec3 look_from_eye_normalized = glm::normalize(mLook - mEye);
-	const glm::dvec3 focus_displacement = look_from_eye_normalized * double(focal_length);
-	const glm::dvec3 focus = mEye + focus_displacement;
-
-	const glm::dvec3 eye_from_look = focus - mLook; //skibdi rizz
-	const glm::dvec3 eye_from_look_xy_rotated{
-		eye_from_look.x * rotation_xz_cos_sin[0] - eye_from_look.z * rotation_xz_cos_sin[1],
-		eye_from_look.y + displacement_altitude,
-		eye_from_look.x * rotation_xz_cos_sin[1] + eye_from_look.z * rotation_xz_cos_sin[0]
-	};
-
-	const glm::vec3 eye_rotated = mLook + eye_from_look_xy_rotated / double(focal_length);
-	mEye = eye_rotated;
-
+	// (void)focal_length;
+	mEye = glm::rotate(
+		glm::identity<dmat4>(),
+		double{disaplacement_radians},
+		glm::dvec3{mUpward}
+	) * glm::dvec4{mEye, 0.0};
+	
+	mEye.y += displacement_altitude * 10.0;
 	setVM();
-	return eye_rotated;
+	return mEye;
 }
 
 void
