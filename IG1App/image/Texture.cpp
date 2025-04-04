@@ -14,7 +14,7 @@ Texture::init()
 {
 	glGenTextures(1, &mId);
 	glBindTexture(GL_TEXTURE_2D, mId);
-
+	
 	// Filters and clamping
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // GL_NEAREST
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // GL_NEAREST
@@ -32,20 +32,20 @@ void
 Texture::load(const std::string& name, GLubyte alpha)
 {
 	if (mId == 0)
-		init();
-
+	init();
+	
 	Image image;
 	image.load(name);
-
+	
 	if (alpha != 255)
-		image.setAlpha(alpha);
-
+	image.setAlpha(alpha);
+	
 	mWidth = image.width();
 	mHeight = image.height();
-
+	
 	GLint level = 0;  // Base image level
 	GLint border = 0; // No border
-
+	
 	glBindTexture(GL_TEXTURE_2D, mId);
 	glTexImage2D(GL_TEXTURE_2D,
 	             level,
@@ -56,6 +56,7 @@ Texture::load(const std::string& name, GLubyte alpha)
 	             GL_RGBA,
 	             GL_UNSIGNED_BYTE,
 	             image.data());
+    //glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, int(mWidth), int(mHeight)); // GL_RGBA8, GL_RGB8, GL_RGB16F, GL_RGBA16F
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

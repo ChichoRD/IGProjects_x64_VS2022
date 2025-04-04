@@ -16,13 +16,23 @@ IG1App IG1App::s_ig1app; // default constructor (constructor with no parameters)
 void GLAPIENTRY debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
                    GLsizei length, const GLchar* message, const void* userParam)
 {
-	const char* prefix = (type == GL_DEBUG_TYPE_ERROR)
-		? "\x1b[31m[ERROR]\x1b[0m "
-		: "\x1b[33m[WARNING]\x1b[0m ";
-	cout << prefix << message << endl;
+	switch (id) {
+	case 131204: // GL_DEBUG_SOURCE_API_ARB - Texture level 0 ndef
+	case 131185: // NVidia Driver Notification - Video memory usage
+		break;
+	default: {
+		const char* prefix = (type == GL_DEBUG_TYPE_ERROR)
+			? "\x1b[31m[ERROR]\x1b[0m "
+			: "\x1b[33m[WARNING]\x1b[0m ";
+		cout << prefix << message << endl;
 
-	assert(false && "error: opengl reached an ill state");
+		//　オイオイオイ
+		assert(false && "error: opengl reached an ill state");
+		break;
+	}
+	}
 }
+
 
 void
 IG1App::close()
