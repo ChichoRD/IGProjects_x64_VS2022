@@ -14,7 +14,7 @@ using namespace std;
 map<string, unique_ptr<Shader>> shaders;
 
 // Moved one directory up
-constexpr const char* SHADERS_ROOT = "./assets/shaders/";
+constexpr const char* SHADERS_ROOT = "../assets/shaders/";
 
 Shader::Shader(const string& name)
 {

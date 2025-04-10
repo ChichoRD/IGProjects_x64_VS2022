@@ -3,7 +3,7 @@
 #include <algorithm>
 
 glass_parapet::glass_parapet(const GLfloat side_length)
-    : entity_with_texture("./assets/images/windowV.jpg", true) {
+    : entity_with_texture("../assets/images/windowV.jpg", true) {
     mMesh = new mesh_uv{mesh_uv::generate_box_hull(side_length, {0.0f, 0.0f}, {1.0f, 1.0f}, std::array{
         glm::vec4{1.0f, 1.0f, 1.0f, 0.5f},
         glm::vec4{1.0f, 1.0f, 1.0f, 0.5f},

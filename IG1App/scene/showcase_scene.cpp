@@ -63,7 +63,7 @@ void showcase_scene3::init()
 	constexpr static const GLdouble half_side_length = cube_side_length * 0.5;
 	cube->setModelMat(glm::translate(cube->modelMat(), glm::vec3{ half_side_length, half_side_length, -half_side_length }));
 
-	ground* rizz = new ground(200,200,"./assets/images/skibidi-v2.png");
+	ground* rizz = new ground(200,200,"../assets/images/skibidi-v2.png");
 	gObjects.push_back(rizz);
 
 	gObjects.push_back(cube);
@@ -92,11 +92,11 @@ void showcase_scene4::init() {
 	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
 	constexpr static const GLdouble displacement_scale = side_length;
 
-	ground* rizz = new ground{axis_unit_size * 4.0f, axis_unit_size * 4.0f, "./assets/images/baldosaC.png"};
+	ground* rizz = new ground{axis_unit_size * 4.0f, axis_unit_size * 4.0f, "../assets/images/baldosaC.png"};
 	rizz->setModelMat(glm::rotate(rizz->modelMat(), glm::half_pi<float>(), glm::vec3{ 1.0f, 0.0f, 0.0f }));
 	gObjects.push_back(rizz);
 	
-	box_outline *sigma = new box_outline{ "./assets/images/container.jpg", "./assets/images/papelE.png", side_length };
+	box_outline *sigma = new box_outline{ "../assets/images/container.jpg", "../assets/images/papelE.png", side_length };
 	sigma->setModelMat(glm::translate(sigma->modelMat(), glm::vec3{
 		axis_unit_size * 1.0f,
 		axis_unit_size * 0.25f,
@@ -104,7 +104,7 @@ void showcase_scene4::init() {
 	}));
 	gObjects.push_back(sigma);
 
-	star3 *chad = new star3{ "./assets/images/baldosaP.png", side_length, side_length, float(side_length) * 0.75f, 8 };
+	star3 *chad = new star3{ "../assets/images/baldosaP.png", side_length, side_length, float(side_length) * 0.75f, 8 };
 	chad->setModelMat(glm::scale(sigma->modelMat(), glm::vec3{ 0.5f, 0.5f, 0.5f }));
 	chad->setModelMat(glm::translate(chad->modelMat(), glm::vec3{
 		0.0f,
