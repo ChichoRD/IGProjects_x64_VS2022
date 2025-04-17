@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="camera\Camera.cpp" />
+    <ClCompile Include="camera\Light.cpp" />
+    <ClCompile Include="camera\Viewport.cpp" />
+    <ClCompile Include="entity\box_outline.cpp" />
+    <ClCompile Include="entity\Cube.cpp" />
+    <ClCompile Include="entity\Entity.cpp" />
+    <ClCompile Include="entity\entity_with_texture.cpp" />
+    <ClCompile Include="entity\glass_parapet.cpp" />
+    <ClCompile Include="entity\ground.cpp" />
+    <ClCompile Include="entity\photograph.cpp" />
+    <ClCompile Include="entity\regular_polygon.cpp" />
+    <ClCompile Include="entity\rgb_cube.cpp" />
+    <ClCompile Include="entity\rgb_rectangle.cpp" />
+    <ClCompile Include="entity\rgb_triangle.cpp" />
+    <ClCompile Include="entity\single_color_entity.cpp" />
+    <ClCompile Include="entity\skibidi.cpp" />
+    <ClCompile Include="entity\star3.cpp" />
+    <ClCompile Include="IG1App.cpp" />
+    <ClCompile Include="image\Image.cpp" />
+    <ClCompile Include="image\Material.cpp" />
+    <ClCompile Include="image\Texture.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mesh\Mesh.cpp" />
+    <ClCompile Include="mesh\Shader.cpp" />
+    <ClCompile Include="scene\Scene.cpp" />
+    <ClCompile Include="scene\showcase_scene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="camera\Camera.h" />
+    <ClInclude Include="camera\Light.h" />
+    <ClInclude Include="camera\Viewport.h" />
+    <ClInclude Include="entity\box_outline.hpp" />
+    <ClInclude Include="entity\Cube.h" />
+    <ClInclude Include="entity\Entity.h" />
+    <ClInclude Include="entity\entity_with_texture.hpp" />
+    <ClInclude Include="entity\glass_parapet.hpp" />
+    <ClInclude Include="entity\ground.h" />
+    <ClInclude Include="entity\photograph.hpp" />
+    <ClInclude Include="entity\regular_polygon.h" />
+    <ClInclude Include="entity\rgb_cube.h" />
+    <ClInclude Include="entity\rgb_rectangle.h" />
+    <ClInclude Include="entity\rgb_triangle.h" />
+    <ClInclude Include="entity\single_color_entity.h" />
+    <ClInclude Include="entity\skibidi.hpp" />
+    <ClInclude Include="entity\star3.hpp" />
+    <ClInclude Include="IG1App.h" />
+    <ClInclude Include="image\Image.h" />
+    <ClInclude Include="image\Material.h" />
+    <ClInclude Include="image\Texture.h" />
+    <ClInclude Include="mesh\Mesh.h" />
+    <ClInclude Include="mesh\Shader.h" />
+    <ClInclude Include="scene\Scene.h" />
+    <ClInclude Include="scene\showcase_scene.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{C72F3A79-DA8E-4EC6-A14F-6C59650E8A7E}</ProjectGuid>
+    <RootNamespace>IG1App</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>IG1App</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\IGProjects.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\IGProjects.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)\IG1App\scene;$(SolutionDir)\IG1App\mesh;$(SolutionDir)\IG1App\image;$(SolutionDir)\IG1App\entity;$(SolutionDir)\IG1App\camera;$(SolutionDir)\IG1App;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

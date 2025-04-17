@@ -1,6 +1,6 @@
 .vs/
 .vscode/
-*.vcxproj
+# *.vcxproj
 
 x64/
 x86/
