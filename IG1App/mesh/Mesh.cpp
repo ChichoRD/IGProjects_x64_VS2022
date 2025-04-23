@@ -14,6 +14,7 @@ Mesh::Mesh()
  : mVAO(NONE)
  , mVBO(NONE)
  , mCBO(NONE)
+	, mNBO(NONE)
 {
 }
 

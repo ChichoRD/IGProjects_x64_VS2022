@@ -14,7 +14,7 @@
     <ClCompile Include="camera\Camera.cpp" />
     <ClCompile Include="camera\Light.cpp" />
     <ClCompile Include="camera\Viewport.cpp" />
-    <ClCompile Include="color_material_entity.cpp" />
+    <ClCompile Include="entity\color_material_entity.cpp" />
     <ClCompile Include="entity\box_outline.cpp" />
     <ClCompile Include="entity\Cube.cpp" />
     <ClCompile Include="entity\Entity.cpp" />
@@ -34,6 +34,7 @@
     <ClCompile Include="image\Image.cpp" />
     <ClCompile Include="image\Material.cpp" />
     <ClCompile Include="image\Texture.cpp" />
+    <ClCompile Include="entity\indexed_box.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mesh\IndexMesh.cpp" />
     <ClCompile Include="mesh\Mesh.cpp" />
@@ -45,7 +46,7 @@
     <ClInclude Include="camera\Camera.h" />
     <ClInclude Include="camera\Light.h" />
     <ClInclude Include="camera\Viewport.h" />
-    <ClInclude Include="color_material_entity.h" />
+    <ClInclude Include="entity\color_material_entity.h" />
     <ClInclude Include="entity\box_outline.hpp" />
     <ClInclude Include="entity\Cube.h" />
     <ClInclude Include="entity\Entity.h" />
@@ -65,6 +66,7 @@
     <ClInclude Include="image\Image.h" />
     <ClInclude Include="image\Material.h" />
     <ClInclude Include="image\Texture.h" />
+    <ClInclude Include="entity\indexed_box.h" />
     <ClInclude Include="mesh\IndexMesh.h" />
     <ClInclude Include="mesh\Mesh.h" />
     <ClInclude Include="mesh\Shader.h" />

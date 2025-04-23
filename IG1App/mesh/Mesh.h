@@ -33,6 +33,9 @@ public:
 	[[maybe_unused]] inline std::vector<glm::vec3> const& vertices() const { return vVertices; };
 	[[maybe_unused]] inline std::vector<glm::vec3> &vertices() { return vVertices; };
 	[[maybe_unused]] inline std::vector<glm::vec4> const& colors() const { return vColors; };
+	[[maybe_unused]] inline std::vector<glm::vec4>& colors() { return vColors; };
+	[[maybe_unused]] inline std::vector<glm::vec3> const& normals() const { return vNormals; };
+	[[maybe_unused]] inline std::vector<glm::vec3>& normals() { return vNormals; };
 
 	virtual void load();
 	virtual void unload();

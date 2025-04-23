@@ -61,6 +61,53 @@ IndexMesh* IndexMesh::generateByRevolution(
 	return mesh;
 }
 
+IndexMesh* IndexMesh::generate_indexed_box(const GLdouble side_length) {
+	const GLdouble half_side = side_length / 2.0;
+	std::vector positions{
+		glm::vec3(-half_side, -half_side, -half_side),
+		glm::vec3(half_side, -half_side, -half_side),
+		glm::vec3(half_side, half_side, -half_side),
+		glm::vec3(-half_side, half_side, -half_side),
+		glm::vec3(-half_side, -half_side, half_side),
+		glm::vec3(half_side, -half_side, half_side),
+		glm::vec3(half_side, half_side, half_side),
+		glm::vec3(-half_side, half_side, half_side)
+	};
+	std::vector normals{
+		glm::normalize(glm::vec3{-1.0, -1.0, -1.0}),
+		glm::normalize(glm::vec3{ 1.0, -1.0, -1.0}),
+		glm::normalize(glm::vec3{ 1.0,  1.0, -1.0}),
+		glm::normalize(glm::vec3{-1.0,  1.0, -1.0}),
+		glm::normalize(glm::vec3{-1.0, -1.0,  1.0}),
+		glm::normalize(glm::vec3{ 1.0, -1.0,  1.0}),
+		glm::normalize(glm::vec3{ 1.0,  1.0,  1.0}),
+		glm::normalize(glm::vec3{-1.0,  1.0,  1.0})
+	};
+	std::vector<glm::vec4> colors{ positions.size(), glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f } };
+	assert(positions.size() == normals.size());
+	assert(positions.size() == colors.size());
+
+	std::vector<GLuint> indices{
+		0, 1, 2, 0, 2, 3,
+		4, 5, 6, 4, 6, 7,
+		0, 1, 5, 0, 5, 4,
+		2, 3, 7, 2, 7, 6,
+		0, 3, 7, 0, 7, 4,
+		1, 2, 6, 1, 6, 5
+	};
+
+	IndexMesh* mesh = new IndexMesh;
+
+	mesh->mPrimitive = GL_TRIANGLES;
+	mesh->vVertices = std::move(positions);
+	mesh->vNormals = std::move(normals);
+	mesh->vColors = std::move(colors);
+	mesh->vIndexes = std::move(indices);
+	mesh->mNumVertices = mesh->vVertices.size();
+
+	return mesh;
+}
+
 
 void IndexMesh::draw() const
 {
