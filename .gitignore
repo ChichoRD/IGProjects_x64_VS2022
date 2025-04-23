@@ -12,6 +12,3 @@ build/
 out/
 
 user/
-
-*.exe
-*.pdb

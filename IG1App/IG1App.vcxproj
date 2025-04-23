@@ -14,6 +14,7 @@
     <ClCompile Include="camera\Camera.cpp" />
     <ClCompile Include="camera\Light.cpp" />
     <ClCompile Include="camera\Viewport.cpp" />
+    <ClCompile Include="color_material_entity.cpp" />
     <ClCompile Include="entity\box_outline.cpp" />
     <ClCompile Include="entity\Cube.cpp" />
     <ClCompile Include="entity\Entity.cpp" />
@@ -28,11 +29,13 @@
     <ClCompile Include="entity\single_color_entity.cpp" />
     <ClCompile Include="entity\skibidi.cpp" />
     <ClCompile Include="entity\star3.cpp" />
+    <ClCompile Include="entity\Torus.cpp" />
     <ClCompile Include="IG1App.cpp" />
     <ClCompile Include="image\Image.cpp" />
     <ClCompile Include="image\Material.cpp" />
     <ClCompile Include="image\Texture.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mesh\IndexMesh.cpp" />
     <ClCompile Include="mesh\Mesh.cpp" />
     <ClCompile Include="mesh\Shader.cpp" />
     <ClCompile Include="scene\Scene.cpp" />
@@ -42,6 +45,7 @@
     <ClInclude Include="camera\Camera.h" />
     <ClInclude Include="camera\Light.h" />
     <ClInclude Include="camera\Viewport.h" />
+    <ClInclude Include="color_material_entity.h" />
     <ClInclude Include="entity\box_outline.hpp" />
     <ClInclude Include="entity\Cube.h" />
     <ClInclude Include="entity\Entity.h" />
@@ -56,10 +60,12 @@
     <ClInclude Include="entity\single_color_entity.h" />
     <ClInclude Include="entity\skibidi.hpp" />
     <ClInclude Include="entity\star3.hpp" />
+    <ClInclude Include="entity\Torus.h" />
     <ClInclude Include="IG1App.h" />
     <ClInclude Include="image\Image.h" />
     <ClInclude Include="image\Material.h" />
     <ClInclude Include="image\Texture.h" />
+    <ClInclude Include="mesh\IndexMesh.h" />
     <ClInclude Include="mesh\Mesh.h" />
     <ClInclude Include="mesh\Shader.h" />
     <ClInclude Include="scene\Scene.h" />

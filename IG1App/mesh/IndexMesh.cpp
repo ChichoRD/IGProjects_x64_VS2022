@@ -11,8 +11,14 @@ void IndexMesh::load() {
 	glBindVertexArray(0);
 }
 
+void IndexMesh::unload() {
+	Mesh::unload();
+	glDeleteBuffers(1, &mIBO);
+	mIBO = GL_NONE;
+}
+
 IndexMesh* IndexMesh::generateByRevolution(
-	const std::vector<glm::vec2>& profile, GLuint nSamples, GLfloat angleMax = 2 * 3.141516f) {
+	const std::vector<glm::vec2>& profile, GLuint nSamples, GLfloat angleMax) {
 	IndexMesh* mesh = new IndexMesh;
 	mesh->mPrimitive = GL_TRIANGLES;
 	int tamPerfil = profile.size();

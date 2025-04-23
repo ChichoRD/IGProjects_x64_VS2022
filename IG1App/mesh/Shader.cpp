@@ -5,6 +5,7 @@
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
 
 #include "Shader.h"
 
@@ -67,8 +68,16 @@ Shader::buildShader(GLuint& shader, GLuint type, const std::string& filename)
 		int compileStatus;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &compileStatus);
 
-		if (compileStatus == GL_FALSE)
+		if (compileStatus == GL_FALSE) {
+			GLint log_size;
+			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &log_size);
+
+			string log(log_size, ' ');
+			glGetShaderInfoLog(shader, log_size, NULL, log.data());
+
+			std::cerr << "Error compiling shader " << filename << ": " << log << std::endl;
 			throw std::logic_error("error while compiling shader " + filename);
+		}
 
 		return true;
 	}
@@ -136,6 +145,6 @@ Shader::setUniform4All(const string& name, const glm::mat4& value)
 {
 	for (const auto& [_, shader] : shaders) {
 		shader->use();
-		shader->setUniform(name, value);
+		shader->setUniform(name, value);		
 	}
 }

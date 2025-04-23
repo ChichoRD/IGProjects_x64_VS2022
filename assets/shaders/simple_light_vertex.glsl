@@ -14,7 +14,7 @@ void main()
 {
 	gl_Position = view_projection * (model * vec4(aPos, 1.0));
 
-	const mat4 model_view = view * model;
+	mat4 model_view = view * model;
 	FragPos = vec3(model_view * vec4(aPos, 1.0));
 	Normal = (model_view * vec4(aNormal, 0.0)).xyz; // we assume uniform scale
 }
