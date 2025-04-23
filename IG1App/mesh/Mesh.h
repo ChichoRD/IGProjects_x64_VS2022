@@ -45,6 +45,7 @@ protected:
 	GLuint mNumVertices = 0; // number of elements ( = vVertices.size())
 	std::vector<glm::vec3> vVertices; // vertex array
 	std::vector<glm::vec4> vColors;   // color array
+	std::vector<glm::vec3> vNormals; // normal array
 	virtual void draw() const;
 
 	GLuint mVAO;  // vertex array object
@@ -52,6 +53,7 @@ protected:
 private:
 	GLuint mVBO;  // vertex buffer object
 	GLuint mCBO;  // color buffer object
+	GLuint mNBO;  // normal buffer object
 };
 
 class mesh_uv : public Mesh {
