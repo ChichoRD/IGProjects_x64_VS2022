@@ -3,5 +3,6 @@
 
 class Torus : public single_color_entity
 {
+public:
+	Torus(GLdouble R, GLdouble r, GLuint nPoints = 40, GLuint nSamples = 40);
 };
-
