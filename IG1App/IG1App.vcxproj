@@ -14,6 +14,7 @@
     <ClCompile Include="camera\Camera.cpp" />
     <ClCompile Include="camera\Light.cpp" />
     <ClCompile Include="camera\Viewport.cpp" />
+    <ClCompile Include="color_material_entity.cpp" />
     <ClCompile Include="entity\box_outline.cpp" />
     <ClCompile Include="entity\Cube.cpp" />
     <ClCompile Include="entity\Entity.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="camera\Camera.h" />
     <ClInclude Include="camera\Light.h" />
     <ClInclude Include="camera\Viewport.h" />
+    <ClInclude Include="color_material_entity.h" />
     <ClInclude Include="entity\box_outline.hpp" />
     <ClInclude Include="entity\Cube.h" />
     <ClInclude Include="entity\Entity.h" />
