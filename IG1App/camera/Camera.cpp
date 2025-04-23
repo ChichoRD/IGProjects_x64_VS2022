@@ -27,6 +27,15 @@ void
 Camera::uploadVM() const
 {
 	Shader::setUniform4All("view", mViewMat);
+	
+	const glm::vec3 light_direction{
+		glm::normalize(glm::vec3{ mViewMat * glm::dvec4{ -1.0, -1.0, -1.0, 0.0 } })
+	};
+
+	Shader::get("simpleLight")->setUniform(
+		"lightDir",
+		glm::vec4{ light_direction, 0.0f }
+	);
 }
 
 void Camera::setAxes()

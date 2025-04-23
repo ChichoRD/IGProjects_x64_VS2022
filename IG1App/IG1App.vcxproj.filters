@@ -93,13 +93,7 @@
     <ClCompile Include="scene\showcase_scene.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="EntityWithMaterial.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh\IndexMesh.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="entity\Torus.cpp">
+    <ClCompile Include="color_material_entity.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,13 +173,7 @@
     <ClInclude Include="scene\showcase_scene.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="EntityWithMaterial.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh\IndexMesh.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="entity\Torus.h">
+    <ClInclude Include="color_material_entity.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
