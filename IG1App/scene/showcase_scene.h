@@ -26,3 +26,7 @@ class showcase_scene4 : public Scene {
     virtual void init() override;
     virtual void destroy() override;
 };
+
+class showcase_scene5 : public Scene {
+    virtual void init() override;
+};
