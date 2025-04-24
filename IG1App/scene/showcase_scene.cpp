@@ -11,6 +11,7 @@
 #include "star3.hpp"
 #include "glass_parapet.hpp"
 #include "photograph.hpp"
+#include "Torus.h"
 
 #include "indexed_box.h"
 
@@ -131,6 +132,7 @@ void showcase_scene4::destroy() {
 }
 
 
+
 void showcase_scene6::init() {
 	Scene::init();
 	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
@@ -145,3 +147,10 @@ void showcase_scene6::destroy() {
 	Scene::destroy();
 	glDisable(GL_MULTISAMPLE);
 }
+
+void showcase_scene5::init() {
+	Scene::init();
+	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
+	gObjects.push_back(new Torus(Scene::axis_unit_size * 2, Scene::axis_unit_size));
+}
+

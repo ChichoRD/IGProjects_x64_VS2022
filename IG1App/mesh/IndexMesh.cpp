@@ -17,15 +17,16 @@ void IndexMesh::unload() {
 	mIBO = GL_NONE;
 }
 
+
 IndexMesh* IndexMesh::generateByRevolution(
 	const std::vector<glm::vec2>& profile, GLuint nSamples, GLfloat angleMax) {
 	IndexMesh* mesh = new IndexMesh;
 	mesh->mPrimitive = GL_TRIANGLES;
 	int tamPerfil = profile.size();
 	mesh->vVertices.reserve(nSamples * tamPerfil);
-	// Genera los vértices de las muestras
+	// Genera los vertices de las muestras
 	GLdouble theta1 = 2 * 3.141516f / nSamples;
-	for (int i = 0; i <= nSamples; ++i) { // muestra i-ésima
+	for (int i = 0; i <= nSamples; ++i) { // muestra i-esima
 		GLdouble c = cos(i * theta1), s = sin(i * theta1);
 		for (auto p : profile) // rota el perfil
 			mesh->vVertices.emplace_back(p.x * c, p.y, -p.x * s);
@@ -33,7 +34,7 @@ IndexMesh* IndexMesh::generateByRevolution(
 
 	for (int i = 0; i < nSamples; ++i) // caras i a i + 1
 		for (int j = 0; j < tamPerfil - 1; ++j) { // una cara
-			if (profile[j].x != 0.0) // triángulo inferior
+			if (profile[j].x != 0.0) // triangulo inferior
 			{
 				const std::array indices{
 					glm::uvec2{i, j},
@@ -44,7 +45,7 @@ IndexMesh* IndexMesh::generateByRevolution(
 					mesh->vIndexes.push_back(p.x * tamPerfil + p.y);
 				}
 			}
-			if (profile[j + 1].x != 0.0) // triángulo superior
+			if (profile[j + 1].x != 0.0) // triangulo superior
 			{
 				const std::array indices{
 					glm::uvec2{i, j + 1},
@@ -152,8 +153,8 @@ void IndexMesh::draw() const
 {
 	glDrawElements(
 		mPrimitive, // primitiva ( GL_TRIANGLES , etc.)
-		vIndexes.size(), // número de índices
-		GL_UNSIGNED_INT, // tipo de los índices
-		nullptr // offset en el VBO de índices
+		vIndexes.size(), // numero de indices
+		GL_UNSIGNED_INT, // tipo de los indices
+		nullptr // offset en el VBO de indices
 	);
 }
