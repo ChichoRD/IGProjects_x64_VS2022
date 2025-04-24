@@ -1,6 +1,5 @@
 #include "Cone.h"
 #include "IndexMesh.h"
-#include "glm/ext/scalar_constants.hpp"
 
 Cone::Cone(GLdouble h, GLdouble r, GLdouble R, GLuint nRings, GLuint nSamples, const glm::dvec4 color, GLfloat angleMax) : color_material_entity(color)
 {
@@ -11,6 +10,9 @@ Cone::Cone(GLdouble h, GLdouble r, GLdouble R, GLuint nRings, GLuint nSamples, c
 		cone_profile[c] = glm::vec2((R - r) * t + r, h * t);
 	}
 
-	mMesh = IndexMesh::generateByRevolution(cone_profile, nSamples, angleMax);
+	mMesh = angleMax != 2 * glm::pi<GLfloat>() ? 
+		IndexMesh::generate_by_revolution_no_cap(cone_profile, nSamples, angleMax) : 
+		IndexMesh::generateByRevolution(cone_profile, nSamples);
+
 	load();
 }
