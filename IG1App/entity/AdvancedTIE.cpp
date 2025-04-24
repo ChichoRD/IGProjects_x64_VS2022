@@ -3,6 +3,7 @@
 #include "Cone.h"
 #include "Disk.h"
 #include "Scene.h"
+#include "tie_fighter_wing.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -24,8 +25,8 @@ AdvancedTIE::AdvancedTIE() {
 	cone3->setModelMat(glm::rotate(cone3->modelMat(), glm::half_pi<GLfloat>(), glm::vec3(1, 0, 0)));
 	cone3->setModelMat(glm::translate(glm::identity<glm::mat4>(), glm::vec3(0, 0, -Scene::axis_unit_size / 3)) * cone3->modelMat());
 
-	Cone* wing1 = new Cone(100, 150, 150, 4, 5, Scene::cornflower_blue, glm::half_pi<GLfloat>() + glm::pi<GLfloat>() / 6);
-	Cone* wing2 = new Cone(100, 150, 150, 4, 5, Scene::cornflower_blue, glm::half_pi<GLfloat>() + glm::pi<GLfloat>() / 6);
+	tie_fighter_wing* wing1 = new tie_fighter_wing();
+	tie_fighter_wing* wing2 = new tie_fighter_wing();
 
 	wing1->setModelMat(glm::rotate(wing1->modelMat(), glm::quarter_pi<GLfloat>(), glm::vec3(0, 0, 1)));
 	wing1->setModelMat(glm::rotate(wing1->modelMat(), glm::half_pi<GLfloat>(), glm::vec3(1, 0, 0)));

@@ -1,0 +1,40 @@
+#include "tie_fighter_wing.h"
+#include "glm/ext/scalar_constants.hpp"
+#include "IndexMesh.h"
+#include "Cone.h"
+
+tie_fighter_wing::tie_fighter_wing() : entity_with_texture("../assets/images/noche.jpg", true) {
+	std::vector<glm::vec2> cone_profile{ 4 };
+
+	//100, 150, 150, 4, 5, Scene::cornflower_blue, glm::half_pi<GLfloat>() + glm::pi<GLfloat>() / 6
+	GLdouble h = 100;
+	GLdouble r = 150, R = 150;
+	GLuint nRings = 4;
+	GLuint nSamples = 5;
+	static const constexpr GLfloat angleMax = 2 * glm::pi<GLfloat>()/3;
+
+	for (int c = 0; c < nRings; c++) {
+		GLdouble t = (GLdouble)c / (GLdouble)nRings;
+		cone_profile[c] = glm::vec2((R - r) * t + r, h * t);
+	}
+
+	mMesh = IndexMesh::generate_by_revolution_no_cap(cone_profile, nSamples, angleMax);
+
+    load();
+}
+
+void tie_fighter_wing::render(const glm::mat4& basis) const {
+	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDepthFunc(GL_LEQUAL);
+	glDepthMask(GL_FALSE);
+
+	render_with_texture_and_model(texture, basis * mModelMat);
+
+	// glDepthMask(GL_TRUE);
+
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+}

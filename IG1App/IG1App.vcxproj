@@ -47,6 +47,7 @@
     <ClCompile Include="scene\Scene.cpp" />
     <ClCompile Include="scene\showcase_scene.cpp" />
     <ClCompile Include="entity\sphere.cpp" />
+    <ClCompile Include="tie_fighter_wing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="entity\AdvancedTIE.h" />
@@ -83,6 +84,7 @@
     <ClInclude Include="scene\Scene.h" />
     <ClInclude Include="scene\showcase_scene.h" />
     <ClInclude Include="entity\sphere.h" />
+    <ClInclude Include="tie_fighter_wing.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
