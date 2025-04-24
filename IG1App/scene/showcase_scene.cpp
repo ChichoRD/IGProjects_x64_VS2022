@@ -137,7 +137,9 @@ void showcase_scene4::destroy() {
 void showcase_scene7::init() {
 	Scene::init();
 
-	gObjects.push_back(new AdvancedTIE());
+	auto TIE = new AdvancedTIE();
+	TIE->setModelMat(glm::translate(glm::identity<glm::mat4>(), glm::vec3(400, 0, 0)) * TIE->modelMat());
+	gObjects.push_back(TIE);
 }
 
 void showcase_scene6::init() {

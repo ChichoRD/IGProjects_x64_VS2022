@@ -2,7 +2,7 @@
 
 void CompoundEntity::render(const glm::mat4& modelViewMat) const {
 	for (Abs_Entity* entity : gObjects) {
-		entity->render(modelViewMat * mModelMat);
+		entity->render(modelViewMat);
 	}
 }
 
