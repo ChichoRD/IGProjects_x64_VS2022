@@ -2,6 +2,8 @@
 #include "glm/ext/scalar_constants.hpp"
 #include "IndexMesh.h"
 #include "Cone.h"
+#include "IG1App.h"
+#include <algorithm>
 
 tie_fighter_wing::tie_fighter_wing() : entity_with_texture("../assets/images/noche.jpg", true) {
 	std::vector<glm::vec2> cone_profile{ 4 };
@@ -37,4 +39,18 @@ void tie_fighter_wing::render(const glm::mat4& basis) const {
 
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
+}
+
+void tie_fighter_wing::update(double time_seconds, double delta_time_seconds) {
+	(void)time_seconds;
+	(void)delta_time_seconds;
+	constexpr static const auto camera_depth =
+		[](const glm::mat4 model_view_matrix, const glm::vec3 position) {
+		return (model_view_matrix * glm::vec4{ position, 1.0f }).z;
+		};
+
+	const glm::mat4 model_view_matrix = glm::mat4{ IG1App::s_ig1app.camera().viewMat() } *mModelMat;
+	std::sort(mMesh->vertices().begin(), mMesh->vertices().end(), [model_view_matrix](const auto& a, const auto& b) {
+		return camera_depth(model_view_matrix, a) < camera_depth(model_view_matrix, b);
+		});
 }

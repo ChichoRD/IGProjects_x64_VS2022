@@ -7,5 +7,6 @@ public:
 	~tie_fighter_wing() {}
 
 	void render(const glm::mat4& basis) const override;
+	void update(double time_seconds, double delta_time_seconds) override;
 };
 
