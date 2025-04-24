@@ -11,7 +11,12 @@ public:
 
 	static IndexMesh* generateByRevolution(
 		const std::vector<glm::vec2>& profile, GLuint nSamples,
-		GLfloat angleMax = 2 * 3.141516f);
+		GLfloat angleMax = 2 * 3.141516f
+	);
+	static IndexMesh* generate_by_revolution_no_cap(
+		const std::vector<glm::vec2>& profile, GLuint nSamples,
+		GLfloat angleMax = 2 * 3.141516f
+	);
 	static IndexMesh* generate_indexed_box(const GLdouble side_length);
 	static std::vector<glm::vec3> normals_from_newell_indexed(
 		const std::vector<glm::vec3>& vertices,
