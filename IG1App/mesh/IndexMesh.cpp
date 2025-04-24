@@ -20,7 +20,7 @@ void IndexMesh::unload() {
 
 
 IndexMesh* IndexMesh::generateByRevolution(
-	const std::vector<glm::vec2>& profile, GLuint nSamples, GLfloat angleMax) {
+	const std::vector<glm::vec2>& profile, GLuint nSamples, GLfloat angleMax, bool closes) {
 	IndexMesh* mesh = new IndexMesh;
 	std::vector<glm::vec3>positions{ profile.size() * nSamples };
 	for (size_t i = 0; i < nSamples; ++i) {

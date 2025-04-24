@@ -6,9 +6,10 @@ Disk::Disk(GLdouble R, GLdouble r, GLuint nRings, GLuint nSamples, const glm::dv
 	std::vector<glm::vec2> disk_profile{ nRings };
 
 	for (int c = 0; c < nRings; c++) {
-		GLdouble t = c / nRings;
+		GLdouble t = (GLdouble)c / (GLdouble)nRings;
 		disk_profile[c] = glm::vec2((R - r) * t + r, 0);
 	}
 
 	mMesh = IndexMesh::generateByRevolution(disk_profile, nSamples);
+	load();
 }

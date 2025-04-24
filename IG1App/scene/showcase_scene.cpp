@@ -13,6 +13,8 @@
 #include "photograph.hpp"
 #include "Torus.h"
 #include "sphere.h"
+#include "AdvancedTIE.h"
+#include "Cone.h"
 
 #include "indexed_box.h"
 
@@ -132,7 +134,11 @@ void showcase_scene4::destroy() {
 	glDisable(GL_MULTISAMPLE);
 }
 
+void showcase_scene7::init() {
+	Scene::init();
 
+	gObjects.push_back(new AdvancedTIE());
+}
 
 void showcase_scene6::init() {
 	Scene::init();
