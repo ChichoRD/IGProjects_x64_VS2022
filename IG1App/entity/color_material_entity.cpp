@@ -16,7 +16,7 @@ void color_material_entity::render(const glm::mat4& modelViewMat) const {
 	if (debug_normals_enabled) {
 		Shader& debug_shader = *Shader::get("simple");
 		debug_shader.use();
-		this->color_material_entity::upload_model(mModelMat);
+		debug_shader.setUniform("model", mModelMat);
 		debug_shader.setUniform("color", glm::vec4(normal_debug_color));
 
 		normals_debug_mesh.render();
