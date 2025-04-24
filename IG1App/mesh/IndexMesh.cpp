@@ -8,7 +8,7 @@ void IndexMesh::load() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
 		vIndexes.size() * sizeof(GLuint),
 		vIndexes.data(), GL_STATIC_DRAW);
-	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIBO);
 }
 
 void IndexMesh::unload() {
@@ -63,15 +63,17 @@ IndexMesh* IndexMesh::generateByRevolution(
 
 IndexMesh* IndexMesh::generate_indexed_box(const GLdouble side_length) {
 	const GLdouble half_side = side_length / 2.0;
+
+	// 8 vertices CCW
 	std::vector positions{
 		glm::vec3(-half_side, -half_side, -half_side),
 		glm::vec3(half_side, -half_side, -half_side),
-		glm::vec3(half_side, half_side, -half_side),
-		glm::vec3(-half_side, half_side, -half_side),
-		glm::vec3(-half_side, -half_side, half_side),
-		glm::vec3(half_side, -half_side, half_side),
-		glm::vec3(half_side, half_side, half_side),
-		glm::vec3(-half_side, half_side, half_side)
+		glm::vec3(half_side,  half_side, -half_side),
+		glm::vec3(-half_side,  half_side, -half_side),
+		glm::vec3(-half_side, -half_side,  half_side),
+		glm::vec3(half_side, -half_side,  half_side),
+		glm::vec3(half_side,  half_side,  half_side),
+		glm::vec3(-half_side,  half_side,  half_side)
 	};
 	std::vector normals{
 		glm::normalize(positions.at(0)),
@@ -87,13 +89,28 @@ IndexMesh* IndexMesh::generate_indexed_box(const GLdouble side_length) {
 	assert(positions.size() == normals.size());
 	assert(positions.size() == colors.size());
 
+	//CCW
 	std::vector<GLuint> indices{
-		0, 1, 2, 0, 2, 3,
-		4, 5, 6, 4, 6, 7,
-		0, 1, 5, 0, 5, 4,
-		2, 3, 7, 2, 7, 6,
-		0, 3, 7, 0, 7, 4,
-		1, 2, 6, 1, 6, 5
+		0, 1, 2,
+		0, 2, 3,
+
+		4, 5, 6,
+		4, 6, 7,
+
+		0, 1, 5,
+		0, 5, 4,
+
+		1, 2, 6,
+		1, 6, 5,
+
+		2, 3, 7,
+		2, 7, 6,
+
+		3, 0, 4,
+		3, 4, 7,
+
+		0, 3, 2,
+		0, 2, 1,
 	};
 
 	IndexMesh* mesh = new IndexMesh;

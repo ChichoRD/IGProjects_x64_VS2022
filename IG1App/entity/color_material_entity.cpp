@@ -8,6 +8,10 @@ color_material_entity::color_material_entity(const glm::dvec4 color)
 }
 
 void color_material_entity::render(const glm::mat4& modelViewMat) const {
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+
 	single_color_entity::render(modelViewMat);
 	if (debug_normals_enabled) {
 		Shader& debug_shader = *Shader::get("simple");
@@ -17,10 +21,12 @@ void color_material_entity::render(const glm::mat4& modelViewMat) const {
 
 		normals_debug_mesh.render();
 	}
+	glDisable(GL_CULL_FACE);
 }
 
 size_t color_material_entity::generate_and_load_normals_debug_mesh(const glm::dvec4 debug_color) {
 	normals_debug_mesh.unload();
+	normal_debug_color = debug_color;
 
 	normals_debug_mesh.set_primitive(GL_LINES);
 	normals_debug_mesh.vertices().reserve(mMesh->vertices().size() << 1);
@@ -33,7 +39,7 @@ size_t color_material_entity::generate_and_load_normals_debug_mesh(const glm::dv
 		constexpr static const float scale = 75.0f;
 		normals_debug_mesh.vertices().push_back(vertex + normal * scale);
 	}
-
+	normals_debug_mesh.set_vertex_range(normals_debug_mesh.vertices().size());
 	normals_debug_mesh.load();
 	return mMesh->size();
 }
