@@ -16,9 +16,6 @@ void entity_with_texture::render_with_texture_and_model(const Texture &texture, 
     }
 }
 
-void entity_with_texture::render_with_texture(const Texture &texture) const {
-    render_with_texture_and_model(texture, mModelMat);
-}
 
 entity_with_texture::entity_with_texture(const std::string_view texture_path, bool modulate)
     : entity_with_texture(texture_path, "texture", modulate) {}

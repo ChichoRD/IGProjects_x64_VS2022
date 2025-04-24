@@ -27,9 +27,7 @@ void glass_parapet::update(double time_seconds, double delta_time_seconds) {
     });
 }
 
-void glass_parapet::render(const glm::mat4 &modelViewMat) const {
-    (void)modelViewMat;
-
+void glass_parapet::render(const glm::mat4 &basis) const {
     glEnable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
 
@@ -37,7 +35,7 @@ void glass_parapet::render(const glm::mat4 &modelViewMat) const {
     glDepthFunc(GL_LEQUAL);
     glDepthMask(GL_FALSE);
 
-    render_with_texture(texture);
+    render_with_texture_and_model(texture, basis * mModelMat);
 
     // glDepthMask(GL_TRUE);
 

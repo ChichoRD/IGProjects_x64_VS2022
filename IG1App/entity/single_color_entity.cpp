@@ -6,12 +6,11 @@ single_color_entity::single_color_entity(glm::dvec4 color)
 	mShader = Shader::get("simple");
 }
 
-void single_color_entity::render(const glm::mat4& modelViewMat) const
+void single_color_entity::render(const glm::mat4& basis) const
 {
-	(void)modelViewMat;
 	if (mMesh != nullptr) {
 		mShader->use();
-		this->single_color_entity::upload_model(mModelMat);
+		this->single_color_entity::upload_model(basis * mModelMat);
 		mShader->setUniform("color", glm::vec4(color));
 
 		mMesh->render();

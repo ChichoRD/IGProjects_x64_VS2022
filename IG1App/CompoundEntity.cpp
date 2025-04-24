@@ -1,8 +1,8 @@
 #include "CompoundEntity.h"
 
-void CompoundEntity::render(const glm::mat4& modelViewMat) const {
+void CompoundEntity::render(const glm::mat4& basis) const {
 	for (Abs_Entity* entity : gObjects) {
-		entity->render(modelViewMat);
+		entity->render(basis * mModelMat);
 	}
 }
 

@@ -17,17 +17,16 @@ star3::star3(
     load();
 }
 
-void star3::render(const glm::mat4 &modelViewMat) const {
-    (void)modelViewMat;
+void star3::render(const glm::mat4 &basis) const {
 
     glEnable(GL_DEPTH_TEST);
 
     glDepthFunc(GL_LEQUAL);
     glDepthMask(GL_TRUE);
 
-    entity_with_texture::render_with_texture(texture);
+    entity_with_texture::render_with_texture_and_model(texture, basis * mModelMat);
 
-    const glm::mat4 model = glm::scale(mModelMat, glm::vec3{-1.0f, -1.0f, -1.0f});
+    const glm::mat4 model = glm::scale(basis * mModelMat, glm::vec3{-1.0f, -1.0f, -1.0f});
     entity_with_texture::render_with_texture_and_model(texture, model);
 
     glDepthMask(GL_FALSE);

@@ -69,7 +69,7 @@ Scene::render(Camera const& cam) const
 	cam.upload();
 
 	for (Abs_Entity* el : gObjects)
-		el->render(cam.viewMat());
+		el->render(glm::identity<glm::mat4>());
 }
 
 void Scene::update(double time_seconds, double delta_time_seconds)

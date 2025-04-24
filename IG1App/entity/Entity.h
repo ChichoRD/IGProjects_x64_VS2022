@@ -18,7 +18,7 @@ public:
 	Abs_Entity(const Abs_Entity& e) = delete;            // no copy constructor
 	Abs_Entity& operator=(const Abs_Entity& e) = delete; // no copy assignment
 
-	virtual void render(const glm::mat4& modelViewMat) const = 0; // abstract method
+	virtual void render(const glm::mat4& basis) const = 0; // abstract method
 	virtual void update(double time_seconds, double delta_time_seconds) {
 		(void)time_seconds;
 		(void)delta_time_seconds;
@@ -46,7 +46,7 @@ class EntityWithColors : public Abs_Entity
 {
 public:
 	explicit EntityWithColors();
-	virtual void render(const glm::mat4& modelViewMat) const override;
+	virtual void render(const glm::mat4& basis) const override;
 };
 
 class RGBAxes : public EntityWithColors

@@ -15,12 +15,11 @@ rgb_triangle::rgb_triangle()
 	load();
 }
 
-void rgb_triangle::render(const glm::mat4& modelViewMat) const
+void rgb_triangle::render(const glm::mat4& basis) const
 {
-	(void)modelViewMat;
 	if (mMesh != nullptr) {
 		mShader->use();
-		upload_model(mModelMat);
+		upload_model(basis * mModelMat);
 
 		glEnable(GL_CULL_FACE);
 		{

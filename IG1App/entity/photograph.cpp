@@ -19,8 +19,7 @@ void photograph::update(double time_seconds, double delta_time_seconds) {
     texture.loadColorBuffer(IG1App::s_ig1app.viewPort().width(), IG1App::s_ig1app.viewPort().height(), GL_FRONT);
 }
 
-void photograph::render(const glm::mat4 &modelViewMat) const {
-    (void)modelViewMat;
+void photograph::render(const glm::mat4 &basis) const {
 
     glEnable(GL_DEPTH_TEST);
 
@@ -28,7 +27,7 @@ void photograph::render(const glm::mat4 &modelViewMat) const {
     glDepthMask(GL_TRUE);
 
     {
-        entity_with_texture::render_with_texture(texture);
+        entity_with_texture::render_with_texture_and_model(texture, basis * mModelMat);
     }
     glDepthMask(GL_FALSE);
 

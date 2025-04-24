@@ -7,12 +7,11 @@ rgb_rectangle::rgb_rectangle(GLdouble w, GLdouble h, std::array<glm::vec4, 4>&& 
 	load();
 }
 
-void rgb_rectangle::render(const glm::mat4& modelViewMat) const
+void rgb_rectangle::render(const glm::mat4& basis) const
 {
-	(void)modelViewMat;
 	if (mMesh != nullptr) {
 		mShader->use();
-		this->EntityWithColors::upload_model(mModelMat);
+		this->EntityWithColors::upload_model(basis * mModelMat);
 
 		glEnable(GL_CULL_FACE);
 		{

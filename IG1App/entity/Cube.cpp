@@ -8,12 +8,11 @@ Cube::Cube()
 }
 
 void
-Cube::render(mat4 const& modelViewMat) const
+Cube::render(mat4 const& basis) const
 {
-    (void)modelViewMat;
     if (mMesh != nullptr) {
         mShader->use();
-        upload_model(mModelMat);
+        upload_model(basis * mModelMat);
 
         glEnable(GL_CULL_FACE);
 

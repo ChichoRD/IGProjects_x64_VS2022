@@ -21,8 +21,7 @@ box_outline::box_outline(
     }
 }
 
-void box_outline::render(const glm::mat4 &modelViewMat) const {
-    (void)modelViewMat;
+void box_outline::render(const glm::mat4 & basis) const {
 
     glEnable(GL_DEPTH_TEST);
 
@@ -33,11 +32,11 @@ void box_outline::render(const glm::mat4 &modelViewMat) const {
     {
         glCullFace(GL_FRONT);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        entity_with_texture::render_with_texture(texture);
+        entity_with_texture::render_with_texture_and_model(texture, basis * mModelMat);
 
         glCullFace(GL_BACK);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        entity_with_texture::render_with_texture(secondary_texture);
+        entity_with_texture::render_with_texture_and_model(secondary_texture, basis * mModelMat);
     }
     glDisable(GL_CULL_FACE);
 

@@ -12,7 +12,6 @@ protected:
     bool moulate;
     
     void render_with_texture_and_model(const Texture &texture, const glm::mat4 &model_matrix) const;
-    void render_with_texture(const Texture &texture) const;
 public:
     entity_with_texture(const std::string_view texture_path, const std::string_view shader_key, bool modulate = false);
     entity_with_texture(const std::string_view texture_path, bool modulate = false);

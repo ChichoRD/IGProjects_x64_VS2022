@@ -18,12 +18,12 @@ ground::ground(GLfloat w, GLfloat h, const std::string_view texturePath) : entit
     load();
 }
 
-void ground::render(const glm::mat4& modelViewMat) const {
+void ground::render(const glm::mat4& basis) const {
     glEnable(GL_DEPTH_TEST);
 
     glDepthFunc(GL_LEQUAL);
     glDepthMask(GL_TRUE);
-    render_with_texture(texture);
+    render_with_texture_and_model(texture, basis * mModelMat);
 
     glDepthMask(GL_FALSE);
 

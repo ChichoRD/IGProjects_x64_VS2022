@@ -19,11 +19,9 @@ skibidi::skibidi(glm::vec3 color, GLfloat side_length, GLfloat displacement_scal
     load();
 }
 
-void skibidi::render(const glm::mat4 &modelViewMat) const {
-    (void)modelViewMat;
-
+void skibidi::render(const glm::mat4 &basis) const {
     mShader->use();
-    upload_model(mModelMat);
+    upload_model(basis * mModelMat);
     mShader->setUniform("color", glm::vec4{color, 1.0f});
     mShader->setUniform("displacement_scale", displacement_scale);
     mShader->setUniform("displacement_factor", displacement_factor);

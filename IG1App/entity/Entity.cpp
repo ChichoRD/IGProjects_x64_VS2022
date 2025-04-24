@@ -40,12 +40,11 @@ EntityWithColors::EntityWithColors()
 }
 
 void
-EntityWithColors::render(mat4 const& modelViewMat) const
+EntityWithColors::render(mat4 const& basis) const
 {
-	(void)modelViewMat;
 	if (mMesh != nullptr) {
 		mShader->use();
-		upload_model(mModelMat);
+		upload_model(basis * mModelMat);
 		mMesh->render();
 	}
 }

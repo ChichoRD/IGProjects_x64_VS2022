@@ -7,7 +7,7 @@ color_material_entity::color_material_entity(const glm::dvec4 color)
 	mShader = Shader::get("simple_light");
 }
 
-void color_material_entity::render(const glm::mat4& modelViewMat) const {
+void color_material_entity::render(const glm::mat4& basis) const {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
@@ -16,11 +16,11 @@ void color_material_entity::render(const glm::mat4& modelViewMat) const {
 	glDepthMask(GL_TRUE);
 	glDepthFunc(GL_LESS);
 
-	single_color_entity::render(modelViewMat);
+	single_color_entity::render(basis);
 	if (debug_normals_enabled) {
 		Shader& debug_shader = *Shader::get("simple");
 		debug_shader.use();
-		debug_shader.setUniform("model", mModelMat);
+		debug_shader.setUniform("model", basis * mModelMat);
 		debug_shader.setUniform("color", glm::vec4(normal_debug_color));
 
 		normals_debug_mesh.render();
