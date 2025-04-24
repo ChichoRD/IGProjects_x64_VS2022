@@ -6,6 +6,7 @@
 //#include "scene_e8.h"
 //#include "scene_e13.h"
 #include "showcase_scene.h"
+#include "entity/color_material_entity.h"
 
 using namespace std;
 
@@ -102,6 +103,8 @@ IG1App::init()
 	mScenes.push_back(new showcase_scene3);
 	mScenes.push_back(new showcase_scene_skibidi);
 	mScenes.push_back(new showcase_scene4);
+	//mScenes.push_back(new showcase_scene5);
+	mScenes.push_back(new showcase_scene6);
 
 	mCamera->set_position(glm::dvec3(0.0, 0.0, -10.0));
 	mCamera->look_at(glm::dvec3(0.0, 0.0, 0.0), glm::dvec3(0.0, 1.0, 0.0)); 
@@ -309,7 +312,13 @@ IG1App::key(unsigned int key)
 			break;
 		case 'k':
 			two_viewport_mode = !two_viewport_mode;
-			break;;
+			break;
+		case 'n': {
+			color_material_entity::set_debug_normals_enabled(
+				!color_material_entity::get_debug_normals_enabled()
+			);
+			break;
+		}
 		case 'p': {
 			if (mCamera->is_orthographic()) {
 				mCamera->set_perspective();

@@ -1,8 +1,22 @@
 #include "color_material_entity.h"
 
+bool color_material_entity::debug_normals_enabled = false;
+
 color_material_entity::color_material_entity(const glm::dvec4 color)
 	: single_color_entity{ color }, normals_debug_mesh{}, normal_debug_color{1.0f} {
 	mShader = Shader::get("simple_light");
+}
+
+void color_material_entity::render(const glm::mat4& modelViewMat) const {
+	single_color_entity::render(modelViewMat);
+	if (debug_normals_enabled) {
+		Shader& debug_shader = *Shader::get("simple");
+		debug_shader.use();
+		this->color_material_entity::upload_model(mModelMat);
+		debug_shader.setUniform("color", glm::vec4(normal_debug_color));
+
+		normals_debug_mesh.render();
+	}
 }
 
 size_t color_material_entity::generate_and_load_normals_debug_mesh(const glm::dvec4 debug_color) {

@@ -74,14 +74,14 @@ IndexMesh* IndexMesh::generate_indexed_box(const GLdouble side_length) {
 		glm::vec3(-half_side, half_side, half_side)
 	};
 	std::vector normals{
-		glm::normalize(glm::vec3{-1.0, -1.0, -1.0}),
-		glm::normalize(glm::vec3{ 1.0, -1.0, -1.0}),
-		glm::normalize(glm::vec3{ 1.0,  1.0, -1.0}),
-		glm::normalize(glm::vec3{-1.0,  1.0, -1.0}),
-		glm::normalize(glm::vec3{-1.0, -1.0,  1.0}),
-		glm::normalize(glm::vec3{ 1.0, -1.0,  1.0}),
-		glm::normalize(glm::vec3{ 1.0,  1.0,  1.0}),
-		glm::normalize(glm::vec3{-1.0,  1.0,  1.0})
+		glm::normalize(positions.at(0)),
+		glm::normalize(positions.at(1)),
+		glm::normalize(positions.at(2)),
+		glm::normalize(positions.at(3)),
+		glm::normalize(positions.at(4)),
+		glm::normalize(positions.at(5)),
+		glm::normalize(positions.at(6)),
+		glm::normalize(positions.at(7))
 	};
 	std::vector<glm::vec4> colors{ positions.size(), glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f } };
 	assert(positions.size() == normals.size());

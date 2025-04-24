@@ -12,6 +12,8 @@
 #include "glass_parapet.hpp"
 #include "photograph.hpp"
 
+#include "indexed_box.h"
+
 void showcase_scene1::init()
 {
 	Scene::init();
@@ -124,6 +126,22 @@ void showcase_scene4::init() {
 }
 
 void showcase_scene4::destroy() {
+	Scene::destroy();
+	glDisable(GL_MULTISAMPLE);
+}
+
+
+void showcase_scene6::init() {
+	Scene::init();
+	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
+
+	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
+	indexed_box* bokkusu = new indexed_box{ side_length, glm::dvec4{0.0, 1.0, 0.0, 1.0} };
+
+	gObjects.push_back(bokkusu);
+}
+
+void showcase_scene6::destroy() {
 	Scene::destroy();
 	glDisable(GL_MULTISAMPLE);
 }
