@@ -165,7 +165,8 @@ glm::dvec3 Camera::orbit_xz(
 		double{disaplacement_radians},
 		glm::dvec3{mUpward}
 	) * glm::dvec4{mEye, 0.0};
-	
+	mLook = glm::dvec3{ 0.0 };
+
 	mEye.y += displacement_altitude * 10.0;
 	setVM();
 	return mEye;
