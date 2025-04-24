@@ -321,6 +321,22 @@ IG1App::key(unsigned int key)
 			);
 			break;
 		}
+		case 'f': {
+			showcase_scene8* scene8 = dynamic_cast<showcase_scene8*>(mScenes[mCurrentScene]);
+			if (scene8 != nullptr) {
+				constexpr static const float delta_angle = glm::pi<float>() / 64;
+				scene8->rotate_tie(delta_angle);
+			}
+			break;
+		}
+		case 'g': {
+			showcase_scene8* scene8 = dynamic_cast<showcase_scene8*>(mScenes[mCurrentScene]);
+			if (scene8 != nullptr) {
+				constexpr static const float delta_arc = Scene::axis_unit_size * 0.025f;
+				scene8->orbit_tie(delta_arc);
+			}
+			break;
+		}
 		case 'p': {
 			if (mCamera->is_orthographic()) {
 				mCamera->set_perspective();

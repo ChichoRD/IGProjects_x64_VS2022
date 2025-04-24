@@ -174,5 +174,44 @@ void showcase_scene8::init() {
 
 	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
 	auto tatooine = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.94, 0.0f, 0.0 } };
+
+	auto tie = new AdvancedTIE();
+	tie->setModelMat(
+		glm::rotate(
+			glm::scale(glm::identity<glm::mat4>(), glm::vec3{ 0.2f }),
+			glm::pi<float>(),
+			glm::vec3{ 0.0f, 1.0f, 0.0f }
+		)
+	);
+
+	auto tie_anchor = new CompoundEntity();
+	tie_anchor->addEntity(tie);
+	tie_anchor->setModelMat(
+		glm::translate(
+			glm::identity<glm::mat4>(), glm::vec3{ 0.0f, axis_unit_size, 0.0f }
+		)
+	);
+
+	auto tie_planet_anchor = new CompoundEntity();
+	tie_planet_anchor->addEntity(tie_anchor);
+	
+	this->tie_anchor = tie_anchor;
+	this->tie_planet_anchor = tie_planet_anchor;
+
 	gObjects.push_back(tatooine);
+	gObjects.push_back(tie_planet_anchor);
+}
+
+void showcase_scene8::rotate_tie(const float radians) {
+	tie_planet_anchor->setModelMat(glm::rotate(
+		tie_planet_anchor->modelMat(),
+		radians,
+		glm::vec3{ 0.0f, 1.0f, 0.0f }
+	));
+}
+
+void showcase_scene8::orbit_tie(const float arc_length) {
+	//tie_anchor->setModelMat(glm::rotate(tie_anchor->modelMat(), arc_length / float(Scene::axis_unit_size), glm::vec3{ 1.0f, 0.0f, 0.0f }));
+	glm::vec4 axis = tie_anchor->modelMat() * glm::vec4{ 1.0f, 0.0f, 0.0f, 0.0f };
+	tie_planet_anchor->setModelMat(glm::rotate(tie_planet_anchor->modelMat(), arc_length / float(Scene::axis_unit_size), glm::vec3{axis}));
 }

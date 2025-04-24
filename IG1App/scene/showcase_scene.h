@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "../entity/CompoundEntity.h"
 class showcase_scene1 :
     public Scene
 {
@@ -41,5 +42,12 @@ class showcase_scene7 : public Scene {
 };
 
 class showcase_scene8 : public Scene {
-	virtual void init() override;
+    CompoundEntity *tie_anchor;
+    CompoundEntity *tie_planet_anchor;
+    
+    virtual void init() override;
+
+public:
+    void rotate_tie(const float radians);
+    void orbit_tie(const float arc_length);
 };
