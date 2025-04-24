@@ -58,6 +58,7 @@ IndexMesh* IndexMesh::generateByRevolution(
 			}
 		}
 	mesh->mNumVertices = mesh->vVertices.size();
+	mesh->vNormals = normals_from_newell_indexed(mesh->vVertices, mesh->vIndexes);
 	return mesh;
 }
 
