@@ -125,6 +125,27 @@ IndexMesh* IndexMesh::generate_indexed_box(const GLdouble side_length) {
 	return mesh;
 }
 
+std::vector<glm::vec3> IndexMesh::normals_from_newell_indexed(
+	const std::vector<glm::vec3>& vertices,
+	const std::vector<GLuint>& indexes
+) {
+	std::vector<glm::vec3> normals(vertices.size());
+	for (size_t i = 0; i < indexes.size(); i += 3) {
+		const glm::vec3& v0 = vertices[indexes[i]];
+		const glm::vec3& v1 = vertices[indexes[i + 1]];
+		const glm::vec3& v2 = vertices[indexes[i + 2]];
+		glm::vec3 normal = glm::cross(v1 - v0, v2 - v0);
+		normals[indexes[i]] += normal;
+		normals[indexes[i + 1]] += normal;
+		normals[indexes[i + 2]] += normal;
+	}
+
+	for (size_t i = 0; i < normals.size(); ++i) {
+		normals[i] = glm::normalize(normals[i]);
+	}
+	return normals;
+}
+
 
 void IndexMesh::draw() const
 {
