@@ -1,5 +1,6 @@
 #include "IndexMesh.h"
 #include <array>
+#include <cmath>
 
 void IndexMesh::load() {
 	Mesh::load(); glBindVertexArray(mVAO);
@@ -43,7 +44,7 @@ IndexMesh* IndexMesh::generateByRevolution(
 			mesh->vIndexes.push_back(i * profile.size() + next_j);
 			mesh->vIndexes.push_back(next_i * profile.size() + next_j);
 
-			if (profile.at(j).x != 0.0f) {
+			if (std::abs(profile.at(j).x) > 0.0001f) {
 				mesh->vIndexes.push_back(i * profile.size() + j);
 				mesh->vIndexes.push_back(next_i * profile.size() + next_j);
 				mesh->vIndexes.push_back(next_i * profile.size() + j);

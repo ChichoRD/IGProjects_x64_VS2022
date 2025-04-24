@@ -12,6 +12,7 @@
 #include "glass_parapet.hpp"
 #include "photograph.hpp"
 #include "Torus.h"
+#include "sphere.h"
 
 #include "indexed_box.h"
 
@@ -154,3 +155,16 @@ void showcase_scene5::init() {
 	gObjects.push_back(new Torus(Scene::axis_unit_size * 2, Scene::axis_unit_size));
 }
 
+void showcase_scene8::init() {
+	Scene::init();
+	glClearColor(
+		float(0x0F) / float(0xFF),
+		float(0x12) / float(0xFF),
+		float(0x13) / float(0xFF),
+		1.0f
+	); // not cornflower blue lmao
+
+	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
+	auto tatooine = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.94, 0.0f, 0.0 } };
+	gObjects.push_back(tatooine);
+}
