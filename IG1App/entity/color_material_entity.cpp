@@ -12,6 +12,10 @@ void color_material_entity::render(const glm::mat4& modelViewMat) const {
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
+	glDepthFunc(GL_LESS);
+
 	single_color_entity::render(modelViewMat);
 	if (debug_normals_enabled) {
 		Shader& debug_shader = *Shader::get("simple");
@@ -21,6 +25,10 @@ void color_material_entity::render(const glm::mat4& modelViewMat) const {
 
 		normals_debug_mesh.render();
 	}
+
+	glDepthMask(GL_FALSE);
+	glDisable(GL_DEPTH_TEST);
+
 	glDisable(GL_CULL_FACE);
 }
 

@@ -30,6 +30,7 @@ void main()
 
 	float spec_factor = pow(max(dot(viewDir, reflectDir), 0.0), specularExponent);
 
+	// FragColor = vec4(diff_factor);
 	// All together
 	FragColor = color * (ambient + diff_factor * diffuse + spec_factor * specular);
 }
