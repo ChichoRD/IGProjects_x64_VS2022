@@ -9,10 +9,17 @@ Cone::Cone(GLdouble h, GLdouble r, GLdouble R, GLuint nRings, GLuint nSamples, c
 		GLdouble t = (GLdouble)c / (GLdouble)nRings;
 		cone_profile[c] = glm::vec2((R - r) * t + r, h * t);
 	}
+	IndexMesh *(*funcs[])(const std::vector<glm::vec2> &profile, GLuint nSamples, GLfloat angleMax) = {
+		IndexMesh::generateByRevolution,
+		IndexMesh::generate_by_revolution_no_cap
+	};
+	mMesh = funcs[angleMax != 2 * glm::pi<GLfloat>()](cone_profile, nSamples, angleMax);
 
-	mMesh = angleMax != 2 * glm::pi<GLfloat>() ? 
-		IndexMesh::generate_by_revolution_no_cap(cone_profile, nSamples, angleMax) : 
-		IndexMesh::generateByRevolution(cone_profile, nSamples);
+	//auto a = (
+	//	(angleMax != 2 * glm::pi<GLfloat>()) * (uintptr_t)((IndexMesh * (*)(const std::vector<glm::vec2>, GLuint, GLfloat)) & IndexMesh::generate_by_revolution_no_cap)
+	//	+ (1 - (angleMax != 2 * glm::pi<GLfloat>())) * (uintptr_t)((IndexMesh * (*)(const std::vector<glm::vec2>, GLuint, GLfloat)) & IndexMesh::generateByRevolution)
+	//	);
+	//((IndexMesh * (*)(const std::vector<glm::vec2>, GLuint, GLfloat)(a))
 
 	load();
 }

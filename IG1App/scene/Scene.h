@@ -13,7 +13,7 @@ class Scene
 {
 public:
 	constexpr static const GLdouble axis_unit_size = 400.0;
-	constexpr static const glm::uvec4 cornflower_blue { 0.6f, 0.7f, 0.8f, 1.0f };
+	constexpr static const glm::dvec4 cornflower_blue { 0.6f, 0.7f, 0.8f, 1.0f };
 	Scene() = default;
 	virtual ~Scene();
 
