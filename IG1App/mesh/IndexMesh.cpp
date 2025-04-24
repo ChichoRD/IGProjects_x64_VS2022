@@ -59,6 +59,45 @@ IndexMesh* IndexMesh::generateByRevolution(
 	return mesh;
 }
 
+IndexMesh *IndexMesh::generate_by_revolution_no_cap(const std::vector<glm::vec2> &profile, GLuint nSamples, GLfloat angleMax) {
+	IndexMesh* mesh = new IndexMesh;
+	std::vector<glm::vec3>positions{ profile.size() * nSamples };
+	for (size_t i = 0; i < nSamples; ++i) {
+		const float angle = angleMax * float(i) / float(nSamples);
+		for (size_t j = 0; j < profile.size(); ++j) {
+			positions.at(i * profile.size() + j) = glm::vec3{
+				glm::cos(angle) * profile.at(j).x,
+				profile.at(j).y,
+				glm::sin(angle) * profile.at(j).x
+			};
+		}
+	}
+	mesh->vVertices = std::move(positions);
+
+	mesh->vIndexes.reserve(nSamples * profile.size() * 6);
+	for (size_t i = 0; i < nSamples - 1; ++i) {
+		for (size_t j = 0; j < profile.size(); ++j) {
+			const size_t next_i = (i + 1);
+			const size_t next_j = (j + 1) % profile.size();
+			mesh->vIndexes.push_back(i * profile.size() + j);
+			mesh->vIndexes.push_back(i * profile.size() + next_j);
+			mesh->vIndexes.push_back(next_i * profile.size() + next_j);
+
+			if (std::abs(profile.at(j).x) > 0.0001f) {
+				mesh->vIndexes.push_back(i * profile.size() + j);
+				mesh->vIndexes.push_back(next_i * profile.size() + next_j);
+				mesh->vIndexes.push_back(next_i * profile.size() + j);
+			}
+		}
+	}
+
+	mesh->mNumVertices = mesh->vVertices.size();
+	mesh->mPrimitive = GL_TRIANGLES;
+
+	mesh->vNormals = normals_from_newell_indexed(mesh->vVertices, mesh->vIndexes);
+	return mesh;
+}
+
 IndexMesh* IndexMesh::generate_indexed_box(const GLdouble side_length) {
 	const GLdouble half_side = side_length / 2.0;
 
