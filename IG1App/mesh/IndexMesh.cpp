@@ -21,44 +21,39 @@ void IndexMesh::unload() {
 IndexMesh* IndexMesh::generateByRevolution(
 	const std::vector<glm::vec2>& profile, GLuint nSamples, GLfloat angleMax) {
 	IndexMesh* mesh = new IndexMesh;
-	mesh->mPrimitive = GL_TRIANGLES;
-	int tamPerfil = profile.size();
-	mesh->vVertices.reserve(nSamples * tamPerfil);
-	// Genera los vertices de las muestras
-	GLdouble theta1 = 2 * 3.141516f / nSamples;
-	for (int i = 0; i <= nSamples; ++i) { // muestra i-esima
-		GLdouble c = cos(i * theta1), s = sin(i * theta1);
-		for (auto p : profile) // rota el perfil
-			mesh->vVertices.emplace_back(p.x * c, p.y, -p.x * s);
+	std::vector<glm::vec3>positions{ profile.size() * nSamples };
+	for (size_t i = 0; i < nSamples; ++i) {
+		const float angle = angleMax * float(i) / float(nSamples);
+		for (size_t j = 0; j < profile.size(); ++j) {
+			positions.at(i * profile.size() + j) = glm::vec3{
+				glm::cos(angle) * profile.at(j).x,
+				profile.at(j).y,
+				glm::sin(angle) * profile.at(j).x
+			};
+		}
 	}
+	mesh->vVertices = std::move(positions);
 
-	for (int i = 0; i < nSamples; ++i) // caras i a i + 1
-		for (int j = 0; j < tamPerfil - 1; ++j) { // una cara
-			if (profile[j].x != 0.0) // triangulo inferior
-			{
-				const std::array indices{
-					glm::uvec2{i, j},
-					glm::uvec2{i, j + 1 },
-					glm::uvec2{i + 1, j}
-				};
-				for (auto p : indices) {
-					mesh->vIndexes.push_back(p.x * tamPerfil + p.y);
-				}
-			}
-			if (profile[j + 1].x != 0.0) // triangulo superior
-			{
-				const std::array indices{
-					glm::uvec2{i, j + 1},
-					glm::uvec2{i + 1, j + 1 },
-					glm::uvec2{i + 1, j}
-				};
+	mesh->vIndexes.reserve(nSamples * profile.size() * 6);
+	for (size_t i = 0; i < nSamples; ++i) {
+		for (size_t j = 0; j < profile.size(); ++j) {
+			const size_t next_i = (i + 1) % nSamples;
+			const size_t next_j = (j + 1) % profile.size();
+			mesh->vIndexes.push_back(i * profile.size() + j);
+			mesh->vIndexes.push_back(i * profile.size() + next_j);
+			mesh->vIndexes.push_back(next_i * profile.size() + next_j);
 
-				for (auto p : indices) {
-					mesh->vIndexes.push_back(p.x * tamPerfil + p.y);
-				}
+			if (profile.at(j).x != 0.0f) {
+				mesh->vIndexes.push_back(i * profile.size() + j);
+				mesh->vIndexes.push_back(next_i * profile.size() + next_j);
+				mesh->vIndexes.push_back(next_i * profile.size() + j);
 			}
 		}
+	}
+
 	mesh->mNumVertices = mesh->vVertices.size();
+	mesh->mPrimitive = GL_TRIANGLES;
+
 	mesh->vNormals = normals_from_newell_indexed(mesh->vVertices, mesh->vIndexes);
 	return mesh;
 }
