@@ -1,7 +1,7 @@
 #pragma once
-#include "single_color_entity.h"
+#include "entity_with_material.hpp"
 class color_material_entity :
-    public single_color_entity
+    public entity_with_material
 {
     static bool debug_normals_enabled;
 

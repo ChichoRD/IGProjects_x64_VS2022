@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="camera\Material.cpp" />
     <ClCompile Include="entity\AdvancedTIE.cpp" />
     <ClCompile Include="camera\Camera.cpp" />
     <ClCompile Include="camera\Light.cpp" />
@@ -35,6 +36,7 @@
     <ClCompile Include="entity\skibidi.cpp" />
     <ClCompile Include="entity\star3.cpp" />
     <ClCompile Include="entity\Torus.cpp" />
+    <ClCompile Include="entity\entity_with_material.cpp" />
     <ClCompile Include="IG1App.cpp" />
     <ClCompile Include="image\Image.cpp" />
     <ClCompile Include="image\Material.cpp" />
@@ -47,9 +49,10 @@
     <ClCompile Include="scene\Scene.cpp" />
     <ClCompile Include="scene\showcase_scene.cpp" />
     <ClCompile Include="entity\sphere.cpp" />
-    <ClCompile Include="tie_fighter_wing.cpp" />
+    <ClCompile Include="entity\tie_fighter_wing.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera\Material.h" />
     <ClInclude Include="entity\AdvancedTIE.h" />
     <ClInclude Include="camera\Camera.h" />
     <ClInclude Include="camera\Light.h" />
@@ -73,6 +76,7 @@
     <ClInclude Include="entity\skibidi.hpp" />
     <ClInclude Include="entity\star3.hpp" />
     <ClInclude Include="entity\Torus.h" />
+    <ClInclude Include="entity\entity_with_material.hpp" />
     <ClInclude Include="IG1App.h" />
     <ClInclude Include="image\Image.h" />
     <ClInclude Include="image\Material.h" />
@@ -84,7 +88,7 @@
     <ClInclude Include="scene\Scene.h" />
     <ClInclude Include="scene\showcase_scene.h" />
     <ClInclude Include="entity\sphere.h" />
-    <ClInclude Include="tie_fighter_wing.h" />
+    <ClInclude Include="entity\tie_fighter_wing.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

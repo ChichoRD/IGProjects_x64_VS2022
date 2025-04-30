@@ -3,8 +3,10 @@
 bool color_material_entity::debug_normals_enabled = false;
 
 color_material_entity::color_material_entity(const glm::dvec4 color)
-	: single_color_entity{ color }, normals_debug_mesh{}, normal_debug_color{1.0f} {
-	mShader = Shader::get("simple_light");
+	: entity_with_material{ Material{
+		color
+	} }, normals_debug_mesh{}, normal_debug_color{ 1.0f } {
+	//mShader = Shader::get("simple_light");
 }
 
 void color_material_entity::render(const glm::mat4& basis) const {
@@ -16,7 +18,7 @@ void color_material_entity::render(const glm::mat4& basis) const {
 	glDepthMask(GL_TRUE);
 	glDepthFunc(GL_LESS);
 
-	single_color_entity::render(basis);
+	entity_with_material::render(basis);
 	if (debug_normals_enabled) {
 		Shader& debug_shader = *Shader::get("simple");
 		debug_shader.use();
