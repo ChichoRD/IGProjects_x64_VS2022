@@ -51,3 +51,7 @@ public:
     void rotate_tie(const float radians);
     void orbit_tie(const float arc_length);
 };
+
+class showcase_scene0 : public Scene {
+    virtual void init() override;
+};

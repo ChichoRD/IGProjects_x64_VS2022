@@ -15,6 +15,7 @@
 #include "sphere.h"
 #include "AdvancedTIE.h"
 #include "Cone.h"
+#include "Material.h"
 
 #include "indexed_box.h"
 
@@ -214,4 +215,15 @@ void showcase_scene8::orbit_tie(const float arc_length) {
 	//tie_anchor->setModelMat(glm::rotate(tie_anchor->modelMat(), arc_length / float(Scene::axis_unit_size), glm::vec3{ 1.0f, 0.0f, 0.0f }));
 	glm::vec4 axis = tie_anchor->modelMat() * glm::vec4{ 1.0f, 0.0f, 0.0f, 0.0f };
 	tie_planet_anchor->setModelMat(glm::rotate(tie_planet_anchor->modelMat(), arc_length / float(Scene::axis_unit_size), glm::vec3{axis}));
+}
+
+void showcase_scene0::init() {
+	Scene::init();
+	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
+
+	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
+	auto tatooine_yellow = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.94, 0.0f, 0.0 } };
+
+	auto tatooine_golden_experience = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.84, 0.0f, 0.0 } };
+	tatooine_golden_experience->get_material().setGold();
 }

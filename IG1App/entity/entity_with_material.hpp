@@ -15,5 +15,8 @@ public:
 	}
 
 	void render(const glm::mat4 &basis) const override;
+
+	inline Material& get_material() { return material; }
+	inline const Material& get_material() const { return material; }
 };
 
