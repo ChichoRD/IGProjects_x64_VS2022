@@ -2,6 +2,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
 
 using namespace glm;
 
@@ -63,10 +64,37 @@ Scene::resetGL()
 	glDisable(GL_DEPTH_TEST);     // disable Depth test
 }
 
+static size_t upload_lights(const std::vector<std::unique_ptr<Light>>& lights, const Camera &camera) {
+	static Shader& lights_shader = *Shader::get("light");
+	constexpr static const size_t max_directional_lights = 2;
+	constexpr static const size_t max_point_lights = 4;
+	constexpr static const size_t max_spot_lights = 4;
+
+	size_t directional_light_count = 0;
+	size_t point_light_count = 0;
+	size_t spot_light_count = 0;
+	for (const std::unique_ptr<Light> &light : lights) {
+		if (directional_light_count < max_directional_lights && upload_light_as<DirLight>(lights_shader, *light, camera)) {
+			directional_light_count++;
+		} else if (point_light_count < max_point_lights && upload_light_as<PosLight>(lights_shader, *light, camera)) {
+			point_light_count++;
+		} else if (spot_light_count < max_spot_lights && upload_light_as<SpotLight>(lights_shader, *light, camera)) {
+			spot_light_count++;
+		}
+	}
+	return directional_light_count + point_light_count + spot_light_count;
+}
+
 void
 Scene::render(Camera const& cam) const
 {
 	cam.upload();
+	const size_t uploaded_count = upload_lights(lights, cam);
+	if (uploaded_count < lights.size()) {
+		std::cerr << "Warning: not all lights were uploaded. "
+			<< "Uploaded: " << uploaded_count
+			<< ", Lights: " << lights.size() << std::endl;
+	}
 
 	for (Abs_Entity* el : gObjects)
 		el->render(glm::identity<glm::mat4>());

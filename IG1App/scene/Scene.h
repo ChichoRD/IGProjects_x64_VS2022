@@ -6,8 +6,10 @@
 
 #include "Camera.h"
 #include "Entity.h"
+#include "Light.h" 
 
 #include <vector>
+#include <memory>
 
 class Scene
 {
@@ -35,6 +37,17 @@ protected:
 	void resetGL();
 
 	std::vector<Abs_Entity*> gObjects; // Entities (graphic objects) of the scene
+	std::vector<std::unique_ptr<Light>> lights;
 };
+
+template <typename LightType>
+bool upload_light_as(const Shader &shader, const Light& light, const Camera& camera) {
+	LightType* directional_light = dynamic_cast<LightType*>(light.get());
+	if (directional_light != nullptr) {
+		directional_light->upload(shader, camera.viewMat());
+		return true;
+	}
+	return false;
+}
 
 #endif //_H_Scene_H_
