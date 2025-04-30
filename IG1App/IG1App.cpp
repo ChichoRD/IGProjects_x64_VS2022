@@ -18,8 +18,9 @@ void GLAPIENTRY debugCallback(GLenum source, GLenum type, GLuint id, GLenum seve
                    GLsizei length, const GLchar* message, const void* userParam)
 {
 	switch (id) {
-	case 131204: // GL_DEBUG_SOURCE_API_ARB - Texture level 0 ndef
-	case 131185: // NVidia Driver Notification - Video memory usage
+	case 131204: [[fallthrough]]; // GL_DEBUG_SOURCE_API_ARB - Texture level 0 ndef
+	case 131185: [[fallthrough]]; // NVidia Driver Notification - Video memory usage
+	case 131218: [[fallthrough]]; // Shader recompilation
 		break;
 	default: {
 		const char* prefix = (type == GL_DEBUG_TYPE_ERROR)
