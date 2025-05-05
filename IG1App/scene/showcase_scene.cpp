@@ -165,6 +165,7 @@ void showcase_scene5::init() {
 	gObjects.push_back(new Torus(Scene::axis_unit_size * 2, Scene::axis_unit_size));
 }
 
+
 void showcase_scene8::init() {
 	Scene::init();
 	glClearColor(
@@ -207,11 +208,26 @@ void showcase_scene8::init() {
 	posLight->setAttenuation(1.0, 1.0, 0.0);
 	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0));
 
-	std::unique_ptr<SpotLight> spotLight = std::make_unique<SpotLight>(glm::vec3(0.0, 500.0, 500.0), static_cast<int>(Scene::get_lights().size()));
-	spotLight->setDirection(glm::vec3(0, 0, 0) - spotLight->get_position());
+	std::unique_ptr<SpotLight> spotLight = std::make_unique<SpotLight>(glm::vec3(0.0, side_length*2, side_length*2), static_cast<int>(Scene::get_lights().size()));
+	spotLight->setDirection(glm::normalize(glm::vec3(0, 0, 0) - spotLight->get_position()));
 
-	Scene::get_lights().push_back(std::move(posLight));
-	Scene::get_lights().push_back(std::move(spotLight));
+	std::vector<std::unique_ptr<Light>>& lights = Scene::get_lights();
+
+	pos_light = posLight.get();
+	spot_light = spotLight.get();
+
+	lights.push_back(std::move(posLight));
+	lights.push_back(std::move(spotLight));
+}
+
+void showcase_scene8::on_key_pressed(const uint32_t key)
+{
+	if (key == 't') {
+		pos_light->setEnabled(!pos_light->enabled());
+	}
+	else if (key == 'y') {
+		spot_light->setEnabled(!spot_light->enabled());
+	}
 }
 
 void showcase_scene8::rotate_tie(const float radians) {

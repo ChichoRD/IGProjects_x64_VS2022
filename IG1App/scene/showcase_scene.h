@@ -44,8 +44,12 @@ class showcase_scene7 : public Scene {
 class showcase_scene8 : public Scene {
     CompoundEntity *tie_anchor;
     CompoundEntity *tie_planet_anchor;
+
+    PosLight* pos_light;
+    SpotLight* spot_light;
     
     virtual void init() override;
+    virtual void on_key_pressed(const uint32_t key) override;
 
 public:
     void rotate_tie(const float radians);
