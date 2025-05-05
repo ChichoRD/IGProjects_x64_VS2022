@@ -205,12 +205,13 @@ void showcase_scene8::init() {
 
 	std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>(static_cast<int>(Scene::get_lights().size()));
 	posLight->setAttenuation(1.0, 1.0, 0.0);
-	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0)); //oioioi
+	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0));
+
+	std::unique_ptr<SpotLight> spotLight = std::make_unique<SpotLight>(glm::vec3(0.0, 500.0, 500.0), static_cast<int>(Scene::get_lights().size()));
+	spotLight->setDirection(glm::vec3(0, 0, 0) - spotLight->get_position());
 
 	Scene::get_lights().push_back(std::move(posLight));
-	//oioioi
-	//oioioi
-	//oioioi
+	Scene::get_lights().push_back(std::move(spotLight));
 }
 
 void showcase_scene8::rotate_tie(const float radians) {
