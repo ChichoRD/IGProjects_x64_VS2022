@@ -285,7 +285,8 @@ void
 IG1App::key(unsigned int key)
 {
 	bool need_redisplay = true;
-
+	Scene& scene = *mScenes.at(mCurrentScene);
+	
 	constexpr static const float camera_frame_displacement = 10.0f;
 	switch (key) {
 		case '+':
@@ -319,7 +320,6 @@ IG1App::key(unsigned int key)
 			two_viewport_mode = !two_viewport_mode;
 			break;
 		case 'r': {
-			Scene& scene = *mScenes.at(mCurrentScene);
 			std::vector<std::unique_ptr<Light>> &lights = scene.get_lights();
 			assert(
 				!lights.empty()
@@ -366,6 +366,7 @@ IG1App::key(unsigned int key)
 			break;
 	} // switch
 
+	scene.on_key_pressed(key);
 	if (need_redisplay)
 		mNeedsRedisplay = true;
 }
