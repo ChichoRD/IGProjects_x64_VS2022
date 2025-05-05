@@ -1,7 +1,6 @@
 #include "Material.h"
 
 #include <glm/gtc/type_ptr.hpp>
-#include "Material.h"
 
 using namespace glm;
 

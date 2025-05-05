@@ -17,6 +17,12 @@ Scene::init()
 
 	// Graphics objects (entities) of the scene
 	gObjects.push_back(new RGBAxes(axis_unit_size));
+
+	std::unique_ptr<DirLight> directional_light{
+		std::make_unique<DirLight>(static_cast<int>(lights.size()))
+	};
+	lights.push_back(std::move(directional_light));
+	directional_light->setDirection(glm::vec3{ -1.0, -1.0, -1.0 });
 }
 
 Scene::~Scene()
