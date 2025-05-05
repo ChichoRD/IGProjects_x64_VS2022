@@ -16,6 +16,7 @@
 #include "AdvancedTIE.h"
 #include "Cone.h"
 #include "Material.h"
+#include <memory>
 
 #include "indexed_box.h"
 
