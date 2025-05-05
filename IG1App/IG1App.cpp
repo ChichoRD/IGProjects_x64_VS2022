@@ -99,6 +99,7 @@ IG1App::init()
 	// create the scene after creating the context
 	// allocate memory and resources
 	mCamera = new Camera(Viewport(mWinW, mWinH));
+	mScenes.push_back(new showcase_scene0);
 	mScenes.push_back(new showcase_scene1);
 	mScenes.push_back(new showcase_scene2);
 	mScenes.push_back(new showcase_scene3);
@@ -111,6 +112,7 @@ IG1App::init()
 
 	mCamera->set_position(glm::dvec3(0.0, 0.0, -10.0));
 	mCamera->look_at(glm::dvec3(0.0, 0.0, 0.0), glm::dvec3(0.0, 1.0, 0.0)); 
+	
 	mScenes.front()->init();
 }
 

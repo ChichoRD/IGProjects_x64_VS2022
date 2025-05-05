@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
+#include <memory>
 
 using namespace glm;
 
@@ -21,8 +22,8 @@ Scene::init()
 	std::unique_ptr<DirLight> directional_light{
 		std::make_unique<DirLight>(static_cast<int>(lights.size()))
 	};
-	lights.push_back(std::move(directional_light));
 	directional_light->setDirection(glm::vec3{ -1.0, -1.0, -1.0 });
+	lights.push_back(std::move(directional_light));
 }
 
 Scene::~Scene()
@@ -79,6 +80,7 @@ static size_t upload_lights(const std::vector<std::unique_ptr<Light>>& lights, c
 	size_t directional_light_count = 0;
 	size_t point_light_count = 0;
 	size_t spot_light_count = 0;
+	lights_shader.use();
 	for (const std::unique_ptr<Light> &light : lights) {
 		if (directional_light_count < max_directional_lights && upload_light_as<DirLight>(lights_shader, *light, camera)) {
 			directional_light_count++;
