@@ -202,7 +202,7 @@ void showcase_scene8::init() {
 	gObjects.push_back(tatooine);
 	gObjects.push_back(tie_planet_anchor);
 
-	std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>();
+	std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>(static_cast<int>(Scene::get_lights().size()));
 	posLight->setAttenuation(1.0, 1.0, 0.0);
 	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0));
 
