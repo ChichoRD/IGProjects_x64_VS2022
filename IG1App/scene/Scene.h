@@ -27,6 +27,9 @@ public:
 
 	void render(Camera const& cam) const;
 	virtual void update(double time_seconds, double delta_time_seconds);
+	inline virtual void on_key_pressed(const uint32_t key) {
+		(void)key;
+	} // virtual method
 
 	// load or unload scene data into the GPU
 	void load();
