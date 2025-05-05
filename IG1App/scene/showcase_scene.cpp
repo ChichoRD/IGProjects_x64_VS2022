@@ -204,7 +204,7 @@ void showcase_scene8::init() {
 
 	std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>(static_cast<int>(Scene::get_lights().size()));
 	posLight->setAttenuation(1.0, 1.0, 0.0);
-	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0)); //a
+	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0)); //oioioi
 
 	Scene::get_lights().push_back(std::move(posLight));
 }
