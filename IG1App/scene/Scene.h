@@ -43,8 +43,8 @@ protected:
 };
 
 template <typename LightType>
-bool upload_light_as(const Shader &shader, const Light& light, const Camera& camera) {
-	LightType* directional_light = dynamic_cast<LightType*>(light.get());
+bool upload_light_as(Shader &shader, const Light& light, const Camera& camera) {
+	const LightType *directional_light = dynamic_cast<const LightType *>(&light);
 	if (directional_light != nullptr) {
 		directional_light->upload(shader, camera.viewMat());
 		return true;
