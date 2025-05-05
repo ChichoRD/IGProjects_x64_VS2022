@@ -22,7 +22,7 @@ Scene::init()
 	std::unique_ptr<DirLight> directional_light{
 		std::make_unique<DirLight>(static_cast<int>(lights.size()))
 	};
-	directional_light->setDirection(glm::vec3{ -1.0, -1.0, -1.0 });
+	directional_light->setDirection(glm::normalize(glm::vec3{ -1.0, -1.0, -1.0 }));
 	lights.push_back(std::move(directional_light));
 }
 
