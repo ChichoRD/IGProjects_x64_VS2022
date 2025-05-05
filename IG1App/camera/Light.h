@@ -74,6 +74,8 @@ public:
 		quadratic = kq;
 	}
 
+	const inline glm::vec3 get_position() { return position; }
+
 protected:
 	glm::vec4 position = {0, 0, 0, 1};
 	// Factores de atenuación

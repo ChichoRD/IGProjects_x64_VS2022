@@ -1,5 +1,5 @@
 #include <glm/gtc/matrix_transform.hpp>
-
+#include <glm/gtc/matrix_access.hpp>
 #include "showcase_scene.h"
 #include "regular_polygon.h"
 #include "rgb_rectangle.h"
@@ -16,8 +16,10 @@
 #include "AdvancedTIE.h"
 #include "Cone.h"
 #include "Material.h"
+#include "CompoundEntity.h"
 #include <memory>
 #include <limits>
+
 
 #include "indexed_box.h"
 
@@ -166,6 +168,7 @@ void showcase_scene5::init() {
 	gObjects.push_back(new Torus(Scene::axis_unit_size * 2, Scene::axis_unit_size));
 }
 
+
 void showcase_scene8::init() {
 	Scene::init();
 	glClearColor(
@@ -188,6 +191,7 @@ void showcase_scene8::init() {
 	);
 
 	auto tie_anchor = new CompoundEntity();
+	tie_child_path.push_back(tie_anchor->child_count());
 	tie_anchor->addEntity(tie);
 	tie_anchor->setModelMat(
 		glm::translate(
@@ -196,6 +200,7 @@ void showcase_scene8::init() {
 	);
 
 	auto tie_planet_anchor = new CompoundEntity();
+	tie_child_path.push_back(tie_planet_anchor->child_count());
 	tie_planet_anchor->addEntity(tie_anchor);
 	
 	this->tie_anchor = tie_anchor;
@@ -205,12 +210,12 @@ void showcase_scene8::init() {
 	gObjects.push_back(tie_planet_anchor);
 
 	std::vector<std::unique_ptr<Light>>& lights = Scene::get_lights();
-	//std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>(static_cast<int>(lights.size()));
+	std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>(static_cast<int>(lights.size()));
 
-	//posLight->setAttenuation(1.0, 1.0, 0.0);
-	//posLight->setPosition(glm::vec3(250.0, 250.0, 0.0)); //oioioi
-
-	//lights.push_back(std::move(posLight));
+	posLight->setAttenuation(1.0, 1.0, 0.0);
+	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0)); //oioioi
+	positional_light_index = lights.size();
+	lights.push_back(std::move(posLight));
 
 	std::unique_ptr<SpotLight> spotlight{
 		std::make_unique<SpotLight>(
@@ -224,41 +229,52 @@ void showcase_scene8::init() {
 	//oioioi
 	//oioioi
 	//oioioi
+
+	const glm::mat4 tie_transform = compute_tie_transform();
+	std::unique_ptr<SpotLight> tie_spotlight{
+		std::make_unique<SpotLight>(
+			glm::vec3{glm::column(tie_transform, 3)},
+			static_cast<int>(Scene::get_lights().size())
+		)
+	};
+	tie_spotlight->setDirection(glm::normalize(glm::vec3{
+		tie_transform * glm::vec4{ 0.0f, -1.0f, 0.0f, 1.0f }
+	}));
+	tie_spotlight_index = lights.size();
+	lights.push_back(std::move(tie_spotlight));
 }
 
-const SpotLight& showcase_scene8::spotlight() const {
-	assert(
-		spotlight_index < lights.size()
-		&& "fatal error: spot light index out of bounds"
-	);
-	const Light* const light{ lights.at(spotlight_index).get() };
-	assert(
-		light != nullptr
-		&& "fatal error: light is null"
-	);
-	const SpotLight* const spotlight{ dynamic_cast<const SpotLight*>(light) };
-	assert(
-		spotlight != nullptr
-		&& "fatal error: light is not a spotlight"
-	);
-	return *spotlight;
+void showcase_scene8::on_key_pressed(const uint32_t key)
+{
+	switch (key) {
+	case 't': {
+		get_positional_light().setEnabled(!get_positional_light().enabled());
+		break;
+	}
+	case 'y': {
+		get_spotlight().setEnabled(!get_spotlight().enabled());
+		break;
+	}
+	default: {
+		break;
+	}
+	}
 }
-SpotLight& showcase_scene8::spotlight() {
-	assert(
-		spotlight_index < lights.size()
-		&& "fatal error: spot light index out of bounds"
-	);
-	Light* const light{ lights.at(spotlight_index).get() };
-	assert(
-		light != nullptr
-		&& "fatal error: light is null"
-	);
-	SpotLight* const spotlight{ dynamic_cast<SpotLight*>(light) };
-	assert(
-		spotlight != nullptr
-		&& "fatal error: light is not a spotlight"
-	);
-	return *spotlight;
+
+glm::mat4 showcase_scene8::compute_tie_transform() const {
+	glm::mat4 result{ tie_planet_anchor->modelMat() };
+	const CompoundEntity* parent = tie_planet_anchor;
+	for (ptrdiff_t i = ptrdiff_t(tie_child_path.size()) - 1; i >= 1; --i) {
+		const Abs_Entity &child = parent->get_child(tie_child_path.at(i));
+		result *= child.modelMat();
+		parent = static_cast<const CompoundEntity*>(&child);
+	}
+
+	if (!tie_child_path.empty()) {
+		return result * parent->get_child(tie_child_path.at(0)).modelMat();
+	} else {
+		return result;
+	}
 }
 
 showcase_scene8::showcase_scene8()
@@ -277,6 +293,15 @@ void showcase_scene8::orbit_tie(const float arc_length) {
 	//tie_anchor->setModelMat(glm::rotate(tie_anchor->modelMat(), arc_length / float(Scene::axis_unit_size), glm::vec3{ 1.0f, 0.0f, 0.0f }));
 	glm::vec4 axis = tie_anchor->modelMat() * glm::vec4{ 1.0f, 0.0f, 0.0f, 0.0f };
 	tie_planet_anchor->setModelMat(glm::rotate(tie_planet_anchor->modelMat(), arc_length / float(Scene::axis_unit_size), glm::vec3{axis}));
+}
+
+void showcase_scene8::update(double time_seconds, double delta_time_seconds) {
+	const glm::mat4 tie_transform = compute_tie_transform();
+	SpotLight& tie_spotlight{ get_tie_spotlight() };
+	tie_spotlight.setPosition(glm::vec3{ glm::column(tie_transform, 3) });
+	tie_spotlight.setDirection(glm::normalize(glm::vec3{
+		tie_transform * glm::vec4{ 0.0f, -1.0f, 0.0f, 1.0f }
+	}));
 }
 
 void showcase_scene0::init() {
