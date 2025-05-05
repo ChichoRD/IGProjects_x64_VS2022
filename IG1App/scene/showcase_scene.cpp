@@ -255,6 +255,10 @@ void showcase_scene8::on_key_pressed(const uint32_t key)
 		get_spotlight().setEnabled(!get_spotlight().enabled());
 		break;
 	}
+	case 'h': {
+		get_tie_spotlight().setEnabled(!get_tie_spotlight().enabled());
+		break;
+	}
 	default: {
 		break;
 	}
