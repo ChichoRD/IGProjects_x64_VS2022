@@ -208,6 +208,7 @@ void showcase_scene8::init() {
 
 	Scene::get_lights().push_back(std::move(posLight));
 	//oioioi
+	//oioioi
 }
 
 void showcase_scene8::rotate_tie(const float radians) {
