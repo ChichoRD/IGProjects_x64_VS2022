@@ -62,26 +62,23 @@ public:
 
 	virtual void upload(Shader& shader, glm::mat4 const& modelViewMat) const override;
 
-	void setPosition(const glm::fvec3& dir);
-	void setAttenuation(GLfloat kc, GLfloat kl, GLfloat kq);
+	inline void setPosition(const glm::fvec3& dir) {
+		position = glm::vec4(dir, 1.0);
+	}
+	inline glm::vec3 get_position() const {
+		return glm::vec3(position);
+	}
+	inline void setAttenuation(GLfloat kc, GLfloat kl, GLfloat kq) {
+		constant = kc;
+		linear = kl;
+		quadratic = kq;
+	}
 
 protected:
 	glm::vec4 position = {0, 0, 0, 1};
 	// Factores de atenuación
 	GLfloat constant = 1, linear = 0, quadratic = 0;
 };
-
-inline void
-PosLight::setPosition(const glm::vec3& pos) {
-	position = glm::vec4(pos, 1.0);
-}
-
-inline void
-PosLight::setAttenuation(GLfloat nkc, GLfloat nkl, GLfloat nkq) {
-	constant = nkc;
-	linear = nkl;
-	quadratic = nkq;
-}
 
 class SpotLight : public PosLight {
 public:

@@ -44,10 +44,17 @@ class showcase_scene7 : public Scene {
 class showcase_scene8 : public Scene {
     CompoundEntity *tie_anchor;
     CompoundEntity *tie_planet_anchor;
-    
+
+    size_t spotlight_index;
     virtual void init() override;
 
+    const SpotLight& spotlight() const;
+    SpotLight& spotlight();
+
+
 public:
+    showcase_scene8();
+
     void rotate_tie(const float radians);
     void orbit_tie(const float arc_length);
 };

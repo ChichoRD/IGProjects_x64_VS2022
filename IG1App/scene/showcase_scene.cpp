@@ -17,6 +17,7 @@
 #include "Cone.h"
 #include "Material.h"
 #include <memory>
+#include <limits>
 
 #include "indexed_box.h"
 
@@ -203,14 +204,65 @@ void showcase_scene8::init() {
 	gObjects.push_back(tatooine);
 	gObjects.push_back(tie_planet_anchor);
 
-	std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>(static_cast<int>(Scene::get_lights().size()));
-	posLight->setAttenuation(1.0, 1.0, 0.0);
-	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0)); //oioioi
+	std::vector<std::unique_ptr<Light>>& lights = Scene::get_lights();
+	//std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>(static_cast<int>(lights.size()));
 
-	Scene::get_lights().push_back(std::move(posLight));
+	//posLight->setAttenuation(1.0, 1.0, 0.0);
+	//posLight->setPosition(glm::vec3(250.0, 250.0, 0.0)); //oioioi
+
+	//lights.push_back(std::move(posLight));
+
+	std::unique_ptr<SpotLight> spotlight{
+		std::make_unique<SpotLight>(
+			glm::vec3{side_length, side_length, side_length},
+			static_cast<int>(Scene::get_lights().size())
+		)
+	};
+	spotlight->setDirection(glm::normalize(-spotlight->get_position()));
+	spotlight_index = lights.size();
+	lights.push_back(std::move(spotlight));
 	//oioioi
 	//oioioi
 	//oioioi
+}
+
+const SpotLight& showcase_scene8::spotlight() const {
+	assert(
+		spotlight_index < lights.size()
+		&& "fatal error: spot light index out of bounds"
+	);
+	const Light* const light{ lights.at(spotlight_index).get() };
+	assert(
+		light != nullptr
+		&& "fatal error: light is null"
+	);
+	const SpotLight* const spotlight{ dynamic_cast<const SpotLight*>(light) };
+	assert(
+		spotlight != nullptr
+		&& "fatal error: light is not a spotlight"
+	);
+	return *spotlight;
+}
+SpotLight& showcase_scene8::spotlight() {
+	assert(
+		spotlight_index < lights.size()
+		&& "fatal error: spot light index out of bounds"
+	);
+	Light* const light{ lights.at(spotlight_index).get() };
+	assert(
+		light != nullptr
+		&& "fatal error: light is null"
+	);
+	SpotLight* const spotlight{ dynamic_cast<SpotLight*>(light) };
+	assert(
+		spotlight != nullptr
+		&& "fatal error: light is not a spotlight"
+	);
+	return *spotlight;
+}
+
+showcase_scene8::showcase_scene8()
+	: tie_anchor{ nullptr }, tie_planet_anchor{ nullptr }, spotlight_index{ (std::numeric_limits<size_t>::max)() } {
 }
 
 void showcase_scene8::rotate_tie(const float radians) {
