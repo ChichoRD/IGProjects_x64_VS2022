@@ -318,6 +318,16 @@ IG1App::key(unsigned int key)
 		case 'k':
 			two_viewport_mode = !two_viewport_mode;
 			break;
+		case 'r': {
+			Scene& scene = *mScenes.at(mCurrentScene);
+			std::vector<std::unique_ptr<Light>> &lights = scene.get_lights();
+			assert(
+				!lights.empty()
+				&& "fatal error: ther bmust be at least one light in all scenes"
+			);
+			lights.front()->setEnabled(!lights.front()->enabled());
+			break;
+		}
 		case 'n': {
 			color_material_entity::set_debug_normals_enabled(
 				!color_material_entity::get_debug_normals_enabled()

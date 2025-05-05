@@ -32,7 +32,12 @@ public:
 	void load();
 	void unload();
 
-	inline std::vector<std::unique_ptr<Light>> &get_lights() { return lights; }
+	inline std::vector<std::unique_ptr<Light>> &get_lights() {
+		return lights;
+	}
+	inline const std::vector<std::unique_ptr<Light>>& get_lights() const {
+		return lights;
+	}
 
 protected:
 	void setGL();
