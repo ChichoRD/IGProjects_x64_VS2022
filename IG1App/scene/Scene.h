@@ -32,6 +32,8 @@ public:
 	void load();
 	void unload();
 
+	inline std::vector<std::unique_ptr<Light>> get_lights() { return lights; }
+
 protected:
 	void setGL();
 	void resetGL();
