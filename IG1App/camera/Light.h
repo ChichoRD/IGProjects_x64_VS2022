@@ -5,6 +5,7 @@
 
 #include "Shader.h"
 #include <glm/glm.hpp>
+#include <cmath>
 
 class Light { // Abstract class
 public:
@@ -48,6 +49,10 @@ protected:
 
 inline void
 DirLight::setDirection(const glm::vec3& dir) {
+	assert(
+		(std::fabs(glm::dot(dir, dir) - 1.0f) < 0.0001f)
+		&& "fatal error: direction vector must be normalized"
+	);
 	direction = glm::vec4(dir, 0.0);
 }
 
