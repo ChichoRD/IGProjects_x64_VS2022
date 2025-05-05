@@ -207,6 +207,7 @@ void showcase_scene8::init() {
 	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0)); //oioioi
 
 	Scene::get_lights().push_back(std::move(posLight));
+	//oioioi
 }
 
 void showcase_scene8::rotate_tie(const float radians) {
