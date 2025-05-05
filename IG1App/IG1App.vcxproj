@@ -39,7 +39,6 @@
     <ClCompile Include="entity\entity_with_material.cpp" />
     <ClCompile Include="IG1App.cpp" />
     <ClCompile Include="image\Image.cpp" />
-    <ClCompile Include="image\Material.cpp" />
     <ClCompile Include="image\Texture.cpp" />
     <ClCompile Include="entity\indexed_box.cpp" />
     <ClCompile Include="main.cpp" />
@@ -79,7 +78,6 @@
     <ClInclude Include="entity\entity_with_material.hpp" />
     <ClInclude Include="IG1App.h" />
     <ClInclude Include="image\Image.h" />
-    <ClInclude Include="image\Material.h" />
     <ClInclude Include="image\Texture.h" />
     <ClInclude Include="entity\indexed_box.h" />
     <ClInclude Include="mesh\IndexMesh.h" />
