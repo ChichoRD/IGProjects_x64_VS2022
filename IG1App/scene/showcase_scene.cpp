@@ -311,11 +311,11 @@ void showcase_scene0::init() {
 
 	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
 	auto tatooine_yellow = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.94, 0.0f, 0.0 } };
-	tatooine_yellow->setModelMat(glm::translate(tatooine_yellow->modelMat(), glm::vec3{ axis_unit_size, 0.0f, 0.0f }));
+	tatooine_yellow->setModelMat(glm::translate(tatooine_yellow->modelMat(), glm::vec3{ axis_unit_size*1.5f, 0.0f, 0.0f }));
 
 	auto tatooine_golden_experience = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.84, 0.0f, 0.0 } };
 	tatooine_golden_experience->get_material().setGold();
-	tatooine_golden_experience->setModelMat(glm::translate(tatooine_golden_experience->modelMat(), glm::vec3{ 0.0f, 0.0f, axis_unit_size }));
+	tatooine_golden_experience->setModelMat(glm::translate(tatooine_golden_experience->modelMat(), glm::vec3{ 0.0f, 0.0f, axis_unit_size*1.5f }));
 
 	gObjects.push_back(tatooine_yellow);
 	gObjects.push_back(tatooine_golden_experience);
