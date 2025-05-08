@@ -212,23 +212,20 @@ void showcase_scene8::init() {
 	std::vector<std::unique_ptr<Light>>& lights = Scene::get_lights();
 	std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>(static_cast<int>(lights.size()));
 
-	posLight->setAttenuation(1.0, 1.0, 0.0);
-	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0)); //oioioi
+	posLight->setDiff(glm::vec3(1.0, 1.0, 0));
+	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0));
 	positional_light_index = lights.size();
 	lights.push_back(std::move(posLight));
 
 	std::unique_ptr<SpotLight> spotlight{
 		std::make_unique<SpotLight>(
-			glm::vec3{side_length, side_length, side_length},
+			glm::vec3{0.0, side_length, side_length},
 			static_cast<int>(Scene::get_lights().size())
 		)
 	};
 	spotlight->setDirection(glm::normalize(-spotlight->get_position()));
 	spotlight_index = lights.size();
 	lights.push_back(std::move(spotlight));
-	//oioioi
-	//oioioi
-	//oioioi
 
 	const glm::mat4 tie_transform = compute_tie_transform();
 	std::unique_ptr<SpotLight> tie_spotlight{
