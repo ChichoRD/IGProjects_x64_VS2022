@@ -142,7 +142,7 @@ void showcase_scene4::destroy() {
 void showcase_scene7::init() {
 	Scene::init();
 
-	auto TIE = new AdvancedTIE();
+	AdvancedTIE *TIE = new AdvancedTIE();
 	TIE->setModelMat(glm::translate(glm::identity<glm::mat4>(), glm::vec3(400, 0, 0)) * TIE->modelMat());
 	gObjects.push_back(TIE);
 }
@@ -179,9 +179,9 @@ void showcase_scene8::init() {
 	); // not cornflower blue lmao
 
 	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
-	auto tatooine = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.94, 0.0f, 0.0 } };
+	sphere *tatooine = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.94, 0.0f, 0.0 } };
 
-	auto tie = new AdvancedTIE();
+	AdvancedTIE *tie = new AdvancedTIE();
 	tie->setModelMat(
 		glm::rotate(
 			glm::scale(glm::identity<glm::mat4>(), glm::vec3{ 0.2f }),
@@ -190,7 +190,7 @@ void showcase_scene8::init() {
 		)
 	);
 
-	auto tie_anchor = new CompoundEntity();
+	CompoundEntity *tie_anchor = new CompoundEntity();
 	tie_child_path.push_back(tie_anchor->child_count());
 	tie_anchor->addEntity(tie);
 	tie_anchor->setModelMat(
@@ -199,7 +199,7 @@ void showcase_scene8::init() {
 		)
 	);
 
-	auto tie_planet_anchor = new CompoundEntity();
+	CompoundEntity *tie_planet_anchor = new CompoundEntity();
 	tie_child_path.push_back(tie_planet_anchor->child_count());
 	tie_planet_anchor->addEntity(tie_anchor);
 	
@@ -362,10 +362,10 @@ void showcase_scene0::init() {
 	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
 
 	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
-	auto tatooine_yellow = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.94, 0.0f, 0.0 } };
+	sphere *tatooine_yellow = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.94, 0.0f, 0.0 } };
 	tatooine_yellow->setModelMat(glm::translate(tatooine_yellow->modelMat(), glm::vec3{ axis_unit_size*1.5f, 0.0f, 0.0f }));
 
-	auto tatooine_golden_experience = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.84, 0.0f, 0.0 } };
+	sphere *tatooine_golden_experience = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.84, 0.0f, 0.0 } };
 	tatooine_golden_experience->get_material().setGold();
 	tatooine_golden_experience->setModelMat(glm::translate(tatooine_golden_experience->modelMat(), glm::vec3{ 0.0f, 0.0f, axis_unit_size*1.5f }));
 

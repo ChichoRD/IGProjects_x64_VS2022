@@ -50,7 +50,7 @@ void tie_fighter_wing::update(double time_seconds, double delta_time_seconds) {
 		};
 
 	const glm::mat4 model_view_matrix = glm::mat4{ IG1App::s_ig1app.camera().viewMat() } *mModelMat;
-	std::sort(mMesh->vertices().begin(), mMesh->vertices().end(), [model_view_matrix](const auto& a, const auto& b) {
+	std::sort(mMesh->vertices().begin(), mMesh->vertices().end(), [model_view_matrix](const glm::vec3& a, const glm::vec3& b) {
 		return camera_depth(model_view_matrix, a) < camera_depth(model_view_matrix, b);
 		});
 }

@@ -274,7 +274,7 @@ IG1App::resize(int newWidth, int newHeight)
 	mWinH = newHeight;
 
 	// Resize Viewport to the new window size
-	auto &&viewport = mCamera->viewport();
+	Viewport &viewport = mCamera->viewport();
 	viewport.setSize(newWidth, newHeight);
 
 	// Resize Scene Visible Area such that the scale is not modified
@@ -402,7 +402,7 @@ IG1App::changeScene(size_t sceneNr)
 		old_scene.destroy();
 
 		mCurrentScene = sceneNr;
-		auto &&new_scene = *mScenes[mCurrentScene];
+		Scene &new_scene = *mScenes[mCurrentScene];
 		new_scene.init();
 		mNeedsRedisplay = true;
 		// mScenes[mCurrentScene]->load();
