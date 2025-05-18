@@ -10,11 +10,13 @@
 #include <glm/gtc/matrix_access.hpp>
 
 AdvancedTIE::AdvancedTIE() {
-	addEntity(new sphere(Scene::axis_unit_size/4, 12, 12, Scene::cornflower_blue));
+	glm::dvec4 indigo = glm::dvec4(0.0, 65.0, 106.0, 255.0) / 255.0;
+	sphere* core = new sphere(Scene::axis_unit_size / 4, 12, 12, indigo);
+	addEntity(core);
 
-	Cone* cone1 = new Cone(100, 25, 25, 100, 12, Scene::cornflower_blue);
-	Cone* cone2 = new Cone(100, 25, 25, 100, 12, Scene::cornflower_blue);
-	Cone* cone3 = new Cone(100, 25, 25, 100, 12, Scene::cornflower_blue);
+	Cone* cone1 = new Cone(100, 25, 25, 100, 12, indigo);
+	Cone* cone2 = new Cone(100, 25, 25, 100, 12, indigo);
+	Cone* cone3 = new Cone(100, 25, 25, 100, 12, indigo);
 
 	cone1->setModelMat(glm::rotate(cone1->modelMat(), glm::half_pi<GLfloat>(), glm::vec3(0,0,1)));
 	cone1->setModelMat(glm::translate(glm::identity<glm::mat4>(), glm::vec3(Scene::axis_unit_size / 3, 0, 0)) * cone1->modelMat());

@@ -212,23 +212,20 @@ void showcase_scene8::init() {
 	std::vector<std::unique_ptr<Light>>& lights = Scene::get_lights();
 	std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>(static_cast<int>(lights.size()));
 
-	posLight->setAttenuation(1.0, 1.0, 0.0);
-	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0)); //oioioi
+	posLight->setDiff(glm::vec3(1.0, 1.0, 0));
+	posLight->setPosition(glm::vec3(250.0, 250.0, 0.0));
 	positional_light_index = lights.size();
 	lights.push_back(std::move(posLight));
 
 	std::unique_ptr<SpotLight> spotlight{
 		std::make_unique<SpotLight>(
-			glm::vec3{side_length, side_length, side_length},
+			glm::vec3{0.0, side_length, side_length},
 			static_cast<int>(Scene::get_lights().size())
 		)
 	};
 	spotlight->setDirection(glm::normalize(-spotlight->get_position()));
 	spotlight_index = lights.size();
 	lights.push_back(std::move(spotlight));
-	//oioioi
-	//oioioi
-	//oioioi
 
 	const glm::mat4 tie_transform = compute_tie_transform();
 	std::unique_ptr<SpotLight> tie_spotlight{
@@ -314,11 +311,11 @@ void showcase_scene0::init() {
 
 	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
 	auto tatooine_yellow = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.94, 0.0f, 0.0 } };
-	tatooine_yellow->setModelMat(glm::translate(tatooine_yellow->modelMat(), glm::vec3{ axis_unit_size, 0.0f, 0.0f }));
+	tatooine_yellow->setModelMat(glm::translate(tatooine_yellow->modelMat(), glm::vec3{ axis_unit_size*1.5f, 0.0f, 0.0f }));
 
 	auto tatooine_golden_experience = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.84, 0.0f, 0.0 } };
 	tatooine_golden_experience->get_material().setGold();
-	tatooine_golden_experience->setModelMat(glm::translate(tatooine_golden_experience->modelMat(), glm::vec3{ 0.0f, 0.0f, axis_unit_size }));
+	tatooine_golden_experience->setModelMat(glm::translate(tatooine_golden_experience->modelMat(), glm::vec3{ 0.0f, 0.0f, axis_unit_size*1.5f }));
 
 	gObjects.push_back(tatooine_yellow);
 	gObjects.push_back(tatooine_golden_experience);
