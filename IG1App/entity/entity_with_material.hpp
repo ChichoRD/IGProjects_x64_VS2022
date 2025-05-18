@@ -16,8 +16,8 @@ public:
 	static bool get_debug_normals_enabled();
 	void render(const glm::mat4 &basis) const override;
 
-	inline Material& get_material() { return material; }
-	inline const Material& get_material() const { return material; }
+	Material& get_material();
+	const Material& get_material() const;
 
 protected:
 	size_t generate_and_load_normals_debug_mesh(const glm::dvec4 debug_color);

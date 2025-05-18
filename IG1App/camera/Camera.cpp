@@ -154,6 +154,40 @@ Camera::setPM()
 	}
 }
 
+glm::vec3 Camera::right() const {
+	return mRight;
+}
+
+glm::vec3 Camera::up() const {
+	return mUpward;
+}
+
+glm::vec3 Camera::front() const {
+	return mFront;
+}
+
+GLdouble Camera::scale() const {
+	return mScaleFact;
+}
+
+void Camera::move_lr(GLfloat displacement) {
+	mEye += mRight * displacement;
+	mLook += mRight * displacement;
+	setVM();
+}
+
+void Camera::move_fb(GLfloat displacement) {
+	mEye += mFront * displacement;
+	mLook += mFront * displacement;
+	setVM();
+}
+
+void Camera::move_ud(GLfloat displacement) {
+	mEye += mUpward * displacement;
+	mLook += mUpward * displacement;
+	setVM();
+}
+
 glm::dvec3 Camera::orbit_xz(
 	const GLfloat disaplacement_radians,
 	const GLfloat displacement_altitude,
@@ -170,6 +204,28 @@ glm::dvec3 Camera::orbit_xz(
 	mEye.y += displacement_altitude * 10.0;
 	setVM();
 	return mEye;
+}
+
+void Camera::set_orthographic() {
+	bOrto = true;
+	setPM();
+}
+
+void Camera::set_perspective() {
+	bOrto = false;
+	setPM();
+}
+
+void Camera::set_position(const glm::dvec3 eye_position) {
+	mEye = eye_position;
+	mLook = mEye + glm::dvec3{ mFront };
+	setVM();
+}
+
+void Camera::look_at(const glm::dvec3 look_position, const glm::dvec3 up_vector) {
+	mLook = look_position;
+	mUp = up_vector;
+	setVM();
 }
 
 void

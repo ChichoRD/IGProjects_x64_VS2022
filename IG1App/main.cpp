@@ -36,17 +36,9 @@ main(int argc, char* argv[])
 	setup_windows_console();
 #endif
 
-	try {
-		std::cout << "Starting application...\n";
-		IG1App::s_ig1app.run();
-		std::cout << "Closing application...\n";
-	} catch (std::exception& e) {
-		std::cout << "\x1b[91;1m[FATAL]\x1b[0m " << e.what() << '\n';
-		// std::cin.ignore(INT_MAX, '\n');
-	} catch (...) {
-		std::cout << "\x1b[91;1m[FATAL]\x1b[0m Closing application...\n";
-		// std::cin.ignore(INT_MAX, '\n');
-	};
+	std::cout << "Starting application...\n";
+	IG1App::s_ig1app.run();
+	std::cout << "Closing application...\n";
 
 	return 0;
 }

@@ -26,3 +26,6 @@ void rgb_rectangle::render(const glm::mat4& basis) const
 		glDisable(GL_CULL_FACE);
 	}
 }
+
+[[maybe_unused]]
+Mesh* rgb_rectangle::getMesh() { return mMesh; }

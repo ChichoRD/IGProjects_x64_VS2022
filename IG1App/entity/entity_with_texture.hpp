@@ -15,15 +15,10 @@ protected:
 public:
     entity_with_texture(const std::string_view texture_path, const std::string_view shader_key, bool modulate = false);
     entity_with_texture(const std::string_view texture_path, bool modulate = false);
-    inline entity_with_texture(bool modulate) : texture(), sampler(0), moulate(modulate) {
-        mShader = Shader::get("texture");
-        glGenSamplers(1, &sampler);
-        glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glSamplerParameteri(sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    }
+    entity_with_texture(const bool modulate);
 
-    [[maybe_unused]] inline bool &get_modulate() { return moulate; }
-    [[maybe_unused]] inline const bool &get_modulate() const { return moulate; }
+    [[maybe_unused]] bool &get_modulate();
+    [[maybe_unused]] const bool &get_modulate() const;
 };
 
 #endif

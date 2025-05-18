@@ -21,9 +21,6 @@ public:
 	// view matrix
 	glm::dmat4 const& viewMat() const { return mViewMat; };
 
-	inline void set2D() { set_orthographic(); }
-	inline void set3D() { set_perspective(); }
-
 	void pitch(GLdouble a); // rotates a degrees on the X axis
 	void yaw(GLdouble a);   // rotates a degrees on the Y axis
 	void roll(GLdouble a);  // rotates a degrees on the Z axis
@@ -72,37 +69,17 @@ protected:
 	void setPM();
 
 public:
-	inline glm::vec3 right() {
-		return mRight;
-	}
-	inline glm::vec3 up() {
-		return mUpward;
-	}
-	inline glm::vec3 front() {
-		return mFront;
-	}
+	glm::vec3 right() const;
+	glm::vec3 up() const;
+	glm::vec3 front() const;
 
-	inline GLdouble scale() {
-		return mScaleFact;
-	}
+	GLdouble scale() const;
 
-	inline void move_lr(GLfloat displacement) {
-		mEye += mRight * displacement;
-		mLook += mRight * displacement;
-		setVM();
-	}
+	void move_lr(GLfloat displacement);
 
-	inline void move_fb(GLfloat displacement) {
-		mEye += mFront * displacement;
-		mLook += mFront * displacement;
-		setVM();
-	}
+	void move_fb(GLfloat displacement);
 
-	inline void move_ud(GLfloat displacement) {
-		mEye += mUpward * displacement;
-		mLook += mUpward * displacement;
-		setVM();
-	}
+	void move_ud(GLfloat displacement);
 
 	glm::dvec3 orbit_xz(
 		const GLfloat disaplacement_radians,
@@ -110,27 +87,13 @@ public:
 		const GLfloat focal_length
 	);
 	
-	inline void set_orthographic() {
-		bOrto = true;
-		setPM();
-	}
-	inline void set_perspective() {
-		bOrto = false;
-		setPM();
-	}
-	inline bool is_orthographic() const { return bOrto; }
+	void set_orthographic();
+	void set_perspective();
+	bool is_orthographic() const { return bOrto; }
 
-	inline void set_position(const glm::dvec3 eye_position) {
-		mEye = eye_position;
-		mLook = mEye + glm::dvec3{mFront};
-		setVM();
-	}
+	void set_position(const glm::dvec3 eye_position);
 
-	inline void look_at(const glm::dvec3 look_position, const glm::dvec3 up_vector) {
-		mLook = look_position;
-		mUp = up_vector;
-		setVM();
-	}
+	void look_at(const glm::dvec3 look_position, const glm::dvec3 up_vector);
 };
 
 void camera_set_cenital(Camera &camera, const glm::dvec3 eye_position);

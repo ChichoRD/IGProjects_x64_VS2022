@@ -22,6 +22,15 @@ Abs_Entity::~Abs_Entity()
 	mMesh = nullptr;
 }
 
+[[maybe_unused]]
+glm::mat4 const& Abs_Entity::modelMat() const {
+	return mModelMat;
+}
+[[maybe_unused]]
+void Abs_Entity::setModelMat(glm::mat4 const& aMat) {
+	mModelMat = aMat;
+}
+
 void
 Abs_Entity::load()
 {

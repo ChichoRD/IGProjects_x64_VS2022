@@ -388,6 +388,9 @@ IG1App::specialkey(int key, int scancode, int action, int mods)
 		mNeedsRedisplay = true;
 }
 
+int IG1App::window_width() const { return mWinW; }
+int IG1App::window_height() const { return mWinH; }
+
 bool
 IG1App::changeScene(size_t sceneNr)
 {

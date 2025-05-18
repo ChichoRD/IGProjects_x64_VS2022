@@ -65,16 +65,13 @@ public:
 	inline void setPosition(const glm::fvec3& dir) {
 		position = glm::vec4(dir, 1.0);
 	}
-	inline glm::vec3 get_position() const {
-		return glm::vec3(position);
-	}
 	inline void setAttenuation(GLfloat kc, GLfloat kl, GLfloat kq) {
 		constant = kc;
 		linear = kl;
 		quadratic = kq;
 	}
 
-	const inline glm::vec3 get_position() { return position; }
+	glm::vec3 get_position() const;
 
 protected:
 	glm::vec4 position = {0, 0, 0, 1};

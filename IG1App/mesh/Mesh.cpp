@@ -153,6 +153,28 @@ void Mesh::render() const
 	//glDisableVertexAttribArray(mVAO);
 }
 
+[[maybe_unused]]
+GLuint Mesh::size() const { return mNumVertices; }
+
+// number of elements
+[[maybe_unused]]
+std::vector<glm::vec3> const& Mesh::vertices() const { return vVertices; }
+
+[[maybe_unused]]
+std::vector<glm::vec3>& Mesh::vertices() { return vVertices; }
+
+[[maybe_unused]]
+std::vector<glm::vec4> const& Mesh::colors() const { return vColors; }
+
+[[maybe_unused]]
+std::vector<glm::vec4>& Mesh::colors() { return vColors; }
+
+[[maybe_unused]]
+std::vector<glm::vec3> const& Mesh::normals() const { return vNormals; }
+
+[[maybe_unused]]
+std::vector<glm::vec3>& Mesh::normals() { return vNormals; }
+
 Mesh* Mesh::generate_rectangle(GLdouble w, GLdouble h, std::array<glm::vec4, 4> &&vertex_colours)
 {
 	std::vector<glm::vec3> vertices = {

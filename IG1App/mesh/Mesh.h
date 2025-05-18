@@ -29,13 +29,13 @@ public:
 
 	virtual void render() const;
 
-	[[maybe_unused]] inline GLuint size() const { return mNumVertices; }; // number of elements
-	[[maybe_unused]] inline std::vector<glm::vec3> const& vertices() const { return vVertices; };
-	[[maybe_unused]] inline std::vector<glm::vec3> &vertices() { return vVertices; };
-	[[maybe_unused]] inline std::vector<glm::vec4> const& colors() const { return vColors; };
-	[[maybe_unused]] inline std::vector<glm::vec4>& colors() { return vColors; };
-	[[maybe_unused]] inline std::vector<glm::vec3> const& normals() const { return vNormals; };
-	[[maybe_unused]] inline std::vector<glm::vec3>& normals() { return vNormals; };
+	[[maybe_unused]] GLuint size() const; // number of elements
+	[[maybe_unused]] std::vector<glm::vec3> const& vertices() const;
+	[[maybe_unused]] std::vector<glm::vec3> &vertices();
+	[[maybe_unused]] std::vector<glm::vec4> const& colors() const;
+	[[maybe_unused]] std::vector<glm::vec4>& colors();
+	[[maybe_unused]] std::vector<glm::vec3> const& normals() const;
+	[[maybe_unused]] std::vector<glm::vec3>& normals();
 
 	virtual void load();
 	virtual void unload();

@@ -25,8 +25,8 @@ public:
 	}; // virtual method
 
 	// modeling matrix
-	[[maybe_unused]] inline glm::mat4 const& modelMat() const { return mModelMat; };
-	[[maybe_unused]] inline void setModelMat(glm::mat4 const& aMat) { mModelMat = aMat; };
+	[[maybe_unused]] glm::mat4 const& modelMat() const;
+	[[maybe_unused]] void setModelMat(glm::mat4 const& aMat);
 
 	// load or unload entity data into the GPU
 	void load();

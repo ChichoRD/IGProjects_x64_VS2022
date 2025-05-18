@@ -80,8 +80,8 @@ protected:
 	const float ROTATION_SPEED = glm::pi<float>() / 32;
 
 public:
-	inline int window_width() const { return mWinW; };
-	inline int window_height() const { return mWinH; };
+	int window_width() const;;
+	int window_height() const;;
 
 	friend void ig1_app_on_cursor_position(GLFWwindow* window, double xpos, double ypos);
 	friend void ig1_app_on_mouse_button(GLFWwindow* window, int button, int action, int mods);

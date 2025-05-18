@@ -28,6 +28,11 @@ Texture::bind() const
 	glBindTexture(GL_TEXTURE_2D, mId);
 }
 
+[[maybe_unused]]
+GLuint Texture::width() const { return mWidth; }
+[[maybe_unused]]
+GLuint Texture::height() const { return mHeight; }
+
 void
 Texture::load(const std::string& name, GLubyte alpha)
 {

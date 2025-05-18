@@ -58,6 +58,13 @@ Scene::unload()
 		obj->unload();
 }
 
+std::vector<std::unique_ptr<Light>>& Scene::get_lights() {
+	return lights;
+}
+const std::vector<std::unique_ptr<Light>>& Scene::get_lights() const {
+	return lights;
+}
+
 void
 Scene::setGL()
 {
@@ -114,4 +121,8 @@ void Scene::update(double time_seconds, double delta_time_seconds)
 {
 	for (Abs_Entity* el : gObjects)
 		el->update(time_seconds, delta_time_seconds);
+}
+
+void Scene::on_key_pressed(const uint32_t key) {
+	(void)key;
 }

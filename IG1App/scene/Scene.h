@@ -27,20 +27,14 @@ public:
 
 	void render(Camera const& cam) const;
 	virtual void update(double time_seconds, double delta_time_seconds);
-	inline virtual void on_key_pressed(const uint32_t key) {
-		(void)key;
-	} // virtual method
+	virtual void on_key_pressed(const uint32_t key);
 
 	// load or unload scene data into the GPU
 	void load();
 	void unload();
 
-	inline std::vector<std::unique_ptr<Light>> &get_lights() {
-		return lights;
-	}
-	inline const std::vector<std::unique_ptr<Light>>& get_lights() const {
-		return lights;
-	}
+	std::vector<std::unique_ptr<Light>> &get_lights();
+	const std::vector<std::unique_ptr<Light>>& get_lights() const;
 
 protected:
 	void setGL();

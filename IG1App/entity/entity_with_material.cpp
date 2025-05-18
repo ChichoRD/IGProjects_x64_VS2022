@@ -46,6 +46,14 @@ void entity_with_material::render(const glm::mat4& basis) const {
 
 }
 
+Material& entity_with_material::get_material() {
+	return material;
+}
+
+const Material& entity_with_material::get_material() const {
+	return material;
+}
+
 size_t entity_with_material::generate_and_load_normals_debug_mesh(const glm::dvec4 debug_color) {
 	normals_debug_mesh.unload();
 	normal_debug_color = debug_color;

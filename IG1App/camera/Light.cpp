@@ -75,6 +75,8 @@ void PosLight::upload(Shader& shader, glm::mat4 const& modelViewMat) const
 	shader.setUniform(lightID + ".quadratic", quadratic);
 }
 
+glm::vec3 PosLight::get_position() const { return position; }
+
 SpotLight::SpotLight(const glm::vec3& pos, int id)
 {
 	lightID = "spotLights[" + std::to_string(id) + "]";
