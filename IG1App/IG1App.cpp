@@ -422,7 +422,7 @@ IG1App::changeScene(size_t sceneNr)
 
 	// Change only if a different scene
 	if (sceneNr != mCurrentScene) {
-		auto &&old_scene = *mScenes[mCurrentScene];
+		Scene &old_scene = *mScenes[mCurrentScene];
 		// old_scene.unload();
 		old_scene.destroy();
 

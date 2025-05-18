@@ -13,7 +13,7 @@ public:
 	size_t child_count() const;
 	const Abs_Entity& get_child(const size_t index) const;
 	Abs_Entity& get_child(const size_t index);
-
+	
 	void render(const glm::mat4& modelViewMat) const override;
 	void update(double time_seconds, double delta_time_seconds) override;
 	void load();

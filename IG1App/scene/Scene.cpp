@@ -36,9 +36,11 @@ void
 Scene::destroy()
 { // release memory and resources
 
-	for (Abs_Entity* el : gObjects)
+	for (Abs_Entity* el : gObjects) {
 		delete el;
+	}
 
+	lights.clear();
 	gObjects.clear();
 }
 
