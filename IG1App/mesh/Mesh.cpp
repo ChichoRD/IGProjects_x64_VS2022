@@ -87,6 +87,19 @@ Mesh::unload()
 	}
 }
 
+void Mesh::set_primitive(GLuint primitive) {
+	mPrimitive = primitive;
+}
+
+void Mesh::set_vertex_range(GLuint num) {
+	assert(num <= vertices().size() && "error: number of vertices exceeds the size of the vertex array");
+	mNumVertices = num;
+}
+
+bool Mesh::is_loaded() const {
+	return mVAO != NONE;
+}
+
 Mesh::Mesh(Mesh &&m) noexcept {
 	mVAO = m.mVAO;
 	mVBO = m.mVBO;

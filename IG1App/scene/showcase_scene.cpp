@@ -237,6 +237,7 @@ void showcase_scene8::init() {
 	tie_spotlight->setDirection(glm::normalize(glm::vec3{
 		tie_transform * glm::vec4{ 0.0f, -1.0f, 0.0f, 1.0f }
 	}));
+	tie_spotlight->setCutoff(30.f, 60.0f);
 	tie_spotlight_index = lights.size();
 	lights.push_back(std::move(tie_spotlight));
 }
@@ -261,10 +262,53 @@ void showcase_scene8::on_key_pressed(const uint32_t key)
 		get_tie_spotlight().setEnabled(!get_tie_spotlight().enabled());
 		break;
 	}
+	case 'f': {
+		constexpr static const float delta_angle = glm::pi<float>() / 64;
+		rotate_tie(delta_angle);
+		break;
+	}
+	case 'g': {
+		constexpr static const float delta_arc = float(Scene::axis_unit_size) * 0.025f;
+		orbit_tie(delta_arc);
+		break;
+	}
+	case 'r': {
+		std::vector<std::unique_ptr<Light>>& lights = get_lights();
+		assert(
+			!lights.empty()
+			&& "fatal error: there must be at least one light in all scenes"
+		);
+		lights.front()->setEnabled(!lights.front()->enabled());
+		break;
+	}
 	default: {
 		break;
 	}
 	}
+}
+
+SpotLight& showcase_scene8::get_spotlight() {
+	return get_light<SpotLight>(spotlight_index);
+}
+
+const SpotLight& showcase_scene8::get_spotlight() const {
+	return get_light<SpotLight>(spotlight_index);
+}
+
+PosLight& showcase_scene8::get_positional_light() {
+	return get_light<PosLight>(positional_light_index);
+}
+
+const PosLight& showcase_scene8::get_positional_light() const {
+	return get_light<PosLight>(positional_light_index);
+}
+
+SpotLight& showcase_scene8::get_tie_spotlight() {
+	return get_light<SpotLight>(tie_spotlight_index);
+}
+
+const SpotLight& showcase_scene8::get_tie_spotlight() const {
+	return get_light<SpotLight>(tie_spotlight_index);
 }
 
 glm::mat4 showcase_scene8::compute_tie_transform() const {
@@ -328,4 +372,21 @@ void showcase_scene0::init() {
 
 	gObjects.push_back(tatooine_yellow);
 	gObjects.push_back(tatooine_golden_experience);
+}
+
+void showcase_scene0::on_key_pressed(const uint32_t key) {
+	switch (key) {
+	case 'r': {
+		std::vector<std::unique_ptr<Light>>& lights = get_lights();
+		assert(
+			!lights.empty()
+			&& "fatal error: there must be at least one light in all scenes"
+		);
+		lights.front()->setEnabled(!lights.front()->enabled());
+		break;
+	}
+	default: {
+		break;
+	}
+	}
 }

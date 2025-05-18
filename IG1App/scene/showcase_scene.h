@@ -91,24 +91,12 @@ class showcase_scene8 : public Scene {
 		return *light_type;
 	}
 
-	inline SpotLight& get_spotlight() {
-		return get_light<SpotLight>(spotlight_index);
-	}
-	inline const SpotLight& get_spotlight() const {
-		return get_light<SpotLight>(spotlight_index);
-	}
-	inline PosLight& get_positional_light() {
-		return get_light<PosLight>(positional_light_index);
-	}
-	inline const PosLight& get_positional_light() const {
-		return get_light<PosLight>(positional_light_index);
-	}
-	inline SpotLight& get_tie_spotlight() {
-		return get_light<SpotLight>(tie_spotlight_index);
-	}
-	inline const SpotLight& get_tie_spotlight() const {
-		return get_light<SpotLight>(tie_spotlight_index);
-	}
+	SpotLight& get_spotlight();
+	const SpotLight& get_spotlight() const;
+	PosLight& get_positional_light();
+	const PosLight& get_positional_light() const;
+	SpotLight& get_tie_spotlight();
+	const SpotLight& get_tie_spotlight() const;
 
 	glm::mat4 compute_tie_transform() const;
 
@@ -123,4 +111,5 @@ public:
 
 class showcase_scene0 : public Scene {
     virtual void init() override;
+	virtual void on_key_pressed(const uint32_t key) override;
 };

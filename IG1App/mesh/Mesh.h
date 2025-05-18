@@ -40,11 +40,9 @@ public:
 	virtual void load();
 	virtual void unload();
 
-	inline void set_primitive(GLuint primitive) { mPrimitive = primitive; };
-	inline void set_vertex_range(GLuint num) { 
-		assert(num <= vertices().size() && "error: number of vertices exceeds the size of the vertex array");
-		mNumVertices = num;
-	};
+	void set_primitive(GLuint primitive);
+	void set_vertex_range(GLuint num);
+	bool is_loaded() const;
 protected:
 	GLuint mPrimitive =
 	  GL_TRIANGLES;          // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...

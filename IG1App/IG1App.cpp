@@ -319,35 +319,10 @@ IG1App::key(unsigned int key)
 		case 'k':
 			two_viewport_mode = !two_viewport_mode;
 			break;
-		case 'r': {
-			std::vector<std::unique_ptr<Light>> &lights = scene.get_lights();
-			assert(
-				!lights.empty()
-				&& "fatal error: ther bmust be at least one light in all scenes"
-			);
-			lights.front()->setEnabled(!lights.front()->enabled());
-			break;
-		}
 		case 'n': {
 			color_material_entity::set_debug_normals_enabled(
 				!color_material_entity::get_debug_normals_enabled()
 			);
-			break;
-		}
-		case 'f': {
-			showcase_scene8* scene8 = dynamic_cast<showcase_scene8*>(mScenes[mCurrentScene]);
-			if (scene8 != nullptr) {
-				constexpr static const float delta_angle = glm::pi<float>() / 64;
-				scene8->rotate_tie(delta_angle);
-			}
-			break;
-		}
-		case 'g': {
-			showcase_scene8* scene8 = dynamic_cast<showcase_scene8*>(mScenes[mCurrentScene]);
-			if (scene8 != nullptr) {
-				constexpr static const float delta_arc = float(Scene::axis_unit_size) * 0.025f;
-				scene8->orbit_tie(delta_arc);
-			}
 			break;
 		}
 		case 'p': {

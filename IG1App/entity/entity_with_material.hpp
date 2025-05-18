@@ -5,18 +5,22 @@ class entity_with_material :
     public Abs_Entity
 {
     Material material;
+	Mesh normals_debug_mesh;
+	glm::dvec4 normal_debug_color;
 
+	static bool debug_normals_enabled;
 public:
-	inline entity_with_material(const Material material)
-		: Abs_Entity()
-		, material(material)
-	{
-		mShader = Shader::get("light");
-	}
 
+	entity_with_material(const Material material);
+	static void set_debug_normals_enabled(const bool enable);
+	static bool get_debug_normals_enabled();
 	void render(const glm::mat4 &basis) const override;
 
 	inline Material& get_material() { return material; }
 	inline const Material& get_material() const { return material; }
+
+protected:
+	size_t generate_and_load_normals_debug_mesh(const glm::dvec4 debug_color);
+
 };
 
