@@ -88,6 +88,7 @@ public:
 
 	virtual void upload(Shader& shader, glm::mat4 const& modelViewMat) const override;
 	void setDirection(const glm::vec3& dir) { direction = dir; }
+	glm::vec3 get_direction() const;
 	void setCutoff(float inner, float outer);
 
 protected:

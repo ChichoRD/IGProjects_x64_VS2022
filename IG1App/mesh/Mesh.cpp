@@ -3,6 +3,7 @@
 #include <glm/ext/scalar_constants.hpp>
 #include <glm/gtc/constants.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <type_traits>
 
 using namespace std;
 using namespace glm;
@@ -872,8 +873,12 @@ mesh_uv mesh_uv::generate_skibidi_cube(GLfloat side_legth) {
 	mesh.vColors = std::move(color_fill);
 	mesh.mPrimitive = GL_TRIANGLES;
 	mesh.mNumVertices = mesh.vVertices.size();
-	
-    return std::move(mesh);
+
+	static_assert(
+		std::is_move_assignable_v<mesh_uv>,
+		"static error: mesh_uv is not move assignable"
+	);
+    return mesh;
 }
 
 mesh_uv mesh_uv::generate_rectangle_uv(const GLfloat w, const GLfloat h, const glm::vec2 uv1, const glm::vec2 uv2, std::array<glm::vec4, 4> colors) {

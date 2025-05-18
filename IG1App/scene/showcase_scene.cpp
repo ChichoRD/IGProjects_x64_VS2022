@@ -235,7 +235,7 @@ void showcase_scene8::init() {
 		)
 	};
 	tie_spotlight->setDirection(glm::normalize(glm::vec3{
-		tie_transform * glm::vec4{ 0.0f, -1.0f, 0.0f, 1.0f }
+		tie_transform * glm::vec4{ 0.0f, -1.0f, 0.0f, 0.0f }
 	}));
 	tie_spotlight->setCutoff(30.f, 60.0f);
 	tie_spotlight_index = lights.size();
@@ -246,7 +246,6 @@ void showcase_scene8::destroy() {
 	Scene::destroy();
 	tie_child_path.clear();
 }
-
 void showcase_scene8::on_key_pressed(const uint32_t key)
 {
 	switch (key) {
@@ -354,7 +353,7 @@ void showcase_scene8::update(double time_seconds, double delta_time_seconds) {
 	SpotLight& tie_spotlight{ get_tie_spotlight() };
 	tie_spotlight.setPosition(glm::vec3{ glm::column(tie_transform, 3) });
 	tie_spotlight.setDirection(glm::normalize(glm::vec3{
-		tie_transform * glm::vec4{ 0.0f, -1.0f, 0.0f, 1.0f }
+		tie_transform * glm::vec4{ 0.0f, -1.0f, 0.0f, 0.0f }
 	}));
 }
 

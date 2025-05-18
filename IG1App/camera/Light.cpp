@@ -81,6 +81,10 @@ SpotLight::SpotLight(const glm::vec3& pos, int id)
 	position = glm::vec4(pos, 1.0);
 }
 
+glm::vec3 SpotLight::get_direction() const {
+	return glm::vec3{ direction };
+}
+
 void SpotLight::setCutoff(float inner, float outer)
 {
 	cutoff = cos(glm::radians(inner));
