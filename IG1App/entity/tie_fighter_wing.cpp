@@ -15,7 +15,7 @@ tie_fighter_wing::tie_fighter_wing() : entity_with_texture("../assets/images/noc
 	GLuint nSamples = 5;
 	static const constexpr GLfloat angleMax = 2 * glm::pi<GLfloat>()/3;
 
-	for (int c = 0; c < nRings; c++) {
+	for (GLuint c = 0; c < nRings; c++) {
 		GLdouble t = (GLdouble)c / (GLdouble)nRings;
 		cone_profile[c] = glm::vec2((R - r) * t + r, h * t);
 	}

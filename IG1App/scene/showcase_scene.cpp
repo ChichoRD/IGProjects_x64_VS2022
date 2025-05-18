@@ -241,6 +241,11 @@ void showcase_scene8::init() {
 	lights.push_back(std::move(tie_spotlight));
 }
 
+void showcase_scene8::destroy() {
+	Scene::destroy();
+	tie_child_path.clear();
+}
+
 void showcase_scene8::on_key_pressed(const uint32_t key)
 {
 	switch (key) {
@@ -279,7 +284,11 @@ glm::mat4 showcase_scene8::compute_tie_transform() const {
 }
 
 showcase_scene8::showcase_scene8()
-	: tie_anchor{ nullptr }, tie_planet_anchor{ nullptr }, spotlight_index{ (std::numeric_limits<size_t>::max)() } {
+	: tie_anchor{ nullptr },
+	tie_planet_anchor{ nullptr },
+	tie_spotlight_index{ (std::numeric_limits<size_t>::max)() },
+	spotlight_index{ (std::numeric_limits<size_t>::max)() },
+	positional_light_index{ (std::numeric_limits<size_t>::max)() } {
 }
 
 void showcase_scene8::rotate_tie(const float radians) {

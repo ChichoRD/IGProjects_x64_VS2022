@@ -51,6 +51,7 @@ class showcase_scene8 : public Scene {
 	size_t positional_light_index;
     
     virtual void init() override;
+	virtual void destroy() override;
     virtual void on_key_pressed(const uint32_t key) override;
 
 	template <typename LightType>

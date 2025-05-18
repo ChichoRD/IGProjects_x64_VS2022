@@ -58,8 +58,8 @@ protected:
 	// Camera position, view volume and projection
 	Camera* mCamera = nullptr;
 	// Graphics objects are in the scenes
-	std::vector<Scene*> mScenes;
-	size_t mCurrentScene = 0;
+	std::vector<Scene*> mScenes{};
+	size_t mCurrentScene{ 0 };
 
 	bool mNeedsRedisplay = true;  // main event processing loop
 	bool two_viewport_mode = false;
@@ -71,11 +71,11 @@ protected:
 	double mNextUpdateTime = 0.0; // next update time
 	double mUpdateTime = 0.0;     // update period
 
-	glm::dvec2 mouse_position;
-	glm::dvec2 previous_mouse_position;
+	glm::dvec2 mouse_position{ 0.0, 0.0 };
+	glm::dvec2 previous_mouse_position{ 0.0, 0.0 };
 	int mouse_button = -1;
 	//glm::dvec2 previous_scroll;
-	glm::dvec2 scroll;
+	glm::dvec2 scroll{ 0.0, 0.0 };
 
 	const float ROTATION_SPEED = glm::pi<float>() / 32;
 

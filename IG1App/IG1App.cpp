@@ -20,7 +20,7 @@ void GLAPIENTRY debugCallback(GLenum source, GLenum type, GLuint id, GLenum seve
 	switch (id) {
 	case 131204: [[fallthrough]]; // GL_DEBUG_SOURCE_API_ARB - Texture level 0 ndef
 	case 131185: [[fallthrough]]; // NVidia Driver Notification - Video memory usage
-	case 131218: [[fallthrough]]; // Shader recompilation
+	case 131218: // Shader recompilation
 		break;
 	default: {
 		const char* prefix = (type == GL_DEBUG_TYPE_ERROR)
@@ -244,13 +244,13 @@ void IG1App::update(double time_seconds, double delta_time_seconds) {
 	if (mouse_button == GLFW_MOUSE_BUTTON_LEFT) {
 		// TODO: mouse wheel and customize
 		mCamera->orbit_xz(
-			mouse_displacement.x * 0.01f,
-			mouse_displacement.y * 0.1f,
+			float(mouse_displacement.x) * 0.01f,
+			float(mouse_displacement.y) * 0.1f,
 			float(1 << 9)
 		);
 	} else if (mouse_button == GLFW_MOUSE_BUTTON_RIGHT) {
-		mCamera->move_lr(mouse_displacement.x);
-		mCamera->move_ud(-mouse_displacement.y);
+		mCamera->move_lr(float(mouse_displacement.x));
+		mCamera->move_ud(float(-mouse_displacement.y));
 	}
 
 	glm::dvec2 scroll_delta = scroll;
@@ -345,7 +345,7 @@ IG1App::key(unsigned int key)
 		case 'g': {
 			showcase_scene8* scene8 = dynamic_cast<showcase_scene8*>(mScenes[mCurrentScene]);
 			if (scene8 != nullptr) {
-				constexpr static const float delta_arc = Scene::axis_unit_size * 0.025f;
+				constexpr static const float delta_arc = float(Scene::axis_unit_size) * 0.025f;
 				scene8->orbit_tie(delta_arc);
 			}
 			break;
