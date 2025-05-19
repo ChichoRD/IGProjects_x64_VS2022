@@ -1,6 +1,8 @@
 #pragma once
 #include "Scene.h"
 #include "../entity/CompoundEntity.h"
+#include "CompoundTIE.hpp"
+
 class showcase_scene1 :
     public Scene
 {
@@ -42,16 +44,12 @@ class showcase_scene7 : public Scene {
 };
 
 class showcase_scene8 : public Scene {
-    CompoundEntity *tie_anchor;
-    CompoundEntity *tie_planet_anchor;
-	std::vector<size_t> tie_child_path;
+	CompoundTIE* tie;
 
-	size_t tie_spotlight_index;
     size_t spotlight_index;
 	size_t positional_light_index;
     
     virtual void init() override;
-	virtual void destroy() override;
     virtual void on_key_pressed(const uint32_t key) override;
 
 	template <typename LightType>
@@ -95,18 +93,11 @@ class showcase_scene8 : public Scene {
 	const SpotLight& get_spotlight() const;
 	PosLight& get_positional_light();
 	const PosLight& get_positional_light() const;
-	SpotLight& get_tie_spotlight();
-	const SpotLight& get_tie_spotlight() const;
-
-	glm::mat4 compute_tie_transform() const;
-
 public:
     showcase_scene8();
 
     void rotate_tie(const float radians);
     void orbit_tie(const float arc_length);
-
-	void update(double time_seconds, double delta_time_seconds) override;
 };
 
 class showcase_scene0 : public Scene {

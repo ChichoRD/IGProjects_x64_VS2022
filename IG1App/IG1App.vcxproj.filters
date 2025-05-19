@@ -75,9 +75,6 @@
     <ClCompile Include="image\Image.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="image\Material.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="image\Texture.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -123,7 +120,16 @@
     <ClCompile Include="entity\Disk.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="tie_fighter_wing.cpp">
+    <ClCompile Include="camera\Material.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="entity\entity_with_material.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="entity\tie_fighter_wing.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="entity\CompoundTIE.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
@@ -185,9 +191,6 @@
     <ClInclude Include="image\Image.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="image\Material.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="image\Texture.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -230,7 +233,16 @@
     <ClInclude Include="entity\Disk.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="tie_fighter_wing.h">
+    <ClInclude Include="camera\Material.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="entity\entity_with_material.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="entity\tie_fighter_wing.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="entity\CompoundTIE.hpp">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

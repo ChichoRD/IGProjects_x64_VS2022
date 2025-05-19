@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera\Material.cpp" />
+    <ClCompile Include="entity\CompoundTIE.cpp" />
     <ClCompile Include="entity\AdvancedTIE.cpp" />
     <ClCompile Include="camera\Camera.cpp" />
     <ClCompile Include="camera\Light.cpp" />
@@ -52,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\Material.h" />
+    <ClInclude Include="entity\CompoundTIE.hpp" />
     <ClInclude Include="entity\AdvancedTIE.h" />
     <ClInclude Include="camera\Camera.h" />
     <ClInclude Include="camera\Light.h" />

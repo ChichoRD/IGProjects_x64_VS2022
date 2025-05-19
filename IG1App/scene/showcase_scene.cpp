@@ -181,33 +181,11 @@ void showcase_scene8::init() {
 	constexpr static const GLdouble side_length = axis_unit_size * 0.75;
 	sphere *tatooine = new sphere{ side_length, 64, 64, glm::dvec4{ 1.0f, 0.94, 0.0f, 0.0 } };
 
-	AdvancedTIE *tie = new AdvancedTIE();
-	tie->setModelMat(
-		glm::rotate(
-			glm::scale(glm::identity<glm::mat4>(), glm::vec3{ 0.2f }),
-			glm::pi<float>(),
-			glm::vec3{ 0.0f, 1.0f, 0.0f }
-		)
-	);
-
-	CompoundEntity *tie_anchor = new CompoundEntity();
-	tie_child_path.push_back(tie_anchor->child_count());
-	tie_anchor->addEntity(tie);
-	tie_anchor->setModelMat(
-		glm::translate(
-			glm::identity<glm::mat4>(), glm::vec3{ 0.0f, axis_unit_size, 0.0f }
-		)
-	);
-
-	CompoundEntity *tie_planet_anchor = new CompoundEntity();
-	tie_child_path.push_back(tie_planet_anchor->child_count());
-	tie_planet_anchor->addEntity(tie_anchor);
-	
-	this->tie_anchor = tie_anchor;
-	this->tie_planet_anchor = tie_planet_anchor;
+	CompoundTIE* tie = new CompoundTIE(*this);
+	this->tie = tie;
 
 	gObjects.push_back(tatooine);
-	gObjects.push_back(tie_planet_anchor);
+	gObjects.push_back(tie);
 
 	std::vector<std::unique_ptr<Light>>& lights = Scene::get_lights();
 	std::unique_ptr<PosLight> posLight = std::make_unique<PosLight>(static_cast<int>(lights.size()));
@@ -226,26 +204,8 @@ void showcase_scene8::init() {
 	spotlight->setDirection(glm::normalize(-spotlight->get_position()));
 	spotlight_index = lights.size();
 	lights.push_back(std::move(spotlight));
-
-	const glm::mat4 tie_transform = compute_tie_transform();
-	std::unique_ptr<SpotLight> tie_spotlight{
-		std::make_unique<SpotLight>(
-			glm::vec3{glm::column(tie_transform, 3)},
-			static_cast<int>(Scene::get_lights().size())
-		)
-	};
-	tie_spotlight->setDirection(glm::normalize(glm::vec3{
-		tie_transform * glm::vec4{ 0.0f, -1.0f, 0.0f, 0.0f }
-	}));
-	tie_spotlight->setCutoff(30.f, 60.0f);
-	tie_spotlight_index = lights.size();
-	lights.push_back(std::move(tie_spotlight));
 }
 
-void showcase_scene8::destroy() {
-	Scene::destroy();
-	tie_child_path.clear();
-}
 void showcase_scene8::on_key_pressed(const uint32_t key)
 {
 	switch (key) {
@@ -258,7 +218,7 @@ void showcase_scene8::on_key_pressed(const uint32_t key)
 		break;
 	}
 	case 'h': {
-		get_tie_spotlight().setEnabled(!get_tie_spotlight().enabled());
+		tie->get_spotlight().setEnabled(!tie->get_spotlight().enabled());
 		break;
 	}
 	case 'f': {
@@ -302,59 +262,18 @@ const PosLight& showcase_scene8::get_positional_light() const {
 	return get_light<PosLight>(positional_light_index);
 }
 
-SpotLight& showcase_scene8::get_tie_spotlight() {
-	return get_light<SpotLight>(tie_spotlight_index);
-}
-
-const SpotLight& showcase_scene8::get_tie_spotlight() const {
-	return get_light<SpotLight>(tie_spotlight_index);
-}
-
-glm::mat4 showcase_scene8::compute_tie_transform() const {
-	glm::mat4 result{ tie_planet_anchor->modelMat() };
-	const CompoundEntity* parent = tie_planet_anchor;
-	for (ptrdiff_t i = ptrdiff_t(tie_child_path.size()) - 1; i >= 1; --i) {
-		const Abs_Entity &child = parent->get_child(tie_child_path.at(i));
-		result *= child.modelMat();
-		parent = static_cast<const CompoundEntity*>(&child);
-	}
-
-	if (!tie_child_path.empty()) {
-		return result * parent->get_child(tie_child_path.at(0)).modelMat();
-	} else {
-		return result;
-	}
-}
-
 showcase_scene8::showcase_scene8()
-	: tie_anchor{ nullptr },
-	tie_planet_anchor{ nullptr },
-	tie_spotlight_index{ (std::numeric_limits<size_t>::max)() },
+	: tie{ nullptr },
 	spotlight_index{ (std::numeric_limits<size_t>::max)() },
 	positional_light_index{ (std::numeric_limits<size_t>::max)() } {
 }
 
 void showcase_scene8::rotate_tie(const float radians) {
-	tie_planet_anchor->setModelMat(glm::rotate(
-		tie_planet_anchor->modelMat(),
-		radians,
-		glm::vec3{ 0.0f, 1.0f, 0.0f }
-	));
+	tie->rotate_tie(radians);
 }
 
 void showcase_scene8::orbit_tie(const float arc_length) {
-	//tie_anchor->setModelMat(glm::rotate(tie_anchor->modelMat(), arc_length / float(Scene::axis_unit_size), glm::vec3{ 1.0f, 0.0f, 0.0f }));
-	glm::vec4 axis = tie_anchor->modelMat() * glm::vec4{ 1.0f, 0.0f, 0.0f, 0.0f };
-	tie_planet_anchor->setModelMat(glm::rotate(tie_planet_anchor->modelMat(), arc_length / float(Scene::axis_unit_size), glm::vec3{axis}));
-}
-
-void showcase_scene8::update(double time_seconds, double delta_time_seconds) {
-	const glm::mat4 tie_transform = compute_tie_transform();
-	SpotLight& tie_spotlight{ get_tie_spotlight() };
-	tie_spotlight.setPosition(glm::vec3{ glm::column(tie_transform, 3) });
-	tie_spotlight.setDirection(glm::normalize(glm::vec3{
-		tie_transform * glm::vec4{ 0.0f, -1.0f, 0.0f, 0.0f }
-	}));
+	tie->orbit_tie(arc_length);
 }
 
 void showcase_scene0::init() {
