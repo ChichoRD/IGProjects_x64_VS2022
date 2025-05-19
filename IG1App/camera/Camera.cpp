@@ -5,6 +5,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_access.hpp>
 
+#include "Scene.h"
+
 using namespace glm;
 
 Camera::Camera(const Viewport vp)
@@ -247,6 +249,14 @@ Camera::upload() const
 	upload_view_projection();
 }
 
+void Camera::right_view() {
+	set_orthographic();
+	mEye = glm::dvec3(Scene::axis_unit_size, 0, 0);
+	mLook = glm::dvec3(0,0,0);
+	mUp = glm::dvec3(0,1,0);
+	setVM();
+}
+
 void camera_set_cenital(Camera &camera, const glm::dvec3 eye_position) {
 	camera.set_position(eye_position);
 
@@ -270,3 +280,4 @@ void camera_set_cenital_perspective(Camera &camera, const glm::dvec3 eye_positio
 	//camera.setSize(eye_position.x * 2.0, eye_position.z * 2.0);
 	//camera.setScale(1.0);
 }
+

@@ -325,6 +325,9 @@ IG1App::key(unsigned int key)
 			);
 			break;
 		}
+		case 'l':
+			mCamera->side_view();
+			break;
 		case 'p': {
 			if (mCamera->is_orthographic()) {
 				mCamera->set_perspective();

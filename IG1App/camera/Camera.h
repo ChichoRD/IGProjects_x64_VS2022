@@ -81,6 +81,8 @@ public:
 
 	void move_ud(GLfloat displacement);
 
+	void side_view();
+
 	glm::dvec3 orbit_xz(
 		const GLfloat disaplacement_radians,
 		const GLfloat displacement_altitude,
