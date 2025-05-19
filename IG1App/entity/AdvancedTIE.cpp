@@ -30,13 +30,13 @@ AdvancedTIE::AdvancedTIE() {
 	tie_fighter_wing* wing1 = new tie_fighter_wing();
 	tie_fighter_wing* wing2 = new tie_fighter_wing();
 
-	wing1->setModelMat(glm::rotate(wing1->modelMat(), glm::quarter_pi<GLfloat>(), glm::vec3(0, 0, 1)));
-	wing1->setModelMat(glm::rotate(wing1->modelMat(), glm::half_pi<GLfloat>(), glm::vec3(1, 0, 0)));
-	wing1->setModelMat(glm::translate(glm::identity<glm::mat4>(), glm::vec3(-15, 0, -33.3333333469)) * wing1->modelMat());
+	wing1->setModelMat(glm::rotate(wing1->modelMat(), -glm::half_pi<GLfloat>(), glm::vec3(0, 1, 0)));
+	//wing1->setModelMat(glm::rotate(wing1->modelMat(), glm::half_pi<GLfloat>(), glm::vec3(1, 0, 0)));
+	wing1->setModelMat(glm::translate(glm::identity<glm::mat4>(), glm::vec3(-135, 0, 0)) * wing1->modelMat());
 
-	wing2->setModelMat(glm::rotate(wing2->modelMat(), glm::half_pi<GLfloat>() + glm::quarter_pi<GLfloat>(), glm::vec3(0, 0, 1)));
-	wing2->setModelMat(glm::rotate(wing2->modelMat(), -glm::half_pi<GLfloat>(), glm::vec3(1, 0, 0)));
-	wing2->setModelMat(glm::translate(glm::identity<glm::mat4>(), glm::vec3(15, 0, 33.3333333469)) * wing2->modelMat());
+	wing2->setModelMat(glm::rotate(wing2->modelMat(), glm::half_pi<GLfloat>(), glm::vec3(0, 1, 0)));
+	//wing2->setModelMat(glm::rotate(wing2->modelMat(), -glm::half_pi<GLfloat>(), glm::vec3(1, 0, 0)));
+	wing2->setModelMat(glm::translate(glm::identity<glm::mat4>(), glm::vec3(135, 0, 0)) * wing2->modelMat());
 
 	addEntity(cone1);
 	addEntity(cone2);

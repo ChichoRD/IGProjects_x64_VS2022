@@ -431,6 +431,49 @@ Mesh::GenerateRGBCube(GLdouble l) {
 	return mesh;
 }
 
+mesh_uv mesh_uv::generate_tie_wings(const GLfloat panel_width, const GLfloat panel_height, const GLfloat panels_depth) {
+	mesh_uv mesh;
+	mesh.mPrimitive = GL_TRIANGLE_STRIP;
+
+	const GLfloat half_panel_width = panel_width * 0.5f;
+	const GLfloat half_panel_height = panel_height * 0.5f;
+
+	const std::array<glm::vec3, 8> vertices{
+		glm::vec3{half_panel_width, 3.0f * half_panel_height, -panels_depth},
+		glm::vec3{-half_panel_width, 3.0 * half_panel_height, -panels_depth},
+		glm::vec3{half_panel_width, half_panel_height, 0.0f},
+		glm::vec3{-half_panel_width, half_panel_height, 0.0f},
+
+		glm::vec3{half_panel_width, -half_panel_height, 0.0f},
+		glm::vec3{-half_panel_width, -half_panel_height, 0.0f},
+
+		glm::vec3{half_panel_width, -3.0f * half_panel_height, -panels_depth},
+		glm::vec3{-half_panel_width, -3.0f * half_panel_height, -panels_depth},
+	};
+	const std::array<glm::vec2, 8> uvs{
+		glm::vec2{1.0f, 0.0f},
+		glm::vec2{0.0f, 0.0f},
+		glm::vec2{1.0f, 1.0f},
+		glm::vec2{0.0f, 1.0f},
+
+		glm::vec2{1.0f, 1.0f},
+		glm::vec2{0.0f, 1.0f},
+
+		glm::vec2{1.0f, 1.0f},
+		glm::vec2{0.0f, 1.0f},
+	};
+
+	mesh.vVertices = std::vector<glm::vec3>{ vertices.begin(), vertices.end() };
+	mesh.vertex_uv2_f32 = std::vector<glm::vec2>{ uvs.begin(), uvs.end() };
+	mesh.mNumVertices = vertices.size();
+
+	//mesh.vColors = std::vector<glm::vec4>{ mesh.mNumVertices, glm::vec4{1.0f, 1.0f, 1.0f, 1.0f} };
+	//mesh.vNormals = std::vector<glm::vec3>{ mesh.mNumVertices, glm::vec3{0.0f, 0.0f, 0.0f} };
+	mesh.vColors = std::vector<glm::vec4>{};
+	mesh.vNormals = std::vector<glm::vec3>{};
+	return mesh;
+}
+
 mesh_uv mesh_uv::generate_skibidi_cube(GLfloat side_legth) {
 	constexpr static const std::array vertices{
 		glm::vec3{0.500000, -0.500000, -0.500000},

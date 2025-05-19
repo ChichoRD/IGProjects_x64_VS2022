@@ -6,22 +6,8 @@
 #include <algorithm>
 
 tie_fighter_wing::tie_fighter_wing() : entity_with_texture("../assets/images/noche.jpg", true) {
-	std::vector<glm::vec2> cone_profile{ 4 };
-
-	//100, 150, 150, 4, 5, Scene::cornflower_blue, glm::half_pi<GLfloat>() + glm::pi<GLfloat>() / 6
-	GLdouble h = 100;
-	GLdouble r = 150, R = 150;
-	GLuint nRings = 4;
-	GLuint nSamples = 5;
-	static const constexpr GLfloat angleMax = 2 * glm::pi<GLfloat>()/3;
-
-	for (GLuint c = 0; c < nRings; c++) {
-		GLdouble t = (GLdouble)c / (GLdouble)nRings;
-		cone_profile[c] = glm::vec2((R - r) * t + r, h * t);
-	}
-
-	mMesh = IndexMesh::generate_by_revolution_no_cap(cone_profile, nSamples, angleMax);
-
+	mMesh = new mesh_uv{ mesh_uv::generate_tie_wings(100.0f, 80.0f, 50.0f) };
+	mMesh->colors().resize(mMesh->vertices().size(), glm::vec4{ 1.0f, 1.0f, 1.0f, 0.5f });
     load();
 }
 

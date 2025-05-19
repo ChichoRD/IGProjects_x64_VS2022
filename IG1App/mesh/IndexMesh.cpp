@@ -61,7 +61,7 @@ IndexMesh* IndexMesh::generateByRevolution(
 
 IndexMesh *IndexMesh::generate_by_revolution_no_cap(const std::vector<glm::vec2> &profile, GLuint nSamples, GLfloat angleMax) {
 	IndexMesh* mesh = new IndexMesh;
-	std::vector<glm::vec3>positions{ profile.size() * nSamples };
+	std::vector<glm::vec3> positions{ profile.size() * nSamples };
 	for (size_t i = 0; i < nSamples; ++i) {
 		const float angle = angleMax * float(i) / float(nSamples);
 		for (size_t j = 0; j < profile.size(); ++j) {
