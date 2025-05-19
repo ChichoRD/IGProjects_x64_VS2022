@@ -16,5 +16,7 @@ class rgb_cube : public EntityWithColors
 public:
 	rgb_cube(float l);
 	virtual void update(double time_seconds, double delta_time_seconds) override;
+
+	void render(const glm::mat4& basis) const override;
 };
 

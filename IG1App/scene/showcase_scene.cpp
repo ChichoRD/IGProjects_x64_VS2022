@@ -66,6 +66,7 @@ void showcase_scene2::init()
 void showcase_scene3::init()
 {
 	Scene::init();
+
 	glClearColor(0.6f, 0.7f, 0.8f, 1.0f); // cornflower blue lmao
 	
 	constexpr static const GLdouble cube_side_length = axis_unit_size * 0.75;
@@ -74,8 +75,8 @@ void showcase_scene3::init()
 	constexpr static const GLdouble half_side_length = cube_side_length * 0.5;
 	cube->setModelMat(glm::translate(cube->modelMat(), glm::vec3{ half_side_length, half_side_length, -half_side_length }));
 
-	ground* rizz = new ground(200,200,"../assets/images/skibidi-v2.png");
-	gObjects.push_back(rizz);
+	//ground* rizz = new ground(200,200,"../assets/images/skibidi-v2.png");
+	//gObjects.push_back(rizz);
 
 	gObjects.push_back(cube);
 }
@@ -129,8 +130,8 @@ void showcase_scene4::init() {
 	gObjects.push_back(aura);
 
 	glass_parapet *ohio = new glass_parapet{ side_length };
-	ohio->setModelMat(glm::scale(ohio->modelMat(), glm::vec3{ 5.0f, 1.0f, 5.0f }));
-	ohio->setModelMat(glm::translate(ohio->modelMat(), glm::vec3{ 0.0f, axis_unit_size * 0.25f, 0.0f }));
+	ohio->setModelMat(glm::scale(ohio->modelMat(), glm::vec3{ 5.0f, 2.0f, 5.0f }));
+	ohio->setModelMat(glm::translate(ohio->modelMat(), glm::vec3{ 0.0f, axis_unit_size * 0.35f, 0.0f }));
 	gObjects.push_back(ohio);
 }
 

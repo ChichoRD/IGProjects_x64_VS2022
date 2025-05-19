@@ -51,3 +51,20 @@ void rgb_cube::update(double time_seconds, double delta_time_seconds)
 	);
 	elapsed_animation_time += delta_time_seconds;
 }
+
+void rgb_cube::render(const glm::mat4& basis) const {
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
+	glDepthFunc(GL_LESS);
+
+	EntityWithColors::render(basis);
+
+	glDepthMask(GL_FALSE);
+
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_CULL_FACE);
+}
