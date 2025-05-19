@@ -250,7 +250,6 @@ Camera::upload() const
 }
 
 void Camera::right_view() {
-	set_orthographic();
 	mEye = glm::dvec3(Scene::axis_unit_size, 0, 0);
 	mLook = glm::dvec3(0,0,0);
 	mUp = glm::dvec3(0,1,0);
@@ -258,19 +257,23 @@ void Camera::right_view() {
 }
 
 void Camera::front_view() {
-	set_orthographic();
 	mEye = glm::dvec3(0, 0, Scene::axis_unit_size);
 	mLook = glm::dvec3(0, 0, 0);
 	mUp = glm::dvec3(0, 1, 0);
 	setVM();
 }
 
+void Camera::top_view() {
+	mEye = glm::dvec3(0, Scene::axis_unit_size, 0);
+	mLook = glm::dvec3(0, 0, 0);
+	mUp = glm::dvec3(0, 0, -1);
+	setVM();
+}
+
 void Camera::isometric_view() {
-	set_orthographic();
 	mEye = glm::dvec3(Scene::axis_unit_size, Scene::axis_unit_size, Scene::axis_unit_size);
 	mLook = glm::dvec3(0, 0, 0);
-	mUp = glm::dvec3(0.5f, 0.5f, 0.5f);
-	setVM();
+	mUp = glm::dvec3(0.0f, 1.0f, 0.0f);
 }
 
 void camera_set_cenital(Camera &camera, const glm::dvec3 eye_position) {

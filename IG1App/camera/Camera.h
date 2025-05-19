@@ -83,6 +83,7 @@ public:
 
 	void right_view();
 	void front_view();
+	void top_view();
 	void isometric_view();
 
 	glm::dvec3 orbit_xz(
