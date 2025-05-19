@@ -328,6 +328,12 @@ IG1App::key(unsigned int key)
 		case 'l':
 			mCamera->right_view();
 			break;
+		case 'o':
+			mCamera->front_view();
+			break;
+		case 'i':
+			mCamera->isometric_view();
+			break;
 		case 'p': {
 			if (mCamera->is_orthographic()) {
 				mCamera->set_perspective();

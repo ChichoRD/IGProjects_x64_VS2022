@@ -257,6 +257,22 @@ void Camera::right_view() {
 	setVM();
 }
 
+void Camera::front_view() {
+	set_orthographic();
+	mEye = glm::dvec3(0, 0, Scene::axis_unit_size);
+	mLook = glm::dvec3(0, 0, 0);
+	mUp = glm::dvec3(0, 1, 0);
+	setVM();
+}
+
+void Camera::isometric_view() {
+	set_orthographic();
+	mEye = glm::dvec3(Scene::axis_unit_size, Scene::axis_unit_size, Scene::axis_unit_size);
+	mLook = glm::dvec3(0, 0, 0);
+	mUp = glm::dvec3(0.5f, 0.5f, 0.5f);
+	setVM();
+}
+
 void camera_set_cenital(Camera &camera, const glm::dvec3 eye_position) {
 	camera.set_position(eye_position);
 
