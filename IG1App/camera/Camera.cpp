@@ -130,9 +130,7 @@ Camera::setSize(GLdouble xw, GLdouble yh)
 void
 Camera::setScale(GLdouble s)
 {
-	mScaleFact -= s;
-	if (mScaleFact < 0)
-		mScaleFact = 0.01;
+	mScaleFact = glm::clamp(mScaleFact - s, 0.0, 1.0);
 	setPM();
 }
 
@@ -141,18 +139,38 @@ void
 Camera::setPM()
 {
 	if (bOrto) { //  if orthogonal projection
-		mProjMat = ortho(xLeft * mScaleFact,
-		                 xRight * mScaleFact,
-		                 yBot * mScaleFact,
-		                 yTop * mScaleFact,
+		constexpr static const double scale_min{ 0.05 };
+		constexpr static const double scale_max{ 5.0 };
+		const double scale{
+			scale_min + ((scale_max - scale_min) * mScaleFact)
+		};
+		mProjMat = ortho(xLeft * scale,
+		                 xRight * scale,
+		                 yBot * scale,
+		                 yTop * scale,
 		                 mNearVal,
 		                 mFarVal);
 		// glm::ortho defines the orthogonal projection matrix
 	} else{
-		// std::cout << "scale factor: " << mScaleFact << std::endl;
+		 std::cout << "scale factor: " << mScaleFact << std::endl;
 		// std::cout << "fov: " << fov << std::endl;
 		// std::cout << "fov / (2.0 - mScaleFact): " << fov / (2.0 - mScaleFact) << std::endl;
-		mProjMat = perspective(fov / (2.0f - mScaleFact), xRight/yTop, mNearVal, mFarVal);
+
+		constexpr static const double fov_min{ glm::radians(15.0f) };
+		constexpr static const double fov_max{ glm::radians(120.0f) };
+		const double fov{
+			fov_min + ((fov_max - fov_min) * mScaleFact)
+		};
+		mProjMat = glm::perspective(fov, xRight/yTop, mNearVal, mFarVal);
+	
+		//mProjMat = frustum(
+		//	xLeft * mScaleFact,
+		//	xRight * mScaleFact,
+		//	yBot * mScaleFact,
+		//	yTop * mScaleFact,
+		//	mNearVal,
+		//	mFarVal
+		//);
 	}
 }
 
@@ -201,9 +219,12 @@ glm::dvec3 Camera::orbit_xz(
 		double{disaplacement_radians},
 		glm::dvec3{mUpward}
 	) * glm::dvec4{mEye, 0.0};
-	mLook = glm::dvec3{ 0.0 };
+	
+	constexpr static const glm::dvec3 axis_y{ 0.0, 1.0, 0.0 };
+	mLook = axis_y * glm::dot(mLook, axis_y);
 
 	mEye.y += displacement_altitude * 10.0;
+	mUp = glm::dvec3{ 0.0, 1.0, 0.0 };
 	setVM();
 	return mEye;
 }

@@ -99,6 +99,8 @@ IG1App::init()
 	// create the scene after creating the context
 	// allocate memory and resources
 	mCamera = new Camera(Viewport(mWinW, mWinH));
+	mCamera->setScale(0.75);
+
 	mScenes.push_back(new showcase_scene0);
 	mScenes.push_back(new showcase_scene1);
 	mScenes.push_back(new showcase_scene2);
