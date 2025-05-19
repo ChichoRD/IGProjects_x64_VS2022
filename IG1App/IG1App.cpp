@@ -326,7 +326,7 @@ IG1App::key(unsigned int key)
 			break;
 		}
 		case 'l':
-			mCamera->side_view();
+			mCamera->right_view();
 			break;
 		case 'p': {
 			if (mCamera->is_orthographic()) {
